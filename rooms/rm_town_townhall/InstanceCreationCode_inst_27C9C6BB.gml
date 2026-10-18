@@ -1,0 +1,6 @@
+text[0] = "*I am sorry, i am sorry, the Mayor is busy."
+text[1] = "*If you wish to meet her do so after the festival is over."
+text[2] = "*Flowers?"
+text[3] = "*The Mayor did order some..."
+text[4] = "*I hoped we were done with those but oh well."
+text[5] = "(You give the Delivery Flowers)"

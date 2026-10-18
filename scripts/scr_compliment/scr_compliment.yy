@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_compliment",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_compliment",
+  "parent":{
+    "name":"acts",
+    "path":"folders/Scripts/battle/acts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

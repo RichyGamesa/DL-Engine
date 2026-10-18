@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"get_color_from_tag",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"get_color_from_tag",
+  "parent":{
+    "name":"text",
+    "path":"folders/Scripts/text.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

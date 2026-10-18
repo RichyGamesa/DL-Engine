@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"draw_colored_text",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"draw_colored_text",
+  "parent":{
+    "name":"UNUSED",
+    "path":"folders/Scripts/UNUSED.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

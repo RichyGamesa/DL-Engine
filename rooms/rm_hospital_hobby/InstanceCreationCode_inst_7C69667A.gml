@@ -1,0 +1,1 @@
+text[0] = "*I am sorry, but only family can visit."

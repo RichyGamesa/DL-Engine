@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"gml_Script_scr_weaponinfo_mine",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"gml_Script_scr_weaponinfo_mine",
+  "parent":{
+    "name":"weapon",
+    "path":"folders/Scripts/Menu_dark/weapon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,1 @@
+text[0] = "* Time to wake up and {CR} smell {CW} the pain ."

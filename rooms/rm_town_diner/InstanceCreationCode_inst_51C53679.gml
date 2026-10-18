@@ -1,0 +1,5 @@
+text[0]= "*Kris OMG."
+text[1] = "*You know that, i asked this girl to play."
+text[2] = "*And she is so good."
+text[3] = "*But like, i need to go home and prepare for the festival."
+text[4] = "*But now she's like, is in her own world and won't stop."

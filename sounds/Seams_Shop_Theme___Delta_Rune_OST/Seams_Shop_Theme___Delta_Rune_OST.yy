@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Seams_Shop_Theme___Delta_Rune_OST",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":145.13629,
+  "exportDir":"",
+  "name":"Seams_Shop_Theme___Delta_Rune_OST",
+  "parent":{
+    "name":"mus",
+    "path":"folders/Sounds/mus.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Seams_Shop_Theme___Delta_Rune_OST.mp3",
+  "volume":1.0,
+}

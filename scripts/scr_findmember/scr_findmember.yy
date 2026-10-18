@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_findmember",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_findmember",
+  "parent":{
+    "name":"equiping",
+    "path":"folders/Scripts/Menu_dark/equiping.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

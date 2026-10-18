@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"mus_You_Can_Always_Come_Home",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":100.911,
+  "exportDir":"",
+  "name":"mus_You_Can_Always_Come_Home",
+  "parent":{
+    "name":"mus",
+    "path":"folders/Sounds/mus.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_You_Can_Always_Come_Home.mp3",
+  "volume":0.8,
+}

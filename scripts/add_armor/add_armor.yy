@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"add_armor",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"add_armor",
+  "parent":{
+    "name":"Armor",
+    "path":"folders/Scripts/Menu_dark/Armor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

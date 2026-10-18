@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"AUDIO_DRONE",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":8.740862,
+  "exportDir":"",
+  "name":"AUDIO_DRONE",
+  "parent":{
+    "name":"mus",
+    "path":"folders/Sounds/mus.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"AUDIO_DRONE.wav",
+  "volume":0.8,
+}

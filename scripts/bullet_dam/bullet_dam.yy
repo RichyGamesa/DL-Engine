@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"bullet_dam",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"bullet_dam",
+  "parent":{
+    "name":"UNUSED",
+    "path":"folders/Scripts/UNUSED.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,1 @@
+text[0] = "A nice scent is exiting the trashcan";

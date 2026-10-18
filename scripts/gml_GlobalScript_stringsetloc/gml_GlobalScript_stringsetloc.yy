@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"gml_GlobalScript_stringsetloc",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"gml_GlobalScript_stringsetloc",
+  "parent":{
+    "name":"string",
+    "path":"folders/Scripts/string.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

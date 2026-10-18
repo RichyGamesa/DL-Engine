@@ -1,0 +1,18 @@
+{
+  "FolderOrderSettings":[
+    {"name":"spr_chapterIcon","order":2,"path":"folders/Sprites/Hud/spr_chapterIcon.yy",},
+    {"name":"spr_ui_star","order":3,"path":"folders/Sprites/Hud/spr_ui_star.yy",},
+  ],
+  "ResourceOrderSettings":[
+    {"name":"obj_chapter_select","order":1,"path":"objects/obj_chapter_select/obj_chapter_select.yy",},
+    {"name":"snd_play_no_repeat","order":1,"path":"scripts/snd_play_no_repeat/snd_play_no_repeat.yy",},
+    {"name":"spr_chapter_selection","order":1,"path":"sprites/spr_chapter_selection/spr_chapter_selection.yy",},
+    {"name":"spr_chapterIcon_1","order":1,"path":"sprites/spr_chapterIcon_1/spr_chapterIcon_1.yy",},
+    {"name":"spr_chapterIcon_2","order":2,"path":"sprites/spr_chapterIcon_2/spr_chapterIcon_2.yy",},
+    {"name":"spr_chapterIcon_3","order":3,"path":"sprites/spr_chapterIcon_3/spr_chapterIcon_3.yy",},
+    {"name":"spr_chapterIcon_4","order":4,"path":"sprites/spr_chapterIcon_4/spr_chapterIcon_4.yy",},
+    {"name":"spr_chapterIcon_5","order":5,"path":"sprites/spr_chapterIcon_5/spr_chapterIcon_5.yy",},
+    {"name":"spr_chaptericon_OLD","order":6,"path":"sprites/spr_chaptericon_OLD/spr_chaptericon_OLD.yy",},
+    {"name":"spr_horzBar","order":4,"path":"sprites/spr_horzBar/spr_horzBar.yy",},
+  ],
+}

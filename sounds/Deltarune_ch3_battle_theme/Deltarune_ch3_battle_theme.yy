@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Deltarune_ch3_battle_theme",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":105.648,
+  "exportDir":"",
+  "name":"Deltarune_ch3_battle_theme",
+  "parent":{
+    "name":"battle themes",
+    "path":"folders/Sounds/battle/battle themes.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Deltarune_ch3_battle_theme.mp3",
+  "volume":1.0,
+}

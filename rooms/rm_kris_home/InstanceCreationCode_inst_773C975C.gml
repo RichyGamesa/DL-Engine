@@ -1,0 +1,1 @@
+text[0] = "* IT WILL TAKE OVER THE WORLD";

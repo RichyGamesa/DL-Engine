@@ -1,0 +1,22 @@
+
+global.armors = array_create(48, " ");
+global.armors[0] = "SpikeBand";
+global.armors[1] = "Silver Card";
+global.armors[2] = "RoyalPin";
+global.armors[3] = "Silver Card";
+global.armors[4] = "FrayedBowTie";
+global.armors[5] = "FrayedBowTie";
+global.armors[6] = "FrayedBowTie";
+global.armors[7] = "Dice Brace";
+global.armors[8] = "Mannequin";
+global.armors[9] = "GlowWrist";
+global.armors[10] = "GlowWrist";
+global.armors[11] = "GlowWrist";
+global.armors[12] = "RoyalPin";
+global.armors[13] = "RoyalPin";
+global.armors[14] = "RoyalPin";
+global.armors[15] = "RoyalPin";
+global.armors[16] = "Jevilstail";
+global.armors[17] = "TwinRibbon";
+global.armors[18] = "Dealmaker";
+global.armors[19] = "Bandana";

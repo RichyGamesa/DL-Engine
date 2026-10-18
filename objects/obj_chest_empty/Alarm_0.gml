@@ -1,0 +1,1 @@
+global.flag[flag_index] = true;

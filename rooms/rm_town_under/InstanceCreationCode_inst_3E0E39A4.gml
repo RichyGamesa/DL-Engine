@@ -1,0 +1,1 @@
+text[0] = "* The pain itself is reason why ."

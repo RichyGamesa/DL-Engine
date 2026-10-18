@@ -1,0 +1,1 @@
+text[0] = "* It's best not to look."

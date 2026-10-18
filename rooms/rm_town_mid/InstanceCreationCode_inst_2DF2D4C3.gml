@@ -1,0 +1,1 @@
+text[0] = "*The backdoor is closed."

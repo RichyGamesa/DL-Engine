@@ -1,0 +1,1 @@
+text[0] = "* Is that a cut on your face, or part of your eye?"

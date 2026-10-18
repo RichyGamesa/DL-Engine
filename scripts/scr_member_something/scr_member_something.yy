@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_member_something",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_member_something",
+  "parent":{
+    "name":"Dark",
+    "path":"folders/Scripts/Menu_dark/Item/Dark.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"item_textbox",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"item_textbox",
+  "parent":{
+    "name":"Menu_dark",
+    "path":"folders/Scripts/Menu_dark.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

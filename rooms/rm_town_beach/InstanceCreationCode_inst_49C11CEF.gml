@@ -1,0 +1,1 @@
+text[0] = "*  There's still gum stuck here."

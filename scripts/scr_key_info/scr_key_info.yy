@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_key_info",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_key_info",
+  "parent":{
+    "name":"Dark",
+    "path":"folders/Scripts/Menu_dark/Item/Dark.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

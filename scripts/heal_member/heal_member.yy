@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"heal_member",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"heal_member",
+  "parent":{
+    "name":"Dark",
+    "path":"folders/Scripts/Menu_dark/Item/Dark.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

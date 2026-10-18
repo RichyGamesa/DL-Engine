@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"add_items_dark",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"add_items_dark",
+  "parent":{
+    "name":"Dark",
+    "path":"folders/Scripts/Menu_dark/Item/Dark.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

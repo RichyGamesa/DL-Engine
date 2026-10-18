@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Stone_sound_dark",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":2.090167,
+  "exportDir":"",
+  "name":"Stone_sound_dark",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Stone_sound_dark.ogg",
+  "volume":1.0,
+}

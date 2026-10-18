@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"weapon_list",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"weapon_list",
+  "parent":{
+    "name":"weapon",
+    "path":"folders/Scripts/Menu_dark/weapon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

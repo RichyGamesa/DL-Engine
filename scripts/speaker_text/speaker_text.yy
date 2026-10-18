@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"speaker_text",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"speaker_text",
+  "parent":{
+    "name":"text",
+    "path":"folders/Scripts/text.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

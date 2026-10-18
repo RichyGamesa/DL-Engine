@@ -1,0 +1,1 @@
+text[0] = "it won't turn on";

@@ -1,0 +1,8 @@
+text[0] = "*Oh hi."
+text[1] = "*Shop is closed for renovations, but you can buy here."
+text[2] = "*I have got frozen pizzas and ice creams as well."
+text[3] = "*They are so good you can call them nIcecreans ha ha."
+text[4] = "*Flowers?"
+text[5] = "*well, thank you, i need them for the festival."
+text[6] = "(I have to ask him....somehow)"
+text[7] = "(You give the delivery flowers.)"

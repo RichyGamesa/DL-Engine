@@ -1,0 +1,1 @@
+sprite_index = spr_snowy_dt_shock_1

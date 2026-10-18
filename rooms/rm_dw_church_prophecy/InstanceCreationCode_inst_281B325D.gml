@@ -1,0 +1,1 @@
+sprite_index = deltarune_prophecy_3

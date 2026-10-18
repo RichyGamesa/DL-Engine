@@ -1,0 +1,1 @@
+text[0] = "The phone isn't connected anymore";

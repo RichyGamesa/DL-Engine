@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_init_weapon_icons",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_init_weapon_icons",
+  "parent":{
+    "name":"weapon",
+    "path":"folders/Scripts/Menu_dark/weapon.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"parse_colored_text",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"parse_colored_text",
+  "parent":{
+    "name":"text",
+    "path":"folders/Scripts/text.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

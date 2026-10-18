@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"the_dark_truth",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":67.2,
+  "exportDir":"",
+  "name":"the_dark_truth",
+  "parent":{
+    "name":"mus",
+    "path":"folders/Sounds/mus.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"the_dark_truth.ogg",
+  "volume":0.8,
+}

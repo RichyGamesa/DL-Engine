@@ -1,0 +1,1 @@
+text[0] = "* There are two controllers here.";

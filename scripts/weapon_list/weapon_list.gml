@@ -1,0 +1,10 @@
+global.weapons = array_create(48, " ");
+global.weapons[0] = "BrokenSwd";
+global.weapons[1] = "MechaSaber";
+global.weapons[2] = "Ragger2";
+global.weapons[3] = "Brave Ax";
+global.weapons[4] = "CheerScarf";
+global.weapons[5] = "BounceBlade";
+global.weapons[6] = "AutoAxe";
+global.weapons[7] = "DaintyScarf";
+global.weapons[8] = "Kris's hand";

@@ -1,0 +1,2 @@
+type = "Armor"
+contains = "Bandana"

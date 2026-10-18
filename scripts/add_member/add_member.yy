@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"add_member",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"add_member",
+  "parent":{
+    "name":"Party",
+    "path":"folders/Scripts/Menu_dark/Party.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

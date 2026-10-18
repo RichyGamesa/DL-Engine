@@ -1,0 +1,1 @@
+text[0] = "*It seems the shop is closed."

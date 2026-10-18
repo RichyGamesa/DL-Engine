@@ -1,0 +1,1 @@
+text[0] = "This sofa is just trying to copy its brother sofa.";

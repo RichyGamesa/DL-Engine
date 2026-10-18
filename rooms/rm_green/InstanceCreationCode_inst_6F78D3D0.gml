@@ -1,0 +1,1 @@
+text[0] = "The lid is stuck to the plate";

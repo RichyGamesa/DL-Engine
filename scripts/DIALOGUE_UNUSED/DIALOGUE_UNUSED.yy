@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"DIALOGUE_UNUSED",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"DIALOGUE_UNUSED",
+  "parent":{
+    "name":"UNUSED",
+    "path":"folders/Scripts/UNUSED.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

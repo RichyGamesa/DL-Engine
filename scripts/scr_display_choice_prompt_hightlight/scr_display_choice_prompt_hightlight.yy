@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_display_choice_prompt_hightlight",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_display_choice_prompt_hightlight",
+  "parent":{
+    "name":"UNUSED",
+    "path":"folders/Scripts/UNUSED.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

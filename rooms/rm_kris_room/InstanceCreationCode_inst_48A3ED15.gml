@@ -1,0 +1,1 @@
+text[0] = "* You have the bandana now.";

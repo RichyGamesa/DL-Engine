@@ -1,0 +1,20 @@
+function scr_load_checkpoint(){
+ini_open("checkpoint")
+		obj_mainchara.x = ini_read_real("Checkpoint","x",0)
+		obj_mainchara.y = ini_read_real("Checkpoint","y",0)
+		room = ini_read_real("Checkpoint","room",0)
+		obj_mainchara.can_move = ini_read_string("Checkpoint","move",true)
+		global.hp_K = ini_read_string("Checkpoint","hp_k",100)
+		global.max_hp_K = ini_read_string("Checkpoint","hp_k_max",120)
+		global.hp_S = ini_read_string("Checkpoint","hp_s",100)
+		global.max_hp_S = ini_read_string("Checkpoint","Max.hp_s",120)
+		global.hp_R = ini_read_string("Checkpoint","hp_r",100)
+		global.max_hp_R = ini_read_string("Checkpoint","Max.hp_r",120)
+		global.hp_T = ini_read_string("Checkpoint","hp_t",100)
+		global.max_hp_T = ini_read_string("Checkpoint","Max.hp_t",120)
+		global.member[1] = ini_read_real("Checkpoint","follow_suzy",false)
+		global.member[2] = ini_read_real("Checkpoint","follow_ralsy",false)
+		global.member[3] = ini_read_real("Checkpoint","follow_toriel",false)
+		global.num_active_members = ini_read_string("Checkpoint","Followers",1)
+		
+}

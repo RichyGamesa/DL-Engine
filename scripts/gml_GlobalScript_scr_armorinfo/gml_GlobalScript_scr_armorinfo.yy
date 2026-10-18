@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"gml_GlobalScript_scr_armorinfo",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"gml_GlobalScript_scr_armorinfo",
+  "parent":{
+    "name":"Armor",
+    "path":"folders/Scripts/Menu_dark/Armor.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
