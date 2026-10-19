@@ -20,7 +20,7 @@ draw_set_font(font);
 if (!setup) 
 {
     setup = true;
-    obj_Overworld_Frisk.Frozen = true; 
+    obj_mainchara.can_move = false; 
 }
 
 // Draw the textbox

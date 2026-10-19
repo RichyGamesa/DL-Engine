@@ -1,4 +1,4 @@
-scr_Gamestart()
+//scr_Gamestart()
 if file_exists("save.sav"){
  ini_open("save.sav");
  startRoom =ini_read_real("Save1","room",rm_kris_room);

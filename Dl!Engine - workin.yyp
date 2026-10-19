@@ -146,7 +146,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.2.213",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"DlEngine working on",
   "resources":[
@@ -983,6 +983,8 @@
     {"id":{"name":"sRuddin","path":"sprites/sRuddin/sRuddin.yy",},},
     {"id":{"name":"sSave","path":"sprites/sSave/sSave.yy",},},
     {"id":{"name":"sTextbox_black","path":"sprites/sTextbox_black/sTextbox_black.yy",},},
+    {"id":{"name":"sTextbox_dark_1","path":"sprites/sTextbox_dark_1/sTextbox_dark_1.yy",},},
+    {"id":{"name":"sTextbox_dark_2","path":"sprites/sTextbox_dark_2/sTextbox_dark_2.yy",},},
     {"id":{"name":"sTextbox_dark","path":"sprites/sTextbox_dark/sTextbox_dark.yy",},},
     {"id":{"name":"sTextbox_light","path":"sprites/sTextbox_light/sTextbox_light.yy",},},
     {"id":{"name":"sTextbox_none","path":"sprites/sTextbox_none/sTextbox_none.yy",},},

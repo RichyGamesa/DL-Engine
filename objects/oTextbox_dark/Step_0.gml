@@ -1,17 +1,29 @@
-////oTextbox_dark step event
-if old_draw_char != draw_char
+if (going_up)
 {
-	if more_sounds == true
-	{
-audio_play_sound(txtb_sound[page], 10, false)
-	}
-	else
-	{
-audio_play_sound(txtb_sounds, 10, false)		
-	}
-}
+    textbox_image_index = min(
+        textbox_image_index + 0.3,
+        4
+    );
 
-image_speed = 1;
+    if (textbox_image_index >= 4)
+    {
+        going_up = false;
+        alarm[0] = 60;
+    }
+}
+else
+{
+    textbox_image_index = max(
+        textbox_image_index - 0.3,
+        0
+    );
+
+    if (textbox_image_index <= 0)
+    {
+        going_up = true;
+        alarm[1] = 60;
+    }
+}
 
 
 if audio_stop != noone
@@ -26,30 +38,4 @@ if audio_stop != noone
 		audio_resume_sound(global.current_song)
 		skippable = true
 	}
-	
-}
-
-
-
-if going_up
-{
-if textbox_image_index != 4
-{
-textbox_image_index += 0.3;
-}
-else
-{
-alarm[0] = 60;	
-}
-}
-else
-{
-if textbox_image_index != 0
-{
-textbox_image_index -= 0.3	
-}
-else
-{
-alarm[1] = 60;
-}
 }

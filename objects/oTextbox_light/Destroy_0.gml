@@ -1,4 +1,8 @@
+//oTextbox_light Destroy event
+
 global.dialogue = false;
 
-if can_move_after
-mainchara.can_move = true
+if (can_move_after && instance_exists(mainchara))
+{
+    mainchara.can_move = true;
+}

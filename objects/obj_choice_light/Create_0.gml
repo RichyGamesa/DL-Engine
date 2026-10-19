@@ -34,4 +34,4 @@ selected_choice = 0;
 font = fnt_dt_mono;
 color = #f78b90;
 
-mainchara = obj_Overworld_Frisk
+mainchara = obj_mainchara

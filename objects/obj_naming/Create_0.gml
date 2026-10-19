@@ -11,3 +11,4 @@ instructions = "WRITE your name";
 event = 0;
 
 
+window_set_caption("Deltarune Chapter " + string(global.chapter))

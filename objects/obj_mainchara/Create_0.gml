@@ -26,8 +26,6 @@ run_spd = 2.4;
 autorun = false;
 
 
-
-
 dialogue = false;
 flag[3] = false;
 

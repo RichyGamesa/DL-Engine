@@ -14,5 +14,7 @@
     {"name":"spr_chapterIcon_5","order":5,"path":"sprites/spr_chapterIcon_5/spr_chapterIcon_5.yy",},
     {"name":"spr_chaptericon_OLD","order":6,"path":"sprites/spr_chaptericon_OLD/spr_chaptericon_OLD.yy",},
     {"name":"spr_horzBar","order":4,"path":"sprites/spr_horzBar/spr_horzBar.yy",},
+    {"name":"sTextbox_dark_1","order":1,"path":"sprites/sTextbox_dark_1/sTextbox_dark_1.yy",},
+    {"name":"sTextbox_dark_2","order":2,"path":"sprites/sTextbox_dark_2/sTextbox_dark_2.yy",},
   ],
 }

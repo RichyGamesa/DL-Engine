@@ -1,5 +1,6 @@
 // Check if the image index has changed
-window_set_caption("Deltarune chapter 3 ")
+window_set_caption("Deltarune Chapter " + string(global.chapter))
+
 if image_index = 1 or image_index = 3 or image_index = 5 or image_index = 7 or image_index = 9  or image_index = 11 or image_index = 13 or image_index = 15
 {
 	audio_play_sound(snd_noise,1,false);

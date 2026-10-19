@@ -1,6 +1,6 @@
 //scr Gamestart
 global.filechoiche = "  "
-global.chapter = 3;
+global.chapter = 0;
 global.darkworld = false;
 global.fake = true;
 global.cutscene = false;

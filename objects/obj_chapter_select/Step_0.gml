@@ -1,4 +1,4 @@
-scr_Gamestart();
+//scr_Gamestart();
 global.fake = 0;
 // Step Event
 window_set_caption("Deltarune")
@@ -28,6 +28,7 @@ else if (keyboard_check_pressed(global.down))
 	selected_chapter = 1;
 
 }
+
 // Handle keyboard input for selecting the button
 if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(global.confirm)) {
     keyboard_clear(global.confirm)
@@ -53,31 +54,32 @@ snd_play(snd_swing)
 
 
 
-if keyboard_check(global.left)
+if keyboard_check(global.left)  //YES
 {
 
 scr_sound_play(snd_menumove)
 selected_button = 0;
 keyboard_clear(global.left)
 }
-if keyboard_check(global.right)
+if keyboard_check(global.right) //NO
 {
 scr_sound_play(snd_menumove)
 selected_button = 1;
 keyboard_clear(global.right)
 }
 
-if keyboard_check(vk_enter) or keyboard_check(global.confirm)
+if keyboard_check_pressed(vk_enter) or keyboard_check_pressed(global.confirm)
 {
-keyboard_clear(vk_enter)
-keyboard_clear(global.confirm)
+    keyboard_clear(global.confirm)
+	keyboard_clear(ord("Z"))
 
-if selected_button == 0
+if selected_button == 0 //If yes
 {
 scr_sound_play(snd_select)
 anim_start = true
+global.chapter = selected_chapter
 }
-else
+else    //if no
 {
 snd_play(snd_swing)
 confirmed_a_chapter = false;
@@ -104,6 +106,7 @@ else
 // Transition when nearly collapsed
 if (anim_start && menu_stretch <= 0.01)
 {
+	x =99999; //just  make it so that it doesn't appear again
     if (!instance_exists(oTransition_room))
     {
         // Restore normal rendering before changing rooms

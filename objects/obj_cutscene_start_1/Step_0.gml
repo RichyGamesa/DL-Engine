@@ -7,8 +7,8 @@ if event = 1 and instance_exists(oTextbox_light) != true
 {
   instance_create_depth(0,70,-999,oTextbox_light)
   oTextbox_light.txtb_sounds = snd_txtsus;
-  oTextbox_light.text[0] = "KRIS!";
-  oTextbox_light.text[1] = "Finally! geez you sleep like a rock."
+  oTextbox_light.text[0] = "* KRIS!";
+  oTextbox_light.text[1] = "* Finally!&Geez you sleep like a rock."
   oTextbox_light.speaker_sprite[0] = spr_face_s_what;
   oTextbox_light.speaker_sprite[1] = spr_face_s_angy;
   event = 2;

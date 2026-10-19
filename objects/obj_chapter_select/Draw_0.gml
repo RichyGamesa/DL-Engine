@@ -1,5 +1,7 @@
 //draw_self()
 
+var _x = x-320;
+
 if (_enabled)
 {
    /* for (var i = 0; i < array_length(_completed_files); i++)
@@ -53,13 +55,13 @@ if (_title_enabled)
     
     draw_set_halign(fa_left);
 	
-	draw_text_transformed(45, -50 + (i * 60), "Chapter " + string(i), _scale, _scale, 0);
+	draw_text_transformed(_x+45, -50 + (i * 60), "Chapter " + string(i), _scale, _scale, 0);
 	_color = c_white
     draw_set_alpha(1);
 	
 	draw_sprite_ext(spr_horzBar, 0, x,  (i * 60), _scale, _scale, 0, c_white, _alpha);
     
-	
+
 
 	
 	}
@@ -70,12 +72,13 @@ if (_title_enabled)
 	if selected_chapter >= button_count
 	{
 	draw_set_colour(c_yellow)
-	draw_sprite_ext(spr_soul, 0, room_width/2-30,  440, _scale/2, _scale/2, 0, c_white, _alpha);
+	draw_sprite_ext(spr_soul, 0,_x+ room_width/2-30,  440, _scale/2, _scale/2, 0, c_white, _alpha);
 	}
 	draw_set_alpha(_alpha)
-	draw_text_transformed(room_width/2-10, 430, "Quit", _scale, _scale, 0);
+	draw_text_transformed(_x+room_width/2-10, 430, "Quit", _scale, _scale, 0);
 	draw_set_colour(c_white)
 	draw_set_alpha(1)
+
 
 }
 
