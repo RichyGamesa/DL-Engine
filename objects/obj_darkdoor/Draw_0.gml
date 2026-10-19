@@ -1,3 +1,4 @@
+//obj_darkdoor draw event
 draw_self()
 if (open == 1)
 {

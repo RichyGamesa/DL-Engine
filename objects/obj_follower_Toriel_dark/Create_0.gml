@@ -1,9 +1,0 @@
-record = 45;
-xspd = 0;
-yspd = 0;
-depth = 3;
-usprite = sTori_placeh_u
-rsprite = sTori_placeh_r
-dsprite = sTori_placeh_d
-lsprite = sTori_placeh_l
-sliding = false;

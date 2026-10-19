@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_trasform_dark",
   "parent":{
-    "name":"DlEngine working on",
-    "path":"DlEngine working on.yyp",
+    "name":"Menu_dark",
+    "path":"folders/Scripts/Menu_dark.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

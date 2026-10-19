@@ -1,3 +1,4 @@
+//obj_dw_transition_line create event
 h = (6 + round(40))
 image_xscale = 2
 image_yscale = (4 * h)

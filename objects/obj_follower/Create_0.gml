@@ -1,45 +1,54 @@
 
-down = noone;
-right = noone;
-up = noone;
-left = noone;
-sliding_sprite = noone;
+if (!variable_instance_exists(id, "character"))
+    character = "Noone";
+
+// Character-specific sprites.
+down_light = noone;
+right_light = noone;
+up_light = noone;
+left_light = noone;
+slide_sprite_light = noone;
 
 down_dark = noone;
 right_dark = noone;
 up_dark = noone;
 left_dark = noone;
-sliding_dark = noone;
+slide_sprite_dark = noone;
 
-// Choose the correct sprites for the current world.
+// Configure this follower's sprites.
+scr_follower_setup(id, character);
+
+// Choose the sprites for the current world.
 if (global.darkworld)
 {
     down = down_dark;
     right = right_dark;
     up = up_dark;
     left = left_dark;
-    sliding_sprite = sliding_dark;
+    sliding_sprite = slide_sprite_dark;
+}
+else
+{
+    down = down_light;
+    right = right_light;
+    up = up_light;
+    left = left_light;
+    sliding_sprite = slide_sprite_light;
 }
 
 spd = 1;
 
 var _num = instance_number(obj_follower);
 if (_num < 1)
-{
     _num = 1;
-}
 
 follow = true;
-record = 20 * (2 * _num);
+record = 10 * (2 * _num);
 
 down_y = 0;
 
 if (instance_exists(obj_mainchara))
-{
-    down_y = obj_mainchara.sprite_height - sprite_height;
-}
-
-down_y = max(0, down_y);
+    down_y = max(0, obj_mainchara.sprite_height - sprite_height);
 
 cutscene = false;
 sliding = false;

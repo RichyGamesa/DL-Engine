@@ -1,14 +1,23 @@
-if !instance_exists(obj_follower_Toriel_dark) 
+
+needed_sprite = KrisU
+
+var _found = false;
+
+with (obj_follower)
 {
-text[0] = "* KRIS STOP LOOKING AT THE KITCHEN!";
-speaker_sprite[0] = spr_face_s_angy;
-txtb_sounds = snd_txtsus;
+    if (character == "Toriel")
+        _found = true;
 }
-else if instance_exists(obj_follower_Toriel_dark) = true
+
+if (!_found)
+{
+    text[0] = "* KRIS STOP LOOKING AT THE KITCHEN!";
+	speaker_sprite[0] = spr_face_s_angy;
+	txtb_sounds = snd_txtsus;
+}
+else
 {
 text[0] = "* It's our kitchen?";
 
-txtb_sounds = snd_txttor;
+txtb_sounds = snd_txttor;	
 }
-
-needed_sprite = KrisU

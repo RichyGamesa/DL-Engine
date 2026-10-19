@@ -6,10 +6,7 @@ xsin = 0;
 open = 0
 started = false;
 con = 0
-k = instance_create_depth(obj_mainchara.x,obj_mainchara.y,obj_mainchara.depth,obj_fake_kris)
-s = 0;
-kris_jumped = false;
-susie_jumped = false;
+
 
  xa = camera_get_view_x(view_camera[0])
  ya = camera_get_view_y(view_camera[0])

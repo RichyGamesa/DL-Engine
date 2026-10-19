@@ -1,5 +1,7 @@
 //obj_mainchara create event
 
+character = "Kris";
+
 sprite_up     = KrisU;
 sprite_right  = KrisR;
 sprite_down   = KrisD;

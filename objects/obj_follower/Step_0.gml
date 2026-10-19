@@ -1,6 +1,24 @@
 
 depth = -y;
 
+// Choose the sprites for the current world.
+if (global.darkworld)
+{
+    down = down_dark;
+    right = right_dark;
+    up = up_dark;
+    left = left_dark;
+    sliding_sprite = slide_sprite_dark;
+}
+else
+{
+    down = down_light;
+    right = right_light;
+    up = up_light;
+    left = left_light;
+    sliding_sprite = slide_sprite_light;
+}
+
 // Ensure Kris exists before accessing position history.
 if (!instance_exists(obj_mainchara))
 {
@@ -24,20 +42,6 @@ if (follow)
     y = _player.pos_y[_record_y] - down_y;
 }
 
-// Determine the correct sprites for the current world.
-if (global.darkworld)
-{
-    down = down_dark;
-    right = right_dark;
-    up = up_dark;
-    left = left_dark;
-    sliding_sprite = sliding_dark;
-}
-else
-{
-    // These should be your normal-world sprite assets.
-    // Keep the normal-world assignments made in the Create event.
-}
 
 // Update the follower's animation.
 if (sliding)

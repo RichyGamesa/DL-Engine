@@ -16,17 +16,45 @@ if (global.fake) {
         game_restart();
     }
 
-    if (keyboard_check_direct(ord("P"))) {
-        if (!instance_exists(obj_follower_suzy)) {
-            instance_create_depth(obj_mainchara.x, obj_mainchara.y, 2, obj_follower_suzy);
-            global.member[1] = true;
-            array_insert(global.party_order, 1, "Susie");
-        } else {
-            instance_create_depth(obj_mainchara.x, obj_mainchara.y, 2, obj_follower_ralsei);
-            global.member[2] = true;
-            array_insert(global.party_order, 2, "Ralsei");
-        }
+    
+
+if (keyboard_check_pressed(ord("P")))
+{
+    if (!follower_exists("Susie"))
+    {
+        var _follower = instance_create_depth(
+            obj_mainchara.x,
+            obj_mainchara.y,
+            2,
+            obj_follower,
+            {
+                character: "Susie"
+            }
+        );
+
+        global.member[1] = true;
+        array_insert(global.party_order, 1, "Susie");
+        array_insert(global.real_party, 1, obj_suzy);
     }
+    else if (!follower_exists("Ralsei"))
+    {
+        var _follower = instance_create_depth(
+            obj_mainchara.x,
+            obj_mainchara.y,
+            2,
+            obj_follower,
+            {
+                character: "Ralsei"
+            }
+        );
+
+        global.member[2] = true;
+        array_insert(global.party_order, 2, "Ralsei");
+        array_insert(global.real_party, 2, obj_ralsei);
+    }
+}
+
+
 
     if (keyboard_check_direct(ord("J"))) {
         room_goto(rm_school_hallway);

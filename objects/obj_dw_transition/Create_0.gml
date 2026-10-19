@@ -4,6 +4,8 @@ started = false
 else
 started = true
 con = 8
+if instance_exists(obj_darkdoor)
+con = obj_darkdoor.con
 timer = 0
 index = 0
 image_alpha =  1;
