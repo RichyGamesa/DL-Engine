@@ -23,7 +23,7 @@
   ],
   "name":"spr__asgore_flowers",
   "nineSlice":null,
-  "origin":7,
+  "origin":4,
   "parent":{
     "name":"Asgore",
     "path":"folders/Sprites/Asgore.yy",
@@ -76,7 +76,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":25,
-    "yorigin":58,
+    "yorigin":29,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

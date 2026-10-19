@@ -13,6 +13,7 @@ var left_key  = keyboard_check(global.left);
 var right_key = keyboard_check(global.right);
 var up_key    = keyboard_check(global.up);
 
+// Default movement.
 xspd = (right_key - left_key) * move_spd;
 yspd = (down_key - up_key) * move_spd;
 
@@ -86,11 +87,11 @@ if (place_meeting(x, y + yspd, oWall)
     yspd = 0;
 }
 
-if (instance_exists(Obj_slide))
+if (instance_exists(obj_slide))
 {
-    if (Obj_slide.interacted && !sliding && y > Obj_slide.y)
+    if (obj_slide.interacted && !sliding && y > obj_slide.y)
     {
-        if (place_meeting(x, y + yspd, Obj_slide))
+        if (place_meeting(x, y + yspd, obj_slide))
         {
             yspd = 0;
         }
@@ -159,7 +160,12 @@ else
 // ANIMATION SPEED
 // --------------------------------------------------
 
-if (xspd != 0 || yspd != 0)
+
+if (sliding)
+{
+    image_speed = 1;
+}
+else if (xspd != 0 || yspd != 0)
 {
     image_speed = 1;
 }
@@ -170,22 +176,29 @@ else
 }
 
 
+
 // --------------------------------------------------
 // APPLY MOVEMENT
 // --------------------------------------------------
 
-x += xspd;
-
 if (!sliding)
 {
+    x += xspd;
     y += yspd;
 }
 else
 {
-    if (global.bulletzone)
-        y += yspd + 3;
-    else
-        y += yspd + 6;
+    // Horizontal movement while sliding.
+    x += xspd * 0.5;
+
+    // Automatic downward slide speed.
+    var slide_speed = global.bulletzone ? 3 : 6;
+
+    // Up/down input gives slower steering control.
+    var slide_control = 1.2;
+    var slide_input = down_key - up_key;
+
+    y += slide_speed + (slide_input * slide_control);
 }
 
 
@@ -237,8 +250,9 @@ if (image_index == sprite_slide
 && x == xprevious
 && sliding)
 {
-    x = Obj_slide.x;
+    x = obj_slide.x;
 }
+
 
 
 // --------------------------------------------------

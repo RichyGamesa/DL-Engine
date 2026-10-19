@@ -4,7 +4,7 @@ depth = -y;
 if follow 
 {
 x =	obj_mainchara.pos_x[record];
-y = obj_mainchara.pos_y[record]-down_y;
+y = obj_mainchara.pos_y[record];
 }
 
 

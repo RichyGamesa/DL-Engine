@@ -45,7 +45,7 @@
     ],
     "top":0,
   },
-  "origin":7,
+  "origin":4,
   "parent":{
     "name":"walk",
     "path":"folders/Sprites/Ralsy/walk.yy",
@@ -107,7 +107,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":10,
-    "yorigin":41,
+    "yorigin":20,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

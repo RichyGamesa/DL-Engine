@@ -10,7 +10,7 @@ sprite_up_dark    = KrisU_dark;
 sprite_right_dark = KrisR_dark;
 sprite_down_dark  = KrisD_dark;
 sprite_left_dark  = KrisL_dark;
-sprite_slide_dark = spr_suzy_slide
+sprite_slide_dark = spr_kris_dark_slide;
 
 can_move = true
 xspd = 0;

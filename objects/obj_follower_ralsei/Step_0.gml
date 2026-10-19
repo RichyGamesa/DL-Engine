@@ -74,6 +74,6 @@ sprite_index = spr_ralsei_slide;
 	
 }
 
-if instance_exists(Obj_slide)
-if Obj_slide.interacted == true and sliding == false and y > Obj_slide.y {sliding = false}
+if instance_exists(obj_slide)
+if obj_slide.interacted == true and sliding == false and y > obj_slide.y {sliding = false}
 

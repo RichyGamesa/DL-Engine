@@ -1,16 +1,25 @@
-x = obj_mainchara.x;
-y = obj_mainchara.y;
+
+x = 0;
+y = 0;
+
+if (instance_exists(obj_mainchara))
+{
+    x = obj_mainchara.x - 1.2;
+    y = obj_mainchara.y - 0.5;
+}
+
 depth = -9999;
+
 xspd = 0;
 yspd = 0;
 move_spd = 1;
-//how fast you move
+
 image_alpha = 1;
 walk_spd = 1.2;
 run_spd = 2.4;
 
 
-
+/*
 global.memberData = [
     {
         name: "Kris",

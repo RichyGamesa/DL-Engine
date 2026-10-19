@@ -7,12 +7,10 @@ else
 {down_y = 9}
 if obj_mainchara.can_move
 {
-	if sliding	== false
-	{
+
 x =	obj_mainchara.pos_x[record];
 y = obj_mainchara.pos_y[record]-down_y;
-	}
-   else
+
    if obj_mainchara.sliding == true
    {x =	obj_mainchara.pos_x[record];y = obj_mainchara.pos_y[record]}
    else
@@ -82,8 +80,8 @@ sprite_index = spr_suzy_slide
 
 	
 }
-if instance_exists(Obj_slide)
-{if Obj_slide.interacted == true and sliding == false and y > Obj_slide.y {sliding = false}}
+if instance_exists(obj_slide)
+{if obj_slide.interacted == true and sliding == false and y > obj_slide.y {sliding = false}}
 else
 {sliding = false}
 

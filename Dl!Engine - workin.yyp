@@ -253,7 +253,7 @@
     {"id":{"name":"obj_shakeobj","path":"objects/obj_shakeobj/obj_shakeobj.yy",},},
     {"id":{"name":"obj_shop_empty","path":"objects/obj_shop_empty/obj_shop_empty.yy",},},
     {"id":{"name":"obj_shop_normal","path":"objects/obj_shop_normal/obj_shop_normal.yy",},},
-    {"id":{"name":"Obj_slide","path":"objects/Obj_slide/Obj_slide.yy",},},
+    {"id":{"name":"obj_slide","path":"objects/obj_slide/obj_slide.yy",},},
     {"id":{"name":"obj_sneo_friedpipis","path":"objects/obj_sneo_friedpipis/obj_sneo_friedpipis.yy",},},
     {"id":{"name":"obj_song_UNUSED","path":"objects/obj_song_UNUSED/obj_song_UNUSED.yy",},},
     {"id":{"name":"obj_soul_blush","path":"objects/obj_soul_blush/obj_soul_blush.yy",},},

@@ -2,8 +2,8 @@
 if global.bulletzone == true 
 {
 	if instance_exists(obj_kris_target) == true {
-		x = obj_kris_target.x+14;
-		y = obj_kris_target.y+33;
+		x = obj_kris_target.x;
+		y = obj_kris_target.y;
 		depth = obj_kris_target.depth - 1
 
 }
