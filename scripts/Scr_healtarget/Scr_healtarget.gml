@@ -1,35 +1,26 @@
-//@Party member The name of the party member
-//@hp  the amount to heal
-function Scr_healtarget(argument0,argument1){
 
+/// Scr_healtarget(_member_name, _amount, _can_revive)
+/// Returns the amount of HP actually changed.
 
-if argument0 == "Kris"
+function Scr_healtarget(_member_name, _amount, _can_revive)
 {
-   	global.hp_K += argument1
-	if global.hp_K > global.maxhp_K
-	{global.hp_K = global.maxhp_K}
-	
-}
-if argument0 == "Susie"
-{
-   	global.hp_S += argument1
-	if global.hp_S > global.maxhp_S
-	{global.hp_S = global.maxhp_S}
-	
-}
-if argument0 == "Ralsei"
-{
-   	global.hp_R += argument1
-	if global.hp_R > global.maxhp_R
-	{global.hp_R = global.maxhp_R}
-	
-}
-if argument0 == "Toriel"
-{
-   	global.hp_T += argument1
-	if global.hp_T > global.maxhp_T
-	{global.hp_T = global.maxhp_T}
-	
-}
+    var _member = scr_get_member_data(_member_name);
 
+    if (is_undefined(_member))
+        return 0;
+
+    var _hp_var = _member.hpVar;
+    var _max_hp_var = _member.maxHpVar;
+
+    var _current_hp = variable_global_get(_hp_var);
+    var _max_hp = variable_global_get(_max_hp_var);
+
+    // Ordinary healing cannot revive a fallen character.
+    if (_current_hp <= 0 && !_can_revive)
+        return 0;
+
+    var _new_hp = clamp(_current_hp + _amount, 0, _max_hp);
+    variable_global_set(_hp_var, _new_hp);
+
+    return _new_hp - _current_hp;
 }

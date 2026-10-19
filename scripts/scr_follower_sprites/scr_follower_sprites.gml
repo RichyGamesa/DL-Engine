@@ -15,8 +15,21 @@ function scr_follower_setup(_follower, _character)
             _follower.up_dark = spr_suzyU_dark;
             _follower.left_dark = spr_suzyL_dark;
             _follower.slide_sprite_dark = spr_suzy_slide;
+
+            // Names used by the Step Event.
+            _follower.sprite_down = spr_suzyD;
+            _follower.sprite_right = spr_suzyR;
+            _follower.sprite_up = spr_suzyU;
+            _follower.sprite_left = spr_suzyL;
+
+            _follower.sprite_down_dark = spr_suzyD_dark;
+            _follower.sprite_right_dark = spr_suzyR_dark;
+            _follower.sprite_up_dark = spr_suzyU_dark;
+            _follower.sprite_left_dark = spr_suzyL_dark;
         break;
+      }
+
 
         // Add Ralsei and other characters here.
-    }
+ 
 }

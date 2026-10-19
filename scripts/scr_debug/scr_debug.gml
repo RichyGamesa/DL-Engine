@@ -18,41 +18,56 @@ if (global.fake) {
 
     
 
+
 if (keyboard_check_pressed(ord("P")))
 {
     if (!follower_exists("Susie"))
     {
+        // Create the follower with its character set before its Create Event.
         var _follower = instance_create_depth(
             obj_mainchara.x,
             obj_mainchara.y,
             2,
             obj_follower,
-            {
-                character: "Susie"
-            }
+            { character: "Susie" }
         );
 
-        global.member[1] = true;
-        array_insert(global.party_order, 1, "Susie");
-        array_insert(global.real_party, 1, obj_suzy);
+        // Add Susie to the party only if she isn't already there.
+        if (scr_array_find_index(global.party_order, "Susie") == -1)
+        {
+            global.member[1] = true;
+            array_push(global.party_order, "Susie");
+            array_push(global.real_party, obj_suzy);
+        }
+
+        // Recalculate the active party count instead of incrementing it
+        // inside the loop.
+        global.num_active_members = 0;
+
+        for (var i = 0; i < array_length(global.member); i++)
+        {
+            if (global.member[i])
+                global.num_active_members++;
+        }
+
+        show_debug_message("Follower created: " + string(_follower));
+        show_debug_message("Party members: " + string(global.num_active_members));
+		
+		show_debug_message("Follower ID: " + string(_follower));
+		show_debug_message("Character: " + string(_follower.character));
+		show_debug_message("X: " + string(_follower.x) + " Y: " + string(_follower.y));
+		show_debug_message("Sprite: " + string(_follower.sprite_index));
+		show_debug_message("Visible: " + string(_follower.visible));
+		show_debug_message("Image alpha: " + string(_follower.image_alpha));
+		show_debug_message("Depth: " + string(_follower.depth));
+		show_debug_message("Susie down sprite: " + string(_follower.down_light));
     }
-    else if (!follower_exists("Ralsei"))
+    else
     {
-        var _follower = instance_create_depth(
-            obj_mainchara.x,
-            obj_mainchara.y,
-            2,
-            obj_follower,
-            {
-                character: "Ralsei"
-            }
-        );
-
-        global.member[2] = true;
-        array_insert(global.party_order, 2, "Ralsei");
-        array_insert(global.real_party, 2, obj_ralsei);
+        show_debug_message("Susie follower already exists");
     }
 }
+
 
 
 

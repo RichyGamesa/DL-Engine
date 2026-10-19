@@ -1,4 +1,5 @@
 //obj_follower step event
+
 depth = -y;
 
 // Choose the sprites for the current world.
@@ -9,9 +10,9 @@ if (global.darkworld)
     up = up_dark;
     left = left_dark;
     sliding_sprite = slide_sprite_dark;
-	
-	image_xscale = 2;
-	image_yscale = 2;
+
+    image_xscale = 2;
+    image_yscale = 2;
 }
 else
 {
@@ -20,11 +21,12 @@ else
     up = up_light;
     left = left_light;
     sliding_sprite = slide_sprite_light;
-	image_xscale = 1;
-	image_yscale = 1;
+
+    image_xscale = 1;
+    image_yscale = 1;
 }
 
-// Ensure Kris exists before accessing position history.
+// Ensure Kris exists.
 if (!instance_exists(obj_mainchara))
 {
     image_speed = 0;
@@ -33,34 +35,48 @@ if (!instance_exists(obj_mainchara))
 
 var _player = obj_mainchara;
 
-// Calculate the vertical offset.
+// Calculate vertical offset.
 down_y = max(0, _player.sprite_height - sprite_height);
 
-// Follow Kris normally, but not during the Dark World landing cutscene.
+// Save the follower's position before updating it.
+var _old_x = x;
+var _old_y = y;
+
+// Follow Kris's recorded movement.
 if (follow && !global.cutscene)
 {
-    var _record = clamp(record, 0, array_length(_player.pos_x) - 1);
-    var _record_y = clamp(record, 0, array_length(_player.pos_y) - 1);
+    if (array_length(_player.pos_x) > 0
+    && array_length(_player.pos_y) > 0)
+    {
+        var _record_x = clamp(record, 0, array_length(_player.pos_x) - 1);
+        var _record_y = clamp(record, 0, array_length(_player.pos_y) - 1);
 
-    x = _player.pos_x[_record];
-    y = _player.pos_y[_record_y] - down_y;
+        x = _player.pos_x[_record_x];
+        y = _player.pos_y[_record_y] - down_y;
+		
+		/*
+		show_debug_message(
+    "Kris history: "
+    + string(_player.pos_x[_record_x])
+    + ", "
+    + string(_player.pos_y[_record_y])
+);*/
+    }
 }
 
 
-// Update the follower's animation.
-if (sliding)
+
+// Calculate actual movement this Step.
+var _dx = x - _old_x;
+var _dy = y - _old_y;
+
+// Update direction and sprite.
+if (sliding && sliding_sprite != noone)
 {
-    if (sliding_sprite != noone)
-    {
-        sprite_index = sliding_sprite;
-    }
+    sprite_index = sliding_sprite;
 }
 else
 {
-    var _dx = x - xprevious;
-    var _dy = y - yprevious;
-
-    // Use the dominant movement axis to determine direction.
     if (abs(_dx) > abs(_dy))
     {
         if (_dx > 0 && right != noone)
@@ -77,7 +93,19 @@ else
     }
 }
 
-// Stop animation during cutscenes only if the follower isn't moving.
+// Animate only when moving.
+if (_dx == 0 && _dy == 0)
+{
+    image_speed = 0;
+    image_index = 0;
+}
+else
+{
+    image_speed = 1;
+}
+
+/*
+// Stop animation if the follower isn't moving.
 if (!cutscene)
 {
     if (x == xprevious && y == yprevious)

@@ -14,7 +14,14 @@ active = true
 image_alpha = 0;
 depth = -9999; 
 
+draw_hp = false;
+hp_alpha = 1;
+move_hp = 0;
+previous_hp = 0;
+old_selected_member = 0;
+
 // Data structure for each member
+/*
 global.memberData = [
     {
         name: "Kris",
@@ -50,6 +57,7 @@ global.memberData = [
         hpBarColor: c_orange,
     }
 ];
+*/
         lastamessage2temp = ""
 		lastamessage3temp = ""
 		lastamessage5temp = ""

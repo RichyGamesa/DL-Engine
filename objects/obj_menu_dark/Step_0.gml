@@ -513,6 +513,12 @@ if (item_menu == true)
                 obj_soul.image_alpha = 0;
                 keyboard_clear(ord("Z"));
                 keyboard_clear(vk_enter);
+				show_debug_message("ITEM CONFIRMED");
+				show_debug_message("itemtarget = " + string(global.itemtarget));
+				show_debug_message("usable = " + string(global.usable));
+				show_debug_message("hp amount = " + string(hp));
+				show_debug_message("selected member index = " + string(selected_party_member));
+				//show_debug_message(global.hp_S)
             }
         }
     }
@@ -561,76 +567,175 @@ if (selecting_member)
     if (keyboard_check_pressed(global.confirm) || keyboard_check_pressed(vk_enter)
 	) {
         
-		// Confirming choice
-        var selected_member = global.memberData[selected_party_member];
-		var member_name = selected_member.name;
-		//selected_member.faceSprite = spr_soulb_face
         
-        switch (global.itemtarget) {
-            case ItemTarget.MEMBER:
-                // Heal the selected party member
-                Scr_healtarget(member_name,hp)
-			   break;
-			   
-            case ItemTarget.ALL:
-                // Heal all party members if the item is usable
-                if (global.usable == true) {
-                    global.hp_K += hp;
-                    global.hp_S += hp;
-                    global.hp_R += hp;
-                    global.hp_T += hp;
-                    // Ensure HP doesn't exceed max HP
-                    global.hp_K = min(global.hp_K, global.maxhp_K);
-                    global.hp_S = min(global.hp_S, global.maxhp_S);
-                    global.hp_R = min(global.hp_R, global.maxhp_R);
-                    global.hp_T = min(global.hp_T, global.maxhp_T);
-                }
-                break;
-        }
-        
-        // Deduct the item from inventory
-		eaten = true
-		scr_iteminfo(global.items_dark[item_selected])
-		if replaceable == false and global.usable == true 
-		{array_delete(global.items_dark, item_selected, 1)}
-        else
-		if global.itemtarget != 0
-		{array_delete(global.items_dark, item_selected+1, 1)}
-		if global.usable = true
-        audio_play_sound(snd_power, 2, false);
+        // Confirming item use
+        var _item_name = global.items_dark[item_selected];
+        var _member_name = global.party_order[selected_party_member];
 
-		acomment = true
-		lastamessage2temp = amessage2temp
-		lastamessage3temp = amessage3temp
-		lastamessage5temp = amessage5temp
-		old_selected_member = selected_party_member
-		old_reactions = more_reactions
-		amessagetemp_alpha = 1 //Make sure that the message will appear even if another one is fading
-		previous_hp = hp;
-		draw_hp = true
-		move_hp = 0;
-		hp_alpha = 1;
-		
-        
-        // Reset selection state and other relevant variables
+        // Recalculate the item's properties for the actual target.
+        // This is important for character-specific teas and food.
+        eaten = true;
+        scr_iteminfo(_item_name);
+
+        var _target_mode = global.itemtarget;
+        var _can_use = global.usable;
+        var _used = false;
+        var _revive_item = (
+            _item_name == stringsetloc("ReviveMint")
+            || _item_name == stringsetloc("ReviveDust")
+            || _item_name == stringsetloc("ReviveBrite")
+        );
+
+        if (_can_use && _target_mode != 0)
+        {
+            // One-character revival
+            if (_item_name == stringsetloc("ReviveMint"))
+            {
+                var _member = scr_get_member_data(_member_name);
+
+                if (!is_undefined(_member))
+                {
+                    var _current_hp = variable_global_get(_member.hpVar);
+                    var _max_hp = variable_global_get(_member.maxHpVar);
+
+                    if (_current_hp <= 0)
+                    {
+                        Scr_healtarget(
+                            _member_name,
+                            _max_hp,
+                            true
+                        );
+                        _used = true;
+                    }
+                }
+            }
+            // Team revival items
+            else if (
+                _item_name == stringsetloc("ReviveDust")
+                || _item_name == stringsetloc("ReviveBrite")
+            )
+            {
+                var _revived_anyone = false;
+
+                for (var i = 0; i < array_length(global.party_order); i++)
+                {
+                    var _party_name = global.party_order[i];
+                    var _member = scr_get_member_data(_party_name);
+
+                    if (is_undefined(_member))
+                        continue;
+
+                    var _current_hp = variable_global_get(_member.hpVar);
+                    var _max_hp = variable_global_get(_member.maxHpVar);
+
+                    // Only revive fallen members.
+                    if (_current_hp <= 0)
+                    {
+                        var _revive_hp = _max_hp;
+
+                        if (_item_name == stringsetloc("ReviveDust"))
+                            _revive_hp = ceil(_max_hp * 0.25);
+
+                        Scr_healtarget(_party_name, _revive_hp, true);
+                        _revived_anyone = true;
+                    }
+                }
+
+                _used = _revived_anyone;
+            }
+            // Ordinary single-target healing
+            else if (_target_mode == 1)
+            {
+                Scr_healtarget(_member_name, hp, false);
+                _used = true;
+            }
+            // Ordinary team healing
+            else if (_target_mode == 2)
+            {
+                for (var i = 0; i < array_length(global.party_order); i++)
+                {
+                    Scr_healtarget(global.party_order[i], hp, false);
+                }
+
+                _used = true;
+            }
+        }
+        show_debug_message("=== ITEM USE RESULT ===");
+show_debug_message("Item: " + string(_item_name));
+show_debug_message("Used: " + string(_used));
+show_debug_message("Target mode: " + string(_target_mode));
+show_debug_message("HP amount: " + string(hp));
+show_debug_message("Target: " + string(_member_name));
+
+var _debug_member = scr_get_member_data(_member_name);
+show_debug_message("Member HP variable name: " + string(_debug_member.hpVar));
+show_debug_message("Global HP directly: " + string(global.hp_S));
+show_debug_message("Global max HP directly: " + string(global.maxhp_S));
+        if (_used)
+        {
+            // Preserve the ClubsSandwich bonus.
+            if (
+                _item_name == stringsetloc("ClubsSandwich")
+                && global.member[3] == true
+            )
+            {
+                Scr_healtarget("Kris", 70, false);
+            }
+
+            // Consume the selected item, unless it transforms into another.
+            if (_item_name == stringsetloc("DD-Burger"))
+            {
+                array_delete(global.items_dark, item_selected, 1);
+                array_insert(global.items_dark, item_selected, "Darkburger");
+            }
+            else if (!replaceable)
+            {
+                array_delete(global.items_dark, item_selected, 1);
+            }
+
+            audio_play_sound(snd_power, 2, false);
+
+            acomment = true;
+            lastamessage2temp = amessage2temp;
+            lastamessage3temp = amessage3temp;
+            lastamessage5temp = amessage5temp;
+            old_selected_member = selected_party_member;
+            old_reactions = more_reactions;
+
+            amessagetemp_alpha = 1;
+            previous_hp = hp;
+            draw_hp = true;
+            move_hp = 0;
+            hp_alpha = 1;
+        }
+        else
+        {
+            // Don't consume a revival item if nobody could be revived.
+            eaten = false;
+            scr_iteminfo(_item_name);
+        }
+
+        // Reset selection state
         selecting_member = false;
         image_index = 0;
         key_selected = 0;
         item_selected = 0;
         item_menu = false;
-		if instance_exists(obj_soul)
-		{
-        obj_soul.x = last_x;
-        obj_soul.y = y + 133;
-        obj_soul.image_alpha = 1;
-		}
-		selected_party_member = 999;
-        alarm[0] = 10; //It's 30 frames a second so it triggers in less than a second
+
+        if (instance_exists(obj_soul))
+        {
+            obj_soul.x = last_x;
+            obj_soul.y = y + 133;
+            obj_soul.image_alpha = 1;
+        }
+
+        selected_party_member = 999;
+        alarm[0] = 10;
         alarm[1] = 180;
-		
-        // Clear key inputs
+
         keyboard_clear(ord("Z"));
         keyboard_clear(vk_enter);
+
      }
   }
 }

@@ -64,160 +64,201 @@ if (instance_exists(obj_menu_dark))
    
    }
 
-// Loop through other active party members
-for (var i = 1; i < array_length(global.memberData); i++) 
-{
-    if (global.member[i]) {
-        var member = global.memberData[i];
-        var member_name = member.name;
-        var hp = member.hp_points;
-        var max_hp = member.maxHp;
-        var sprite_face = member.faceSprite;
 
-        if (selecting_member && selected_party_member == i) 
-		{
-            sprite_face = spr_soulb_face;
-        } 
-		else if (selecting_member && global.itemtarget == 2) 
-		{
-            sprite_face = spr_soulb_face;
-        }
+    // Draw HP panels for the active party.
+    // Character data is stored in global.memberData.
 
-        var hp_bar_color = member.hpBarColor;
+    var _party_count = array_length(global.party_order);
 
-        // Calculate HP percentage
-        var hp_percentage = hp / max_hp;
+    // Keep the original font and bar placement as closely as possible.
+    var _bar_y = t_y + 423;
+    var _bar_width = 100;
+    var _bar_height = 10;
+    var _spacing = (_party_count == 2) ? 270 : 150;
 
-        // Draw health bar for each member
-        var bar_width = 100; // Default width for each member bar
-        var bar_height = 10; // Height of the health bar
-        var bar_x_offset = 100; // Spacing between health bars
-		var member_bar_x = t_x + 290 + (i) * bar_x_offset; // Adjust horizontal position
-		if global.num_active_members == 2
-		{
-        var member_bar_x = t_x + 290 + (i) * bar_x_offset; // Adjust horizontal position
-		}
-		else
-		{
-		 var bar_x_offset = 150; // Spacing between health bars
-		 var member_bar_x = t_x + 270  + (i - 1) * bar_x_offset; // Adjust horizontal position	
-		}
-		var member_bar_y = bar_y_K + 150; // Adjust vertical position
+    // Center one member; use the original layout for two members.
+    var _start_x;
+    if (_party_count <= 1)
+        _start_x = t_x + 270;
+    else
+        _start_x = t_x + 120;
 
-        // Calculate member bar width based on HP percentage
-        var member_bar_width = hp_percentage * bar_width;
+    for (var i = 0; i < _party_count; i++)
+    {
+        var _member_name = global.party_order[i];
+		var _member = scr_get_member_data(_member_name);
 
-        // Set bar color
-        draw_set_color(hp_bar_color); // Set bar color
+        // Skip missing character definitions instead of crashing the menu.
+        if (is_undefined(_member))
+            continue;
 
-        // Draw filled part of the health bar
-        draw_rectangle(member_bar_x, member_bar_y, member_bar_x + member_bar_width, member_bar_y + bar_height, false);
+        // Read live HP values from the global variables.
+        var _hp = variable_global_get(_member.hpVar);
+        var _max_hp = variable_global_get(_member.maxHpVar);
 
-        // Set color for empty part of the health bar
+        // Avoid division by zero and keep the bar within its limits.
+        var _hp_ratio = 0;
+        if (_max_hp > 0)
+            _hp_ratio = clamp(_hp / _max_hp, 0, 1);
+
+        var _bar_x = _start_x + i * _spacing;
+        var _filled_width = _bar_width * _hp_ratio;
+
+        // Preserve the original position for the first two members.
+        // For three or more members, distribute them more evenly.
+        if (_party_count >= 3)
+            _bar_x = t_x + 70 + i * 200;
+
+        // HP bar.
+        draw_set_color(_member.hpBarColor);
+        draw_rectangle(
+            _bar_x, _bar_y,
+            _bar_x + _filled_width, _bar_y + _bar_height,
+            false
+        );
+
         draw_set_color(c_red);
+        draw_rectangle(
+            _bar_x + _filled_width, _bar_y,
+            _bar_x + _bar_width, _bar_y + _bar_height,
+            false
+        );
 
-        // Draw empty part of the health bar
-        draw_rectangle(member_bar_x + member_bar_width, member_bar_y, member_bar_x + bar_width, member_bar_y + bar_height, false);
-
-        // Draw text for HP
+        // HP text.
         draw_set_color(c_white);
-        draw_text(member_bar_x, member_bar_y - 20, "HP " + string(hp) + "/" + string(max_hp));
-
-        // Draw member's face sprite and name
-        draw_sprite(sprite_face, 0, member_bar_x - 38, member_bar_y - 15); // Adjust sprite position as needed
-        draw_text(member_bar_x - 30, member_bar_y + 10, member_name); // Adjust text position as needed for name
-		
-// Draw amessage text (if available)
-            draw_set_font(fnt_dt_mono)
-			if acomment == true
-			{
-				draw_set_alpha(amessagetemp_alpha)
-               
-			   if equip_menu_active == true
-			   
-			   {				
-            if (i == 1 and equipping_susie && lastamessage2temp != "") {
-                draw_text_ext(member_bar_x-30, member_bar_y + 30, lastamessage2temp,10,130); // Adjusted y position to 20 pixels
-            } else if (i == 2 and equipping_ralsei && lastamessage3temp != "") {
-                draw_text_ext(member_bar_x-30, member_bar_y + 30, lastamessage3temp,10,220); // Adjusted y position to 20 pixels
-            } else if (i == 3 and equipping_toriel && lastamessage5temp != "") {
-                draw_text_ext(member_bar_x-30, member_bar_y + 30, lastamessage5temp,10,220); // Adjusted y position to 20 pixels
-            }
-			   }
-			   if (item_menu_active == true) {
-				   if old_reactions == true
-				   {
-                    if (i == 1 and lastamessage2temp != "") 
-					{
-                        draw_text_ext(member_bar_x - 30, member_bar_y + 30, lastamessage2temp, 10, 130); // Adjusted y position to 20 pixels
-                    } 
-					else if (i == 2 and  lastamessage3temp != "")
-					{
-                        draw_text_ext(member_bar_x - 30, member_bar_y + 30, lastamessage3temp, 10, 220); // Adjusted y position to 20 pixels
-                    }
-					else if (i == 3 and lastamessage5temp != "") 
-					{
-                        draw_text_ext(member_bar_x - 30, member_bar_y + 30, lastamessage5temp, 10, 220); // Adjusted y position to 20 pixels
-                    }
-			   }	
-				   else
-				   {
-					    if (i == 1 and global.party_order[old_selected_member] == "Susie" and lastamessage2temp != "") 
-					{
-                        draw_text_ext(member_bar_x - 30, member_bar_y + 30, lastamessage2temp, 10, 130); // Adjusted y position to 20 pixels
-                    } 
-					else if (i == 2 and global.party_order[old_selected_member] == "Ralsei" and  lastamessage3temp != "")
-					{
-                        draw_text_ext(member_bar_x - 30, member_bar_y + 30, lastamessage3temp, 10, 220); // Adjusted y position to 20 pixels
-                    }
-					else if (i == 3 and global.party_order[old_selected_member] == "Toriel" and lastamessage5temp != "") 
-					{
-                        draw_text_ext(member_bar_x - 30, member_bar_y + 30, lastamessage5temp, 10, 220); // Adjusted y position to 20 pixels
-                    }
-				   }
-			}
-			}
-	        draw_set_alpha(1)
-			
-// Draw healed HP text if triggered
-     /*      if draw_hp
-		{
         draw_set_font(fnt_mainbig);
-        draw_set_color(c_lime);
-        draw_set_alpha(hp_alpha)
-		
-			if selected_party_member == 0
-			{
-				var draw_x = bar_x_K + 20; // Adjust X position as needed
-                var draw_y = bar_y_K; // Adjust Y position as needed
-				draw_text(draw_x, draw_y-move_hp, string(previous_hp));
-			}
-			
-        // Determine where to draw based on itemtarget
-        switch (global.itemtarget) 
-		{
-            case 1: // Heal individual member
+        draw_text(
+            _bar_x, _bar_y - 20,
+            "HP " + string(_hp) + "/" + string(_max_hp)
+        );
 
-                var draw_x = member_bar_x + 20; // Adjust X position as needed
-                var draw_y = member_bar_y; // Adjust Y position as needed
-                break;
-            case 2: // Heal all members
-                var draw_x = bar_x_K + 20; // Adjust X position as needed
-                var draw_y = bar_y_K, // Adjust Y position as needed
-			    draw_text_ext_transformed(draw_x, draw_y-move_hp, string(previous_hp),300,300,2,2,0);
-                break;
+        // Determine whether this character is the selected target.
+        var _selected = (
+            selecting_member
+            && !selecting_item
+            && (
+                selected_party_member == i
+                || global.itemtarget == 2
+            )
+        );
+
+        // Face and name.
+        var _face = _member.faceSprite;
+        if (_selected)
+            _face = spr_soulb_face;
+
+        draw_sprite(_face, 0, _bar_x - 38, _bar_y - 15);
+        draw_text(_bar_x - 30, _bar_y + 10, _member.name);
+
+        // Character reactions.
+        // These fields are defined in scr_memb().
+        if (acomment)
+        {
+            draw_set_font(fnt_dt_mono);
+            draw_set_alpha(amessagetemp_alpha);
+
+            var _reaction = "";
+            var _show_reaction = false;
+            var _reaction_width = 220;
+
+            // Read the reaction only if the field exists and isn't empty.
+            if (variable_struct_exists(_member, "reactionVar")
+                && _member.reactionVar != "")
+            {
+                _reaction = variable_instance_get(id, _member.reactionVar);
+
+                // Equipment reaction.
+                if (equip_menu_active
+                    && variable_struct_exists(_member, "equippingFlagVar")
+                    && _member.equippingFlagVar != ""
+                    && variable_instance_get(id, _member.equippingFlagVar)
+                    && _reaction != "")
+                {
+                    _show_reaction = true;
+                }
+
+                // Item reaction.
+                if (item_menu_active && _reaction != "")
+                {
+                    if (old_reactions)
+                    {
+                        _show_reaction = true;
+                    }
+                    else if (old_selected_member >= 0
+                        && old_selected_member < array_length(global.party_order)
+                        && global.party_order[old_selected_member] == _member_name)
+                    {
+                        _show_reaction = true;
+                    }
+                }
+
+                // Keep Susie's narrower text wrapping.
+                if (_member_name == "Susie")
+                {
+                    _reaction_width = 130;
+                }
+            }
+
+            if (_show_reaction)
+            {
+                draw_text_ext(
+                    _bar_x - 30,
+                    _bar_y + 30,
+                    _reaction,
+                    10,
+                    _reaction_width
+                );
+            }
+
+            draw_set_alpha(1);
         }
-		
-		
-        draw_text_ext_transformed(draw_x, draw_y-move_hp, string(previous_hp),300,300,2,2,0);
-		show_debug_message("DRAW THE HP AT" + string( draw_text(draw_x, draw_y-move_hp, string(previous_hp))))
-		draw_set_color(c_white)
-		draw_set_alpha(1)
-		}  
-		*/
+    }
+
+    // Restore drawing defaults for the rest of the menu.
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+    draw_set_font(fnt_mainbig);
+
+			
+
+/// Draw healing numbers above the affected party members.
+if (draw_hp)
+{
+    draw_set_font(fnt_mainbig);
+    draw_set_color(c_lime);
+    draw_set_alpha(hp_alpha);
+
+    var _party_count = array_length(global.party_order);
+
+    var _bar_y = t_y + 423;
+    var _bar_width = 100;
+    var _spacing = (_party_count == 2) ? 270 : 150;
+    var _start_x = (_party_count <= 1) ? t_x + 270 : t_x + 120;
+
+    for (var i = 0; i < _party_count; i++)
+    {
+        // Individual items only affect the selected member.
+        if (global.itemtarget == 1 && i != old_selected_member)
+            continue;
+
+        var _bar_x = _start_x + i * _spacing;
+
+        if (_party_count >= 3)
+            _bar_x = t_x + 70 + i * 200;
+
+        draw_text(
+            _bar_x + 20,
+            _bar_y - move_hp,
+            "+" + string(previous_hp)
+        );
+    }
+
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+    draw_set_font(fnt_mainbig);
 }
-	
-}
+
+
 
 //item menu
 if (item_menu_active) 

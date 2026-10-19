@@ -39,6 +39,7 @@ max_turns = 2;
 }
 
 // Data structure for each member
+/*
 global.memberData = [
     {
         name: "Kris",
@@ -74,6 +75,7 @@ global.memberData = [
         hpBarColor: c_orange,
     }
 ];
+*/
 
 selected_button = 0;
 last_selected_button_1 = 0;

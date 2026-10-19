@@ -1,4 +1,4 @@
-//obj_follower create event
+//obj_follower creat
 if (!variable_instance_exists(id, "character"))
     character = "Noone";
 
@@ -29,6 +29,9 @@ if (global.darkworld)
 	
 	image_xscale = 2;
 	image_yscale = 2;
+	
+    // Start with a valid dark-world sprite.
+    sprite_index = down_dark;
 }
 else
 {
@@ -39,7 +42,13 @@ else
     sliding_sprite = slide_sprite_light;
 	image_xscale = 1;
 	image_yscale = 1;
+   
+   // Start with a valid light-world sprite.
+    sprite_index = down_light;
 }
+
+image_index = 0;
+image_speed = 0;
 
 spd = 1;
 

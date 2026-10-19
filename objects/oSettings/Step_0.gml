@@ -105,26 +105,27 @@ if object_exists(obj_mainchara) = true
 }
 
 
- if !done
- {
-	 scr_memb()
-	 done = true;
- }
- for (var i = 1; i < array_length(global.memberData); i++) 
+// Initialize member data once.
+if (!done)
 {
-    if (global.member[i]) {
-        var member = global.memberData[i];
-        var member_name = member.name;
-        var hp = member.hp_points;
-        var max_hp = member.maxHp;
-        var sprite_face = member.faceSprite;
-        var hp_bar_color = member.hpBarColor;
-
-global.total_hp = global.hp_K 
-
+    scr_memb();
+    done = true;
 }
 
- }
+// Calculate total HP from the active party.
+global.total_hp = 0;
+
+for (var i = 0; i < array_length(global.party_order); i++)
+{
+    var _member_name = global.party_order[i];
+    var _member = scr_get_member_data(_member_name);
+
+    if (!is_undefined(_member))
+    {
+        global.total_hp += variable_global_get(_member.hpVar);
+    }
+}
+
 global.num_active_members = global.member[0] + global.member[1] + global.member[2] + global.member[3] 
 if global.num_active_members > 3 {global.num_active_members = 3}
 

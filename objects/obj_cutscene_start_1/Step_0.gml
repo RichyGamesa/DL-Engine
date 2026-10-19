@@ -28,7 +28,7 @@ if event = 3
 }
 if event = 4 
 {
-	global.in_cutscene = false;
+	global.cutscene = false;
 	global.flag[0] = true
 	layer_set_visible("asset_cutscene",false)
 	instance_destroy()

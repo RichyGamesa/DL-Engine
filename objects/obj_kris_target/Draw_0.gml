@@ -125,7 +125,7 @@ for (var i = 1; i < array_length(global.memberData); i++)
 
         // Face and name.
         draw_sprite(_face, 0, _member_bar_x - 50, _member_bar_y - 10);
-        draw_text(_member_bar_x - 30, _member_bar_y + 10, _name);
+        draw_text(_member_bar_x - 30, _member_bar_y + 10, __name);
     }
 }
 

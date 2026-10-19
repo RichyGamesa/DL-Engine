@@ -27,10 +27,10 @@ if (item_menu) {
                         if (global.num_active_members > 0 && selected_party_member >= 0 && selected_party_member < global.num_active_members) {
                             show_debug_message("Selected party member is valid");
                             // Heal the selected party member
-                            global.memberData[selected_party_member].hp += hp;
+                            var member_name = global.party_order[selected_party_member];.hp += hp;
                             // Ensure HP doesn't exceed max HP
-                            if (global.memberData[selected_party_member].hp > global.memberData[selected_party_member].maxHp) {
-                                global.memberData[selected_party_member].hp = global.memberData[selected_party_member].maxHp;
+                            if (var member_name = global.party_order[selected_party_member];.hp > var member_name = global.party_order[selected_party_member];.maxHp) {
+                                var member_name = global.party_order[selected_party_member];.hp = var member_name = global.party_order[selected_party_member];.maxHp;
                             }
                             // Reset selected party member
                             selected_party_member = 0;

@@ -253,5 +253,5 @@ global.battle = false;
 global.tp = 0;
 
 
-
+scr_memb();
 

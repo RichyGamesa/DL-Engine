@@ -51,7 +51,7 @@ function scr_iteminfo(argument0) //gml_Script_scr_iteminfo
             global.value = 400
 			hp = 90
 			more_reactions = false
-            global.usable = false
+            global.usable = true
 			}
             
 			if argument0 == stringsetloc("Glowshard")
@@ -166,8 +166,7 @@ function scr_iteminfo(argument0) //gml_Script_scr_iteminfo
 			amessage3temp = "Perfectly cut"
 			amessage5temp = "You can have the other part Kris."
 			more_reactions = true
-			if global.member[3] == true
-			{global.hp_K += 70}
+			
             global.usable = true
 			}
  

@@ -402,6 +402,7 @@
     {"id":{"name":"scr_findmember","path":"scripts/scr_findmember/scr_findmember.yy",},},
     {"id":{"name":"scr_follower_sprites","path":"scripts/scr_follower_sprites/scr_follower_sprites.yy",},},
     {"id":{"name":"scr_Gamestart","path":"scripts/scr_Gamestart/scr_Gamestart.yy",},},
+    {"id":{"name":"scr_get_member_data","path":"scripts/scr_get_member_data/scr_get_member_data.yy",},},
     {"id":{"name":"scr_get_spells","path":"scripts/scr_get_spells/scr_get_spells.yy",},},
     {"id":{"name":"scr_goto","path":"scripts/scr_goto/scr_goto.yy",},},
     {"id":{"name":"scr_halt","path":"scripts/scr_halt/scr_halt.yy",},},
