@@ -12,6 +12,7 @@
     {"name":"obj_chapter_select","order":1,"path":"objects/obj_chapter_select/obj_chapter_select.yy",},
     {"name":"obj_fake_suzy","order":1,"path":"objects/obj_fake_suzy/obj_fake_suzy.yy",},
     {"name":"follower_exists","order":3,"path":"scripts/follower_exists/follower_exists.yy",},
+    {"name":"scr_dark_transform_position","order":7,"path":"scripts/scr_dark_transform_position/scr_dark_transform_position.yy",},
     {"name":"scr_follower_sprites","order":2,"path":"scripts/scr_follower_sprites/scr_follower_sprites.yy",},
     {"name":"scr_trasform_dark","order":6,"path":"scripts/scr_trasform_dark/scr_trasform_dark.yy",},
     {"name":"snd_play_no_repeat","order":1,"path":"scripts/snd_play_no_repeat/snd_play_no_repeat.yy",},

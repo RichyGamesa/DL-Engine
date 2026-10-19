@@ -389,6 +389,7 @@
     {"id":{"name":"scr_Check","path":"scripts/scr_Check/scr_Check.yy",},},
     {"id":{"name":"scr_choice","path":"scripts/scr_choice/scr_choice.yy",},},
     {"id":{"name":"scr_compliment","path":"scripts/scr_compliment/scr_compliment.yy",},},
+    {"id":{"name":"scr_dark_transform_position","path":"scripts/scr_dark_transform_position/scr_dark_transform_position.yy",},},
     {"id":{"name":"scr_debug","path":"scripts/scr_debug/scr_debug.yy",},},
     {"id":{"name":"scr_default_controls","path":"scripts/scr_default_controls/scr_default_controls.yy",},},
     {"id":{"name":"scr_display_choice_prompt_hightlight","path":"scripts/scr_display_choice_prompt_hightlight/scr_display_choice_prompt_hightlight.yy",},},

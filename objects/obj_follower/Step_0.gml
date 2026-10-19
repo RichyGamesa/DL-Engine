@@ -1,4 +1,4 @@
-
+//obj_follower step event
 depth = -y;
 
 // Choose the sprites for the current world.
@@ -36,10 +36,9 @@ var _player = obj_mainchara;
 // Calculate the vertical offset.
 down_y = max(0, _player.sprite_height - sprite_height);
 
-// Follow Kris's recorded positions.
-if (follow)
+// Follow Kris normally, but not during the Dark World landing cutscene.
+if (follow && !global.cutscene)
 {
-    // Clamp the history index to avoid out-of-range array access.
     var _record = clamp(record, 0, array_length(_player.pos_x) - 1);
     var _record_y = clamp(record, 0, array_length(_player.pos_y) - 1);
 

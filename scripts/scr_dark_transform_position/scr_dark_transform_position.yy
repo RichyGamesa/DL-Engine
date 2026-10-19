@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_dark_transform_position",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_dark_transform_position",
+  "parent":{
+    "name":"Menu_dark",
+    "path":"folders/Scripts/Menu_dark.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

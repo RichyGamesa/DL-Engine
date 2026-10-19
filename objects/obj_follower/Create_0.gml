@@ -1,4 +1,4 @@
-
+//obj_follower create event
 if (!variable_instance_exists(id, "character"))
     character = "Noone";
 

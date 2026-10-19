@@ -25,9 +25,23 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 	        _actor.y = _target.y;
 	        instance_destroy(_target);
 	    }
+		
+		//Change the sprite to the dark version
+        switch (_actor.character)
+		{
+		    case "Kris":
+		        _actor.sprite_index = KrisD_dark;
+		    break;
 
+		    case "Susie":
+		        _actor.sprite_index = spr_suzyD_dark;
+		    break;
+		}
+
+        
 	    _actor.dark_transform_target = noone;
 	    _actor.image_alpha = 1;
+
 		
 		
 
@@ -59,7 +73,12 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
     
     // Get the character's identity.
     var _character = _actor.character;
-    var _config;
+	if (_is_main)
+	{
+	    _door.dark_transform_main_character = _character;
+	}
+	
+    var _config = undefined;
 
     // Character-specific transformation configuration.
     switch (_character)
@@ -91,12 +110,15 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
                 getting_up: spr_suzy_getting_up
             };
         break;
+		
 
         // Add other characters here.
     }
 
     if (is_undefined(_config))
         return;
+		
+		
 
     // Only transform active party members.
     if (!_is_main)
@@ -145,6 +167,8 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 	        _actor.depth,
 	        _config.object
 	    );
+		
+		_target.sprite_index = _config.up;
 
 	    _actor.dark_transform_target = _target;
 
@@ -155,19 +179,34 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 
 		_actor.image_alpha = 0;
 	}
+		// Calculate this character's party formation.
+		var _formation = scr_dark_transform_position(
+		    _actor,
+		    _door.dark_transform_main_character
+		);
+
+		// Keep the party spread out during the cutscene.
+		// The vertical offsets are used too, so larger parties
+		// can occupy the upper and lower positions.
+		if (_con >= 1 && _con <= 14)
+		{
+		    _target.x = 290 + _formation.x;
+		}
 
     // STATE 1: Initial pose.
-    if (_con == 1)
-    {
-        _target.cutscene = true;
-        _target.x = 290;
-        _target.y = 90;
-        _target.sprite_index = _config.up;
-        _target.image_index = 0;
-        _target.image_speed = 0;
-        _target.vspeed = 3;
-        _target.image_alpha = 1;
-    }
+	if (_con == 1)
+	{
+	    _target.cutscene = true;
+
+	    _target.x = 290 + _formation.x;
+	    _target.y = 90 + _formation.y;
+
+	    _target.sprite_index = _config.up;
+	    _target.image_index = 0;
+	    _target.image_speed = 0;
+	    _target.vspeed = 3;
+	    _target.image_alpha = 1;
+	}
 
     // STATE 3: Stop.
     if (_con == 3)
@@ -294,30 +333,24 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 	}
 
     // STATE 15: Move the protagonist to the landing area.
+
 	if (_con == 15)
 	{
-		global.darkworld = true;
-		if (_is_main)
-		{
-		room_goto(rm_dark_area_1)
-	    _actor.x = 256;
-	    _actor.y = 320;
+	    global.darkworld = true;
 
-	    _target.x = 256;
-	    _target.y = 320;
+	    _target.x = 256 + _formation.x;
+	    _target.y = 320 + _formation.y;
 	    _target.vspeed = 0;
 
-	    _door.con = 16;
-		}
-		else
-		{
-		_actor.x = 256 + (30*global.members);
-	    _actor.y = 320;
+	    _actor.x = _target.x;
+	    _actor.y = _target.y;
 
-	    _target.x = 256 + (30*global.members);;
-	    _target.y = 320;
-	    _target.vspeed = 0;
-		}
+	    // Only the main character triggers the room transition.
+	    if (_is_main)
+	    {
+	        _door.con = 16;
+	        room_goto(rm_dark_area_1);
+	    }
 	}
 
     // STATE 16: Get back up.
