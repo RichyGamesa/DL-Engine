@@ -1,4 +1,4 @@
-//create event
+//obj_fake_kris create event
 if instance_number(obj_fake_kris) > 1
 {instance_destroy()}
 if global.darkworld == false
@@ -11,8 +11,8 @@ else
  image_xscale = 2
  image_yscale = 2
 }
-cutscene = false;
-image_alpha = 0;
+cutscene = true;
+image_alpha = 1;
 
 
 hp = 90;

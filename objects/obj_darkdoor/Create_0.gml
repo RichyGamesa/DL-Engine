@@ -25,3 +25,6 @@ if (global.chapter >= 3)
     
 
 }
+
+silence = true;
+

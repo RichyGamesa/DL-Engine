@@ -9,6 +9,9 @@ if (global.darkworld)
     up = up_dark;
     left = left_dark;
     sliding_sprite = slide_sprite_dark;
+	
+	image_xscale = 2;
+	image_yscale = 2;
 }
 else
 {
@@ -17,6 +20,8 @@ else
     up = up_light;
     left = left_light;
     sliding_sprite = slide_sprite_light;
+	image_xscale = 1;
+	image_yscale = 1;
 }
 
 // Ensure Kris exists before accessing position history.

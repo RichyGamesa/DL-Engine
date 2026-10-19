@@ -1,4 +1,4 @@
-if instance_exists(obj_mainchara)
+if instance_exists(obj_mainchara) and !global.cutscene
 {
 for (var i = 0; i <= record; i++) 
 {

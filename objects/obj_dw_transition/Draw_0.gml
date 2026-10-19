@@ -1,3 +1,4 @@
+//obj_dw_transition draw event
 draw_self()
 
 var xa = camera_get_view_x(view_camera[0])
@@ -8,6 +9,8 @@ if instance_exists(obj_darkdoor)
 {
 draw_text(xa+10,ya+20,"con is = " + string(obj_darkdoor.con))
 draw_text(xa+10,ya+40,"alarm is = " + string(obj_darkdoor.alarm[4]))
+
+if instance_exists(obj_fake_kris)
 draw_text(xa+10,ya+60,"image index is = " + string(obj_fake_kris.image_index))
 }
 //draw_text(xa+10,ya+40,"Susie depth is = " + string(obj_suzy.depth))

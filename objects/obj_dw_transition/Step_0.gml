@@ -1,4 +1,5 @@
 //obj_dw_transition step event
+depth =-y;
 if (instance_exists(obj_darkdoor)) {
     obj_darkdoor.depth = depth + 1;
 }

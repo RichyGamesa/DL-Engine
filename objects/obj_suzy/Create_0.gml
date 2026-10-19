@@ -1,4 +1,4 @@
-//create event
+//obj_suzy create event
 image_speed = 9;
 image_xscale = 1;
 image_yscale = 1;

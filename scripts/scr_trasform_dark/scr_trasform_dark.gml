@@ -6,6 +6,57 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
     if (!instance_exists(_actor))
         return;
 
+    // STATE 17: Restore the real character and clean up.
+	// Handle this BEFORE target creation.
+
+	if (_con == 17)
+	{
+	    var _target = noone;
+
+	    if (variable_instance_exists(_actor, "dark_transform_target"))
+	    {
+	        _target = _actor.dark_transform_target;
+	    }
+
+	    // Restore position before destroying the temporary character.
+	    if (instance_exists(_target))
+	    {
+	        _actor.x = _target.x;
+	        _actor.y = _target.y;
+	        instance_destroy(_target);
+	    }
+
+	    _actor.dark_transform_target = noone;
+	    _actor.image_alpha = 1;
+		
+		
+
+	    if (_is_main)
+	    {
+	        // Restore movement.
+	        if (variable_instance_exists(_actor, "dark_transform_previous_can_move"))
+	        {
+	            _actor.can_move = _actor.dark_transform_previous_can_move;
+	        }
+	        else
+	        {
+	            _actor.can_move = true;
+	        }
+
+	        // End the cutscene.
+	        global.cutscene = false;
+
+	        // Ensure the player isn't left with residual movement.
+	        _actor.xspd = 0;
+	        _actor.yspd = 0;
+			
+			if instance_exists(obj_darkdoor)
+			instance_destroy(obj_darkdoor)
+	    }
+
+	    return;
+	}
+    
     // Get the character's identity.
     var _character = _actor.character;
     var _config;
@@ -29,7 +80,7 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 
         case "Susie":
             _config = {
-                object: obj_suzy,
+               object: obj_fake_suzy,
                 up: spr_suzyU,
                 run: spr_suzy_run_up,
                 jump: spr_suzy_jump,
@@ -37,7 +88,7 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
                 fall: spr_suzy_fall,
                 final: spr_suzy_final,
                 falling: spr_suzy_falling,
-                getting_up: spr_suzy_falling
+                getting_up: spr_suzy_getting_up
             };
         break;
 
@@ -66,28 +117,44 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
     }
 
     // Get or create this character's temporary transformation instance.
-    var _target = noone;
+	var _target = noone;
 
-    if (variable_instance_exists(_actor, "dark_transform_target"))
-        _target = _actor.dark_transform_target;
+	if (variable_instance_exists(_actor, "dark_transform_target"))
+	{
+	    _target = _actor.dark_transform_target;
+	}
 
-    if (!instance_exists(_target))
-    {
-        _target = instance_create_depth(
-            _actor.x,
-            _actor.y,
-            _actor.depth,
-            _config.object
-        );
+	if (!instance_exists(_target))
+	{
+	    // Save the original state only once.
+	    if (variable_instance_exists(_actor, "can_move"))
+	    {
+	        _actor.dark_transform_previous_can_move = _actor.can_move;
+	        _actor.can_move = false;
+	    }
 
-        _actor.dark_transform_target = _target;
+	    if (_is_main)
+	    {
+	        _actor.dark_transform_previous_cutscene = global.cutscene;
+	        global.cutscene = true;
+	    }
 
-        _target.dark_transform_jumped = false;
-        _actor.image_alpha = 0;
-    }
+	    _target = instance_create_depth(
+	        _actor.x,
+	        _actor.y,
+	        _actor.depth,
+	        _config.object
+	    );
 
-    if (!instance_exists(_target))
-        return;
+	    _actor.dark_transform_target = _target;
+
+		_target.dark_transform_jumped = false;
+		_target.dark_transform_state10_started = false;
+		_target.cutscene = true;
+		_target.image_alpha = 1;
+
+		_actor.image_alpha = 0;
+	}
 
     // STATE 1: Initial pose.
     if (_con == 1)
@@ -135,7 +202,7 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 	    if (!_target.dark_transform_jumped)
 	    {
 	        // Continue jumping until the character reaches y = 85.
-	        if (_target.y > 85)
+	        if (_target.y >= 85)
 	        {
 	            _target.vspeed = -8;
 	        }
@@ -145,84 +212,138 @@ function scr_trasform_dark(_door, _con, _actor, _is_main)
 	            _target.vspeed = 0;
 	            _target.dark_transform_jumped = true;
 
-	            _door.con = 9;
-	            _door.alarm[4] = 30;
+	            if (_is_main)
+				{
+				    _door.con = 9;
+				    _door.alarm[4] = 30;
+				}
 	        }
 	    }
 	}
 
     // STATE 10: Transformation animation.
-    if (_con == 10)
-    {
-        _target.sprite_index = _config.transform;
-        _target.image_speed = 0.8;
+	if (_con == 10)
+	{
+	    _target.cutscene = true;
+	    _target.sprite_index = _config.transform;
+	    _target.image_speed = 0.8;
 
-        if (_target.image_index >= 8)
-            _door.con = 11;
-    }
+	    var _last_frame = sprite_get_number(_config.transform) - 1;
+
+	    if (_target.image_index >= _last_frame)
+	    {
+	        _target.image_index = _last_frame;
+	        _target.image_speed = 0;
+	        _door.con = 11;
+			_door.image_alpha = 0;
+	    }
+	}
 
     // STATE 11: Falling animation.
     if (_con == 11)
     {
         _target.sprite_index = _config.fall;
         _target.image_speed = 1.2;
-
-        alarm[4] = 110;
-        _door.con = 12;
+		
+		_door.alarm[4] = 110;
+		_door.con = 12;
     }
 
     // STATE 13: Final transformation animation.
-    if (_con == 13)
-    {
-        _target.sprite_index = _config.final;
-        _target.image_speed = 0.5;
+	if (_con == 13)
+	{
+	    _target.cutscene = true;
+	    _target.sprite_index = _config.final;
+	    _target.image_speed = 0.5;
 
-        if (_target.image_index > 1)
-            _door.con += 1;
-    }
+	    var _last_frame = sprite_get_number(_config.final) - 1;
 
-    // STATE 14: Fall.
-    if (_con == 14)
-    {
-        _target.sprite_index = _config.falling;
-        _target.image_speed = 0.9;
-        _target.vspeed = 10;
-    }
+	    if (_target.image_index >= _last_frame)
+	    {
+	        _target.image_index = _last_frame;
+	        _target.image_speed = 0;
+	        _door.con = 14;
+	    }
+	}
+
+
+	// STATE 14: Fall toward the Dark World landing zone.
+	if (_con == 14)
+	{
+	    _target.cutscene = true;
+	    _target.sprite_index = _config.falling;
+	    _target.image_speed = 0.9;
+		
+
+	    // Stop each character when they reach the landing zone.
+	    if (_target.y >= 1217)
+	    {
+	        _target.y = 1217;
+	        _target.vspeed = 0;
+            //global.darkworld = true;
+	        // Only the main character advances the cutscene.
+	        if (_is_main)
+	        {
+	            _door.con = 15;
+	        }
+	    }
+	    else
+	    {
+	        _target.vspeed = 10;
+	    }
+	}
 
     // STATE 15: Move the protagonist to the landing area.
-    if (_con == 15 && _is_main)
-    {
-        _actor.x = 327;
-        _actor.y = 1217;
-        _target.y = 1100;
-    }
+	if (_con == 15)
+	{
+		global.darkworld = true;
+		if (_is_main)
+		{
+		room_goto(rm_dark_area_1)
+	    _actor.x = 256;
+	    _actor.y = 320;
+
+	    _target.x = 256;
+	    _target.y = 320;
+	    _target.vspeed = 0;
+
+	    _door.con = 16;
+		}
+		else
+		{
+		_actor.x = 256 + (30*global.members);
+	    _actor.y = 320;
+
+	    _target.x = 256 + (30*global.members);;
+	    _target.y = 320;
+	    _target.vspeed = 0;
+		}
+	}
 
     // STATE 16: Get back up.
-    if (_con == 16 && _is_main)
-    {
-        if (_target.y >= 1231)
-        {
-            _target.vspeed = 0;
-            _target.sprite_index = _config.getting_up;
-            _target.image_speed = 0.9;
+	if (_con == 16 )
+	{
+		if (_is_main)
+		{
+	    _target.vspeed = 0;
+	    _target.sprite_index = _config.getting_up;
+	    _target.image_speed = 0.9;
 
-            if (_target.image_index >= 1)
-            {
-                _target.image_speed = 0;
-                alarm[4] = 30;
-                _door.con = 17;
-            }
-        }
-    }
+	    if (_target.image_index >= sprite_get_number(_config.getting_up) - 1)
+	    {
+	        _target.image_index = sprite_get_number(_config.getting_up) - 1;
+	        _target.image_speed = 0;
 
-    // STATE 17: Restore the actual protagonist.
-    if (_con == 17 && _is_main)
-    {
-        _actor.x = _target.x;
-        _actor.y = _target.y;
+	        _door.con = 17;
+	    }
+		}
+		else
+		{
+		_target.vspeed = 0;
+	    _target.sprite_index = _config.getting_up;
+	    _target.image_speed = 0.9;
+		}
+	}
 
-        instance_destroy(_target);
-        _actor.dark_transform_target = noone;
-        _actor.image_alpha = 1;
-    }
+    // STATE 17: Is at the top to prevent duplications
 }

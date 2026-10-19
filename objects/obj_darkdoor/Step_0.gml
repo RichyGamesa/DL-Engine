@@ -22,6 +22,8 @@ if (place_meeting(x, y, obj_mainchara))
         con = 1;
         obj_mainchara.y += 20;
         obj_mainchara.image_alpha = 0;
+		if silence
+		audio_stop_all()
     }
 }
 
@@ -64,8 +66,8 @@ switch (con)
     break;
 
     case 14:
-        con = 15;
-        alarm[4] = 60;
+       // con = 15;
+        //alarm[4] = 60;
     break;
 
     case 18:

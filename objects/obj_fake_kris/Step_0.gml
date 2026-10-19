@@ -1,5 +1,5 @@
 //step event
-
+depth = -y;
 if global.darkworld == false
 {
  image_xscale = 1
@@ -16,3 +16,6 @@ if x = xprevious and y = yprevious and cutscene == false and global.battle == fa
  image_index = 0;
  image_speed = 0;
 }
+
+show_debug_message("x = " + string(x))
+show_debug_message("y = " + string(y))
