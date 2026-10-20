@@ -1,4 +1,4 @@
-// Step Event of Bullet Object
+// Step Event of Bullet Object vertical
 
 // Movement Variables
 speed = 4;

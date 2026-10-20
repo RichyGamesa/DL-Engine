@@ -6,6 +6,7 @@ function scr_iteminfo(argument0) //gml_Script_scr_iteminfo
     global.value = 0
 	hp = 0
     global.itemtarget = 0
+	amessage1temp = ""; //kris doesn't speak;
     itemnameb = " ";
     itemdescb = " ";
 	var text0 = " ";

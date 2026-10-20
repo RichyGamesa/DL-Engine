@@ -1,15 +1,11 @@
-// Create Event of obj_soul
-depth = -9999
+// Create Event of obj_bullet
+depth = -9999;
+
 soul_flash_timer = 0;
-soul_flash_duration = 10; // Adjust the duration of each flash as needed
-soul_visible = true; // Variable to track visibility
+soul_flash_duration = 10;
+soul_visible = true;
+
 damage = 12;
 
-
-Kris = global.hp_K;
-Susie = global.hp_S
-Ralsei = global.hp_R
-Toriel = global.hp_T
-
-if instance_exists(obj_battle)
-{instance_destroy()}
+bullet_direction = 0;
+speed = 4;

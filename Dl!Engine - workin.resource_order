@@ -1,5 +1,6 @@
 {
   "FolderOrderSettings":[
+    {"name":"party","order":5,"path":"folders/Scripts/party.yy",},
     {"name":"Armor","order":1,"path":"folders/Scripts/Menu_dark/Armor.yy",},
     {"name":"equiping","order":2,"path":"folders/Scripts/Menu_dark/equiping.yy",},
     {"name":"Item","order":3,"path":"folders/Scripts/Menu_dark/Item.yy",},
@@ -10,11 +11,17 @@
   ],
   "ResourceOrderSettings":[
     {"name":"obj_chapter_select","order":1,"path":"objects/obj_chapter_select/obj_chapter_select.yy",},
+    {"name":"obj_damage_popup","order":1,"path":"objects/obj_damage_popup/obj_damage_popup.yy",},
     {"name":"obj_fake_suzy","order":1,"path":"objects/obj_fake_suzy/obj_fake_suzy.yy",},
     {"name":"follower_exists","order":3,"path":"scripts/follower_exists/follower_exists.yy",},
+    {"name":"follower_remove","order":4,"path":"scripts/follower_remove/follower_remove.yy",},
+    {"name":"scr_battle_transition_actor","order":1,"path":"scripts/scr_battle_transition_actor/scr_battle_transition_actor.yy",},
+    {"name":"scr_battle_transition_get_target","order":3,"path":"scripts/scr_battle_transition_get_target/scr_battle_transition_get_target.yy",},
+    {"name":"scr_battle_transition_setup","order":2,"path":"scripts/scr_battle_transition_setup/scr_battle_transition_setup.yy",},
     {"name":"scr_dark_transform_position","order":7,"path":"scripts/scr_dark_transform_position/scr_dark_transform_position.yy",},
     {"name":"scr_follower_sprites","order":2,"path":"scripts/scr_follower_sprites/scr_follower_sprites.yy",},
     {"name":"scr_get_member_data","order":4,"path":"scripts/scr_get_member_data/scr_get_member_data.yy",},
+    {"name":"scr_memb","order":1,"path":"scripts/scr_memb/scr_memb.yy",},
     {"name":"scr_trasform_dark","order":6,"path":"scripts/scr_trasform_dark/scr_trasform_dark.yy",},
     {"name":"snd_play_no_repeat","order":1,"path":"scripts/snd_play_no_repeat/snd_play_no_repeat.yy",},
     {"name":"spr_chapter_selection","order":1,"path":"sprites/spr_chapter_selection/spr_chapter_selection.yy",},

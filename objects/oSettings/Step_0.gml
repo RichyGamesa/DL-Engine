@@ -2,15 +2,18 @@
 
 ini_open("configurations.ini")
 
-if keyboard_check_pressed(vk_f4)
+// Fullscreen toggle
+
+if (keyboard_check_pressed(vk_f4))
 {
     global.fullscreen = !global.fullscreen;
-    
-	ini_write_real("SCREEN","Fullscreen",global.fullscreen)
-	keyboard_clear(vk_f4)
 
+    ini_open("configurations.ini");
+    ini_write_real("SCREEN", "Fullscreen", global.fullscreen);
+    ini_close();
+
+    window_set_fullscreen(global.fullscreen);
 }
-window_set_fullscreen(global.fullscreen);
 
 
 
@@ -78,32 +81,34 @@ scr_sound_play(snd_select_debug)
  audio_sound_pitch(snd_select_debug,0.8)
 }
 
-//Open the menus
-if object_exists(obj_mainchara) = true
-{
-	if global.dialogue == false
-	{
-	if obj_mainchara.can_move = true and room != rm_shop and room != rm_shop_nomal
-	  {
-	if keyboard_check_pressed(global.menu) or keyboard_check_pressed(vk_control)
-	    {
-		if global.darkworld == false 
-		{
-		if !instance_exists(obj_Light_menu) 
-		{instance_create_depth(0,0,-9995,obj_Light_menu)}
-		}
-		else
-		{
-	    if !instance_exists(obj_menu_dark) and !global.bulletzone 
-		{
-			instance_create_depth(0,0,-9995,obj_menu_dark)
-		}
-		}
-	    }
-	  }
-	}
-}
+// Open the menus
 
+if (instance_exists(obj_mainchara))
+{
+    if (!global.dialogue && obj_mainchara.can_move
+    && room != rm_shop
+    && room != rm_shop_nomal)
+    {
+        if (keyboard_check_pressed(global.menu)
+        || keyboard_check_pressed(vk_control))
+        {
+            if (!global.darkworld)
+            {
+                if (!instance_exists(obj_Light_menu))
+                {
+                    instance_create_depth(0, 0, -9995, obj_Light_menu);
+                }
+            }
+            else
+            {
+                if (!instance_exists(obj_menu_dark) && !global.bulletzone)
+                {
+                    instance_create_depth(0, 0, -9995, obj_menu_dark);
+                }
+            }
+        }
+    }
+}
 
 // Initialize member data once.
 if (!done)
@@ -126,8 +131,14 @@ for (var i = 0; i < array_length(global.party_order); i++)
     }
 }
 
-global.num_active_members = global.member[0] + global.member[1] + global.member[2] + global.member[3] 
-if global.num_active_members > 3 {global.num_active_members = 3}
+
+// Active party count — party_order is the source of truth.
+global.num_active_members = array_length(global.party_order);
+
+if (global.num_active_members > 3)
+{
+    global.num_active_members = 3;
+}
 
 
 //show_debug_message("Num active member = " + string(global.num_active_members))

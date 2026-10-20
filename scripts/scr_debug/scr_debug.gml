@@ -35,7 +35,7 @@ if (keyboard_check_pressed(ord("P")))
         // Add Susie to the party only if she isn't already there.
         if (scr_array_find_index(global.party_order, "Susie") == -1)
         {
-            global.member[1] = true;
+            //global.member[1] = true;
             array_push(global.party_order, "Susie");
             array_push(global.real_party, obj_suzy);
         }
@@ -50,6 +50,7 @@ if (keyboard_check_pressed(ord("P")))
                 global.num_active_members++;
         }
 
+        /*
         show_debug_message("Follower created: " + string(_follower));
         show_debug_message("Party members: " + string(global.num_active_members));
 		
@@ -61,6 +62,7 @@ if (keyboard_check_pressed(ord("P")))
 		show_debug_message("Image alpha: " + string(_follower.image_alpha));
 		show_debug_message("Depth: " + string(_follower.depth));
 		show_debug_message("Susie down sprite: " + string(_follower.down_light));
+		*/
     }
     else
     {

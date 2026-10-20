@@ -1,5 +1,7 @@
-draw_self()
+//draw_event obj_bullet
 
+draw_self()
+/*
 Kris = global.hp_K;
 Susie = global.hp_S
 Ralsei = global.hp_R

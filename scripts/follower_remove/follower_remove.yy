@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"follower_remove",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"follower_remove",
+  "parent":{
+    "name":"party",
+    "path":"folders/Scripts/party.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

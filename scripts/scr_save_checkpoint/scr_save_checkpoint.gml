@@ -1,30 +1,53 @@
-function scr_save_checkpoint(){
-if file_exists("checkpoint")
+function scr_save_checkpoint()
 {
-file_delete("checkpoint")	
-}
-  var checkpoint_x = obj_mainchara.x
-var checkpoint_y = obj_mainchara.y
-var checkpoint_room = room
+    // Remove the previous checkpoint.
+    if (file_exists("checkpoint"))
+    {
+        file_delete("checkpoint");
+    }
 
-ini_open("checkpoint")
-	ini_write_real("Checkpoint","x",checkpoint_x)
-	ini_write_real("Checkpoint","y",checkpoint_y)
-	ini_write_real("Checkpoint","room",checkpoint_room)
-	ini_write_string("Checkpoint","move",obj_mainchara.can_move)
-	ini_write_string("Checkpoint","hp_k",global.hp_K)
-	ini_write_string("Checkpoint","Max.hp_k",global.maxhp_K)
-	ini_write_string("Checkpoint","hp_s",global.hp_S)
-	ini_write_string("Checkpoint","Max.hp_s",global.maxhp_S)
-	ini_write_string("Checkpoint","hp_r",global.hp_R)
-	ini_write_string("Checkpoint","Max.hp_r",global.maxhp_R)
-	ini_write_string("Checkpoint","hp_t",global.hp_T)
-	ini_write_string("Checkpoint","Max.hp_t",global.maxhp_T)
-	ini_write_string("Checkpoint","Followers",global.num_active_members)
-	if instance_exists(obj_follower_suzy) 
-	{ini_write_real("Checkpoint","follow_suzy",true)}
-	if instance_exists(obj_follower_ralsei) 
-	{ini_write_real("Checkpoint","follow_ralsy",true)}
-	if instance_exists(obj_follower_Toriel_dark) 
-	{ini_write_real("Checkpoint","follow_toriel",true)}
+    var _checkpoint_x = obj_mainchara.x;
+    var _checkpoint_y = obj_mainchara.y;
+    var _checkpoint_room = room;
+
+    ini_open("checkpoint");
+
+    // Player position and room.
+    ini_write_real("Checkpoint", "x", _checkpoint_x);
+    ini_write_real("Checkpoint", "y", _checkpoint_y);
+    ini_write_real("Checkpoint", "room", _checkpoint_room);
+    ini_write_real("Checkpoint", "move", obj_mainchara.can_move);
+
+    // Active party.
+    var _party_count = array_length(global.party_order);
+
+    ini_write_real("Checkpoint", "party_count", _party_count);
+
+    for (var i = 0; i < _party_count; i++)
+    {
+        var _character = global.party_order[i];
+        var _member = scr_get_member_data(_character);
+
+        // Save the party order by name.
+        ini_write_string("Party", "member_" + string(i), _character);
+
+        // Save this member's HP.
+        if (!is_undefined(_member))
+        {
+            ini_write_real(
+                "Party",
+                _character + "_hp",
+                variable_global_get(_member.hpVar)
+            );
+
+            ini_write_real(
+                "Party",
+                _character + "_maxhp",
+                variable_global_get(_member.maxHpVar)
+            );
+        }
+    }
+
+    // Close the checkpoint file.
+    ini_close();
 }

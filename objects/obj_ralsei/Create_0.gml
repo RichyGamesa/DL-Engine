@@ -1,4 +1,4 @@
-//Create event
+//obj_ralsei Create event
 image_speed = 9;
 image_xscale = 2; 
 image_yscale = 2;

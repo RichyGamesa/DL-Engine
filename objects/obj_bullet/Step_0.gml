@@ -1,28 +1,76 @@
 // Step Event of Bullet Object
 
-// Movement Variables
-speed = 4;
-direction = 0; // Adjust this angle for different movement patterns
+// Movement
+motion_set(bullet_direction, speed);
 
-// Move the bullet
-motion_set(direction, speed);
-
-// Check if bullet is out of bounds
-if (x < -sprite_width / 2 || x > room_width + sprite_width / 2 || y < -sprite_height / 2 || y > room_height + sprite_height / 2) {
-    instance_destroy(); // Destroy the bullet if it's out of bounds
+// Destroy if outside the room
+if (x < -sprite_width / 2
+|| x > room_width + sprite_width / 2
+|| y < -sprite_height / 2
+|| y > room_height + sprite_height / 2)
+{
+    instance_destroy();
+    exit;
 }
 
-if place_meeting(x, y, obj_soul) {
-    // Set a variable in the soul object to indicate it was hit
-    obj_soul.hit_by_bullet = true;
-    
+// Check collision with the SOUL.
+var _soul = instance_place(x, y, obj_soul);
+
+if (_soul != noone)
+{
+    _soul.hit_by_bullet = true;
+
     audio_play_sound(snd_hurt, 2, false);
-    
-        damage_bullet(40)
- 
- draw_set_font(fnt_dt_mono);
- alarm[0] = 0;
-    
-    // Destroy the bullet object
+
+    var _hit = damage_bullet(damage);
+
+    if (is_struct(_hit))
+    {
+        var _popup_x = _soul.x;
+        var _popup_y = _soul.y - 12;
+
+        // Position the popup above the character who was hit.
+        if (_hit.member == "Kris" && instance_exists(obj_mainchara))
+        {
+            _popup_x = obj_mainchara.x;
+            _popup_y = obj_mainchara.y - 20;
+        }
+        else
+        {
+            var _count = instance_number(obj_follower);
+
+            for (var i = 0; i < _count; i++)
+            {
+                var _follower = instance_find(obj_follower, i);
+
+                if (instance_exists(_follower)
+                && variable_instance_exists(_follower, "character")
+                && _follower.character == _hit.member)
+                {
+                    _popup_x = _follower.x;
+                    _popup_y = _follower.y - 20;
+                    break;
+                }
+            }
+        }
+
+        var _popup = instance_create_depth(
+            _popup_x,
+            _popup_y,
+            -10000,
+            obj_damage_popup
+        );
+
+        _popup.value = _hit.amount;
+
+		var _member = scr_get_member_data(_hit.member);
+
+		if (!is_undefined(_member))
+		{
+		    _popup.popup_color = _member.hpBarColor;
+		}
+    }
+
     instance_destroy();
+    exit;
 }

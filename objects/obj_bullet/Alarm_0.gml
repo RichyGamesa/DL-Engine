@@ -1,3 +1,5 @@
+//alarm[0] obj_bullet
+/*
 if global.hp_K != Kris {draw_text(obj_mainchara.x,obj_mainchara.y,damage)}
 if global.hp_S != Susie {draw_text(obj_follower_suzy.x,obj_follower_suzy.y,damage)}
 if global.hp_R != Ralsei {draw_text(obj_follower_ralsei.x,obj_follower_ralsei.y,damage)}

@@ -35,7 +35,7 @@ if (hit_by_bullet)
     image_alpha = soul_visible ? 1 : 0; // Set alpha based on visibility
 }
 
-if global.battle
+if (global.battle)
 {
 	if instance_exists(obj_battle_box)
 	{

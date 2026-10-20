@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"follower_exists",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"party",
+    "path":"folders/Scripts/party.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

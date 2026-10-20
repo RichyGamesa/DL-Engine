@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_memb",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"party",
+    "path":"folders/Scripts/party.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

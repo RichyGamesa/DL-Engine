@@ -1,4 +1,4 @@
-
+//obj_kris_target create event
 x = 0;
 y = 0;
 

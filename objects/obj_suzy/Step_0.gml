@@ -63,61 +63,60 @@ if (room == rm_kris_corridor) {
     scr_goto(x, y, obj_mainchara.x, obj_mainchara.y);
 }
 
-if (room == rm_sliding) {
-	image_index = 0;
-    if (place_meeting(x, y, obj_mainchara) && (keyboard_check_pressed(global.confirm) || keyboard_check_pressed(vk_enter))) {
-        if (!talked && !alar && obj_mainchara.can_move) and !global.member[1] {
-			position = global.num_active_members;
-            global.num_active_members++;
+
+
+if (room == rm_sliding) //and global.fake
+{
+    if (place_meeting(x, y, obj_mainchara)
+    && (keyboard_check_pressed(global.confirm) || keyboard_check_pressed(vk_enter))
+    && !alar
+    && obj_mainchara.can_move)
+    {
+        var _index = scr_array_find_index(global.party_order, "Susie");
+
+        if (_index == -1)
+        {
+            // JOIN PARTY
+            array_push(global.party_order, "Susie");
+            global.num_active_members = array_length(global.party_order);
+
             talked = true;
             alar = true;
             alarm[0] = 3;
 
-            instance_create_depth(0, 0, -999, oTextbox_dark);
-            oTextbox_dark.text[0] = "Susie joined the party";
-            if (!follower_exists("Susie"))
-		    {
-		        var _follower = instance_create_depth(
-		            obj_mainchara.x,
-		            obj_mainchara.y,
-		            2,
-		            obj_follower,
-		            {
-		                character: "Susie"
-		            }
-		        );
-        
-		        global.member[global.num_active_members] = true;
-		        array_insert(global.party_order, position, "Susie");
-		        array_insert(global.real_party, position, obj_suzy);
-				show_debug_message("got");
-				show_debug_message(global.num_active_members);
-		    }
+            var _textbox = instance_create_depth(0, 0, -999, oTextbox_dark);
+            _textbox.text[0] = "Susie joined the party";
 
-			
-        } else if (talked && !alar && obj_mainchara.can_move) {
-            var index = scr_array_find_index(global.party_order, name);
-            if (index != -1) {
-                array_delete(global.party_order, index, 1);
+            if (!follower_exists("Susie"))
+            {
+                instance_create_depth(
+                    obj_mainchara.x,
+                    obj_mainchara.y,
+                    2,
+                    obj_follower,
+                    { character: "Susie" }
+                );
             }
-            global.member[1] = false;
-            global.num_active_members--;
-            show_debug_message(global.num_active_members);
+        }
+        else
+        {
+            // LEAVE PARTY
+            array_delete(global.party_order, _index, 1);
+            global.num_active_members = array_length(global.party_order);
+
             talked = false;
             alar = true;
             alarm[0] = 3;
 
-            instance_create_depth(0, 0, -999, oTextbox_dark);
-            oTextbox_dark.text[0] = "Susie left the party";
-            var follower = instance_find(obj_follower_suzy, 0);
-            if (follower != noone) {
-                with (follower) {
-                    instance_destroy();
-                }
-            }
+            var _textbox = instance_create_depth(0, 0, -999, oTextbox_dark);
+            _textbox.text[0] = "Susie left the party";
+
+            follower_remove("Susie")
+
         }
     }
 }
+
 
 
 // Update previous position variables
@@ -143,5 +142,5 @@ keyboard_clear(ord("H"))
 }
 */
 
-global.hp_S = hp
-global.max_hp_S = maxHp
+//global.hp_S = hp
+//global.max_hp_S = maxHp

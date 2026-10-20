@@ -1,4 +1,4 @@
-
+//obj_kris_target step event
 if (!instance_exists(obj_mainchara))
 {
     exit;

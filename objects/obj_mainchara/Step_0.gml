@@ -253,6 +253,14 @@ if (image_index == sprite_slide
     x = obj_slide.x;
 }
 
+if (sliding)
+{
+    // Stop sliding after leaving the slide object.
+    if (!place_meeting(x, y, obj_slide))
+    {
+        sliding = false;
+    }
+}
 
 
 // --------------------------------------------------

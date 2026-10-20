@@ -11,6 +11,7 @@ function scr_memb()
             faceSprite: spr_krisb_face,
             hpBarColor: c_aqua,
             reaction: "",
+			reactionVar: "amessage1temp",
 			equippingFlagVar: ""
         },
         {
@@ -22,6 +23,7 @@ function scr_memb()
             faceSprite: spr_susieb_face,
             hpBarColor: c_fuchsia,
             reaction: "",
+			reactionVar: "amessage2temp",
 			equippingFlagVar: ""
         },
         {
@@ -33,6 +35,7 @@ function scr_memb()
             faceSprite: spr_ralseib_face,
             hpBarColor: c_lime,
             reaction: "",
+			reactionVar: "amessage3temp",
 			equippingFlagVar: ""
         },
         {
@@ -44,7 +47,7 @@ function scr_memb()
             faceSprite: spr_torielb_face_shop,
             hpBarColor: c_orange,
             reaction: "",
-			reactionVar: "",
+			reactionVar: "amessage5temp",
 			equippingFlagVar: ""
         }
     ];

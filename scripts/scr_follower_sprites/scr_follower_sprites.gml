@@ -27,9 +27,33 @@ function scr_follower_setup(_follower, _character)
             _follower.sprite_up_dark = spr_suzyU_dark;
             _follower.sprite_left_dark = spr_suzyL_dark;
         break;
-      }
+		
+      
+        case "Ralsei":
+	    _follower.down_light = spr_ralseiD;
+	    _follower.right_light = spr_ralseiR;
+	    _follower.up_light = spr_ralseiU;
+	    _follower.left_light = spr_ralseiL;
 
+	    _follower.down_dark = spr_ralseiD;
+	    _follower.right_dark = spr_ralseiR;
+	    _follower.up_dark = spr_ralseiU;
+	    _follower.left_dark = spr_ralseiL;
 
-        // Add Ralsei and other characters here.
- 
+	    _follower.slide_sprite_light = spr_ralsei_slide;
+	    _follower.slide_sprite_dark = spr_ralsei_slide;
+
+	    _follower.sprite_down = spr_ralseiD;
+	    _follower.sprite_right = spr_ralseiR;
+	    _follower.sprite_up = spr_ralseiU;
+	    _follower.sprite_left = spr_ralseiL;
+
+	    _follower.sprite_down_dark = spr_ralseiD;
+	    _follower.sprite_right_dark = spr_ralseiR;
+	    _follower.sprite_up_dark = spr_ralseiU;
+	    _follower.sprite_left_dark = spr_ralseiL;
+	break;
+
+        // Add Noelle and other characters here.
+ }
 }

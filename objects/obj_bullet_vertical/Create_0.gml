@@ -1,4 +1,4 @@
-// Create Event of obj_soul
+// Create Event of obj_bullet vertical
 depth = -9999
 soul_flash_timer = 0;
 soul_flash_duration = 10; // Adjust the duration of each flash as needed

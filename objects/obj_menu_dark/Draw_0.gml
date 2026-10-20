@@ -38,7 +38,7 @@ if (instance_exists(obj_menu_dark))
         bar_x_K = t_x + 120;
     }
 
-    if (global.member[0])
+    if (scr_is_member_active("Kris"))
 	{
         draw_set_color(c_aqua); // Set the color of the filled part of the HP bar
         draw_rectangle(bar_x_K, bar_y_K + 150, bar_x_K + bar_width_K, bar_y_K + 160, false); // Draw the filled part of the HP bar
@@ -95,6 +95,11 @@ if (instance_exists(obj_menu_dark))
         // Read live HP values from the global variables.
         var _hp = variable_global_get(_member.hpVar);
         var _max_hp = variable_global_get(_member.maxHpVar);
+		
+		show_debug_message(
+    _member.name + " HP displayed: "
+    + string(_hp) + "/" + string(_max_hp)
+);
 
         // Avoid division by zero and keep the bar within its limits.
         var _hp_ratio = 0;
@@ -373,7 +378,7 @@ if (power_menu_active)
 
     var atk, df, mag; // Variables to hold stats
 
-    if (global.member[0] == true) 
+    if (scr_is_member_active("Kris")) 
     {
         if (global.num_active_members == 1) 
         {
@@ -673,7 +678,7 @@ if (equip_menu_active)
 
     var atk, df, mag, new_atk, new_df, new_mag; // Variables to hold stats
 
-    if (global.member[0] == true) 
+    if (scr_is_member_active("Kris")) 
     {
         if (global.num_active_members == 1) 
         {

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_is_member_active",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_is_member_active",
+  "parent":{
+    "name":"party",
+    "path":"folders/Scripts/party.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

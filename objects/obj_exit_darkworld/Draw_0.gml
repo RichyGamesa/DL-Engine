@@ -18,7 +18,7 @@ if (bottom == 1)
         kris_y += fake_v
         sus_y += fake_v
         siner += (1 + (siner / 60))
-        if (global.member[1])
+        if (scr_is_member_active("Susie"))
             draw_sprite_ext(spr_susie_dw_fall_d, (siner / 6), sus_x, sus_y, 2, 2, 0, c_white, 1)
         draw_sprite_ext(spr_kris_d_fall, (siner / 6), kris_x, kris_y, 2, 2, 0, c_white, 1)
     }
