@@ -1,6 +1,7 @@
+
 function scr_battle_transition_setup()
 {
-    var _party_count = array_length(global.party_order);
+    var _party_count = min(array_length(global.party_order), 3);
 
     for (var i = 0; i < _party_count; i++)
     {
@@ -8,15 +9,20 @@ function scr_battle_transition_setup()
         var _actor_object = scr_battle_transition_actor(_member_name);
 
         if (_actor_object == noone)
+        {
+            show_debug_message(
+                "BATTLE SETUP: No actor object mapped for " + _member_name
+            );
             continue;
+        }
 
-        // Find the corresponding overworld follower.
+        // Find this member's overworld character.
         var _follower = noone;
 
         if (i == 0 && _member_name == "Kris"
         && instance_exists(obj_mainchara))
         {
-            _follower = obj_mainchara;
+            _follower = instance_find(obj_mainchara, 0);
         }
         else
         {
@@ -34,39 +40,57 @@ function scr_battle_transition_setup()
             }
         }
 
-        // If the actor already exists, don't create a duplicate.
-        if (instance_exists(_actor_object))
+        // Reuse an existing actor if one exists.
+        var _actor = noone;
+
+        if (instance_number(_actor_object) > 0)
         {
-            var _existing_actor = instance_find(_actor_object, 0);
+            _actor = instance_find(_actor_object, 0);
+        }
 
-            if (instance_exists(_existing_actor))
+        // Create the actor only if it doesn't already exist.
+        if (!instance_exists(_actor))
+        {
+            if (!instance_exists(_follower))
             {
-                if (instance_exists(_follower))
-                    _follower.image_alpha = 0;
-
-                _existing_actor.image_alpha = 1;
+                show_debug_message(
+                    "BATTLE SETUP: No actor or overworld follower for "
+                    + _member_name
+                );
+                continue;
             }
 
+            _actor = instance_create_depth(
+                _follower.x,
+                _follower.y,
+                _follower.depth,
+                _actor_object
+            );
+        }
+
+        if (!instance_exists(_actor))
+        {
+            show_debug_message(
+                "BATTLE SETUP: Failed to create actor for " + _member_name
+            );
             continue;
         }
 
-        // We need a starting position to create the actor.
-        if (!instance_exists(_follower))
-            continue;
-
-        var _actor = instance_create_depth(
-            _follower.x,
-            _follower.y,
-            _follower.depth,
-            _actor_object
-        );
-
-        _follower.image_alpha = 0;
         _actor.image_alpha = 1;
 
+        if (instance_exists(_follower))
+        {
+            _follower.image_alpha = 0;
+        }
+
+        // Preserve your existing starting sprites.
         if (_member_name == "Kris")
+        {
             _actor.sprite_index = spr_battle_k_start;
+        }
         else if (_member_name == "Susie")
+        {
             _actor.sprite_index = spr_battle_s_start;
+        }
     }
 }

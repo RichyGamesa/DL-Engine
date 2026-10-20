@@ -38,97 +38,98 @@ draw_set_color(c_blue);
 draw_rectangle(x + 10, y + 10, x + 10 + (200 * tpPercent), y + 30, false);  // Actual TP bar
 
 //Draw bars
-draw_set_font(Deltarune)
-draw_set_color(c_white)
-draw_sprite(bar_1,0,bar_1_x,y+293)
-draw_sprite(bar_1_face,0,bar_1_x + 13, y+300)
-draw_text(bar_1_x + 133,y + 300,string(bar_1_hp) + "     " + string(bar_1_max_hp))
 
+/// Draw party HUD bars
 
-    // Draw health bar for the protagonist (Kris)
-    var hp_percentage_1 = bar_1_hp / bar_1_max_hp;
-    var bar_width_1 = hp_percentage_1 * 100; // Assuming the HP bar is 100 pixels wide
+draw_set_font(Deltarune);
+draw_set_color(c_white);
 
- draw_set_color(bar_1_color); // Set the color of the filled part of the HP bar
- draw_rectangle(bar_1_x + 127, y + 313,bar_1_x + 105 + bar_width_1, y + 322, false); // Draw the filled part of the HP bar
- if turn == 0
- {
-	 switch (selected_button) 
-	 {
-     case 0:
-         draw_sprite(spr_button_fight,0,bar_1_x+15,y+331.5)
-         break;
-     case 1:
-	     if member_0_name == "Kris"
-         draw_sprite(spr_button_act,0,bar_1_x+50,y+331.5)
-		 else
-		 draw_sprite(spr_button_magic,0,bar_1_x+50,y+331.5)
-         break;
-	case 2:
-         draw_sprite(spr_button_item,0,bar_1_x+85,y+331.5)
-		 break;
-case 3:
-         draw_sprite(spr_button_spare,0,bar_1_x+120,y+331.5)
-		 break;
-case 4:
-         draw_sprite(spr_button_defend,0,bar_1_x+155,y+331.5)
-		 break;
+// Keep these values available for the fight and item-selection UI below.
+var bar_width_1 = 0;
+var bar_width_2 = 0;
 
-     }
-   
+var _draw_member_count = min(global.num_active_members, 2);
 
- }
-
-if global.num_active_members == 2
+for (var i = 0; i < _draw_member_count; i++)
 {
-	draw_set_color(c_white)
-	draw_sprite(bar_2,0,bar_2_x,y+293)
-	draw_sprite(bar_2_face,0,bar_2_x + 13, y+300)
-    draw_text(bar_2_x + 133,y + 300,string(bar_2_hp) + "     " + string(bar_2_max_hp))
-	
-	  // Draw health bar for the protagonist (Kris)
-    var hp_percentage_2 = bar_2_hp / bar_2_max_hp;
-    var bar_width_2 = hp_percentage_2 * 100; // Assuming the HP bar is 100 pixels wide
+    var _bar_number = string(i + 1);
+    var _member_index = string(i);
 
- draw_set_color(bar_2_color); // Set the color of the filled part of the HP bar
- draw_rectangle(bar_2_x + 127, y + 313,bar_2_x + 105 + bar_width_2, y + 322, false); // Draw the filled part of the HP bar
- 
- if turn == 1
- {
-	 switch (selected_button) 
-	 {
-     case 0:
-         draw_sprite(spr_button_fight,0,bar_2_x+15,y+331.5)
-         break;
-     case 1:
-	     if member_1_name == "Kris"
-         draw_sprite(spr_button_act,0,bar_2_x+50,y+331.5)
-		 else
-		 draw_sprite(spr_button_magic,0,bar_2_x+50,y+331.5)
-         break;
-	case 2:
-         draw_sprite(spr_button_item,0,bar_2_x+85,y+331.5)
-		 break;
-case 3:
-         draw_sprite(spr_button_spare,0,bar_2_x+120,y+331.5)
-		 break;
-case 4:
-         draw_sprite(spr_button_defend,0,bar_2_x+155,y+331.5)
-		 break;
+    // Get this member's HUD variables.
+    var _bar = variable_instance_get(id, "bar_" + _bar_number);
+    var _bar_x = variable_instance_get(id, "bar_" + _bar_number + "_x");
+    var _hp = variable_instance_get(id, "bar_" + _bar_number + "_hp");
+    var _max_hp = variable_instance_get(id, "bar_" + _bar_number + "_max_hp");
+    var _face = variable_instance_get(id, "bar_" + _bar_number + "_face");
+    var _color = variable_instance_get(id, "bar_" + _bar_number + "_color");
+    var _member_name = variable_instance_get(id, "member_" + _member_index + "_name");
 
-     }
-   
+    // Draw the member's bar, face, and HP text.
+    draw_sprite(_bar, 0, _bar_x, y + 293);
+    draw_sprite(_face, 0, _bar_x + 13, y + 300);
 
- }
- 
+    draw_set_color(c_white);
+    draw_text(
+        _bar_x + 133,
+        y + 300,
+        string(_hp) + "     " + string(_max_hp)
+    );
+
+    // Calculate and draw the HP bar.
+    var _hp_percentage = 0;
+
+    if (_max_hp > 0)
+        _hp_percentage = clamp(_hp / _max_hp, 0, 1);
+
+    var _bar_width = _hp_percentage * 100;
+
+    if (i == 0)
+        bar_width_1 = _bar_width;
+    else
+        bar_width_2 = _bar_width;
+
+    draw_set_color(_color);
+    draw_rectangle(
+        _bar_x + 127,
+        y + 313,
+        _bar_x + 105 + _bar_width,
+        y + 322,
+        false
+    );
+
+    // Draw the command buttons for the currently active member.
+    if (turn == i)
+    {
+        switch (selected_button)
+        {
+            case 0:
+                draw_sprite(spr_button_fight, 0, _bar_x + 15, y + 331.5);
+                break;
+
+            case 1:
+                if (_member_name == "Kris")
+                    draw_sprite(spr_button_act, 0, _bar_x + 50, y + 331.5);
+                else
+                    draw_sprite(spr_button_magic, 0, _bar_x + 50, y + 331.5);
+                break;
+
+            case 2:
+                draw_sprite(spr_button_item, 0, _bar_x + 85, y + 331.5);
+                break;
+
+            case 3:
+                draw_sprite(spr_button_spare, 0, _bar_x + 120, y + 331.5);
+                break;
+
+            case 4:
+                draw_sprite(spr_button_defend, 0, _bar_x + 155, y + 331.5);
+                break;
+        }
+    }
 }
-draw_set_color(c_white)
 
-if global.num_active_members == 3
-{ 
-draw_sprite(bar_2,0,bar_2_x,y+293)
-draw_sprite(bar_3,0,bar_3_x,y+293)
-}
+draw_set_color(c_white);
+
 
 if fighting
 {

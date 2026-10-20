@@ -15,6 +15,7 @@
     {"name":"obj_fake_suzy","order":1,"path":"objects/obj_fake_suzy/obj_fake_suzy.yy",},
     {"name":"follower_exists","order":3,"path":"scripts/follower_exists/follower_exists.yy",},
     {"name":"follower_remove","order":4,"path":"scripts/follower_remove/follower_remove.yy",},
+    {"name":"scr_battle_get_actor","order":4,"path":"scripts/scr_battle_get_actor/scr_battle_get_actor.yy",},
     {"name":"scr_battle_transition_actor","order":1,"path":"scripts/scr_battle_transition_actor/scr_battle_transition_actor.yy",},
     {"name":"scr_battle_transition_get_target","order":3,"path":"scripts/scr_battle_transition_get_target/scr_battle_transition_get_target.yy",},
     {"name":"scr_battle_transition_setup","order":2,"path":"scripts/scr_battle_transition_setup/scr_battle_transition_setup.yy",},

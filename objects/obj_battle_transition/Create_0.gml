@@ -46,6 +46,7 @@ if (!audio_is_playing(snd_weaponpull))
     audio_play_sound(snd_weaponpull, 1, false);
 }
 
-
-
 scr_battle_transition_setup();
+
+member_0 = scr_battle_get_actor(global.party_order[0]);
+soul_spawn_source = member_0

@@ -1,72 +1,58 @@
-function scr_info_battle_members(argument0,argument1,argument2)
+
+function scr_info_battle_members(argument0, argument1, argument2)
 {
+    var _member_count = min(array_length(global.party_order), 2);
 
-if argument0 != 0
-{
-if argument0 == "Kris"
-{
-member_0 = obj_fake_kris;
-bar_1 = spr_battle_bar_Kris;
-bar_1_hp = global.hp_K
-bar_1_max_hp = global.maxhp_K;
-bar_1_face = spr_krisb_face;
-bar_1_face_hurt = spr_krisb_face;
-bar_1_color = c_aqua;
-atk_1 = global.real_atk_K;
-def_1 = global.real_df_K;
-mag_1 = global.real_mag_K;
-}
-if argument0 == "Susie"
-{
-member_0 = obj_suzy
-bar_1 = spr_battle_bar_Susie;
-bar_1_hp = global.hp_S;
-bar_1_max_hp = global.maxhp_S;
-bar_1_face = spr_susieb_face;
-bar_1_face_hurt = spr_susieb_face_hurt;
-bar_1_color = c_fuchsia;
-atk_1 = global.real_atk_S;
-def_1 = global.real_df_S;
-mag_1 = global.real_mag_S;
-}
+    for (var i = 0; i < _member_count; i++)
+    {
+        var _member_name = global.party_order[i];
+        var _data = scr_get_member_data(_member_name);
 
-}
+        if (is_undefined(_data))
+            continue;
 
-if argument1 != 0
-{
-if argument1 == "Kris"
-{
-member_1 = obj_fake_kris
-bar_2 = spr_battle_bar_Kris;
-bar_2_hp = global.hp_K
-bar_2_max_hp = global.maxhp_K;
-bar_2_face = spr_krisb_face;
-bar_2_face_hurt = spr_krisb_face;
-bar_2_color = c_aqua;
-atk_2 = global.real_atk_K;
-def_2 = global.real_df_K;
-mag_2 = global.real_mag_K;
-}
-if argument1 == "Susie"
-{
-member_1 = obj_suzy;
-bar_2 = spr_battle_bar_Susie;
-bar_2_hp = global.hp_S;
-bar_2_max_hp = global.maxhp_S;
-bar_2_face = spr_susieb_face;
-bar_2_face_hurt = spr_susieb_face_hurt;
-bar_2_color = c_fuchsia;
-atk_2 = global.real_atk_S;
-def_2 = global.real_df_S;
-mag_2 = global.real_mag_S;
-}
+        var _actor = scr_battle_get_actor(_member_name);
 
-}
+        // Assign the actor.
+        switch (i)
+        {
+            case 0: member_0 = _actor; break;
+            case 1: member_1 = _actor; break;
+        }
 
+        // Read HP and maximum HP.
+        var _hp = variable_global_get(_data.hpVar);
+        var _max_hp = variable_global_get(_data.maxHpVar);
 
+        // Build the variable names for this member's HUD bar.
+        var _bar_prefix = "bar_" + string(i + 1);
 
+        // Select the correct bar and hurt-face sprite.
+        var _bar_sprite;
+        var _hurt_face;
 
+        switch (_member_name)
+        {
+            case "Kris":
+                _bar_sprite = spr_battle_bar_Kris;
+                _hurt_face = _data.faceSprite;
+                break;
 
+            case "Susie":
+                _bar_sprite = spr_battle_bar_Susie;
+                _hurt_face = spr_susieb_face_hurt;
+                break;
 
+            default:
+                continue;
+        }
 
+        // Configure the HUD bar.
+        variable_instance_set(id, _bar_prefix, _bar_sprite);
+        variable_instance_set(id, _bar_prefix + "_hp", _hp);
+        variable_instance_set(id, _bar_prefix + "_max_hp", _max_hp);
+        variable_instance_set(id, _bar_prefix + "_face", _data.faceSprite);
+        variable_instance_set(id, _bar_prefix + "_face_hurt", _hurt_face);
+        variable_instance_set(id, _bar_prefix + "_color", _data.hpBarColor);
+    }
 }

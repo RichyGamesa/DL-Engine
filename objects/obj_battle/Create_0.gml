@@ -18,24 +18,28 @@ if !audio_is_playing(music)
 
 active = true;
 
-bar_1_x = 0
+bar_1_x = 0;
 bar_2_x = 0;
 bar_3_x = 0;
 
+max_turns = global.num_active_members;
 
-enemy_turn = 0;
-turn = 0;
-max_turns = 0;
-if global.num_active_members == 1
+switch (global.num_active_members)
 {
-bar_1_x = x+260
-max_turns = 1;
-}
-if global.num_active_members == 2
-{
-bar_1_x = x+50;
-bar_2_x = x+475;
-max_turns = 2;
+    case 1:
+        bar_1_x = x + 260;
+        break;
+
+    case 2:
+        bar_1_x = x + 50;
+        bar_2_x = x + 475;
+        break;
+
+    case 3:
+        bar_1_x = x + 10;
+        bar_2_x = x + 260;
+        bar_3_x = x + 510;
+        break;
 }
 
 // Data structure for each member
@@ -78,6 +82,7 @@ global.memberData = [
 */
 
 selected_button = 0;
+turn = 0;
 last_selected_button_1 = 0;
 last_selected_button_2 = 0;
 last_selected_button_3 = 0;
@@ -106,9 +111,18 @@ mag_2 = global.real_mag_S;
 bar_3 = spr_ralseiD;
 
 
-member_0 = obj_fake_kris;
-member_1 = obj_fake_kris;
-member_2 = obj_fake_kris;
+member_0 = scr_battle_get_actor(global.party_order[0]);
+member_1 = noone;
+member_2 = noone;
+
+soul_spawn_source = member_0;
+
+if (array_length(global.party_order) > 1)
+    member_1 = scr_battle_get_actor(global.party_order[1]);
+
+if (array_length(global.party_order) > 2)
+    member_2 = scr_battle_get_actor(global.party_order[2]);
+
 selected_member = 0;
 
 member_0_name = global.party_order[0]

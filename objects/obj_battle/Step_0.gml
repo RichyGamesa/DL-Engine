@@ -46,32 +46,33 @@ if keyboard_check(global.right)
             switch (selected_button) 
 			{
                 case 0: // FIGHT
-                 // fighting = true
-				  if turn == 0
-				  {
-					member_0.sprite_index = member_0.fight_sprite;
-					member_0.image_speed = 0;
-					last_selected_button_1 = 0;
-					selected_member = member_0;
-				  }
-				  if turn == 1
-				  {
-					member_1.sprite_index = member_1.fight_sprite;
-					member_1.image_speed = 0;
-				    last_selected_button_2 = 0;
-					selected_member = member_1;
-				  }
-				  if turn == 2
-				  {
-					member_2.sprite_index = member_2.fight_sprite;
-					member_2.image_speed = 0;
-					last_selected_button_3 = 0;
-					selected_member = member_2;
-				  }
-				  turn += 1;
-				  active = false
-				  fight_selecting = true;
-                    break;
+			    var _actor = noone;
+
+			    switch (turn)
+			    {
+			        case 0: _actor = member_0; break;
+			        case 1: _actor = member_1; break;
+			        case 2: _actor = member_2; break;
+			    }
+
+			    if (instance_exists(_actor))
+			    {
+			        _actor.sprite_index = _actor.fight_sprite;
+			        _actor.image_speed = 0;
+			        selected_member = _actor;
+
+			        switch (turn)
+			        {
+			            case 0: last_selected_button_1 = 0; break;
+			            case 1: last_selected_button_2 = 0; break;
+			            case 2: last_selected_button_3 = 0; break;
+			        }
+
+			        turn += 1;
+			        active = false;
+			        fight_selecting = true;
+			    }
+			    break;
                 case 1: // Acts/Magic
 			    active = false;
 				act_menu_active = true;
@@ -85,36 +86,37 @@ if keyboard_check(global.right)
                 active = false;
                     break;
 			    case 4: // Defend
-                global.tp += 16;
-				  if turn == 0
-				  {
-					member_0.sprite_index = member_0.defend_sprite;
-					last_selected_button_1 = 4;
-					selected_member = member_0;
-					
-				  }
-				  if turn == 1
-				  {
-					member_1.sprite_index = member_1.defend_sprite;
-				    last_selected_button_2 = 4;
-					selected_member = member_1;
-				  }
-				  if turn == 2
-				  {
-					member_2.sprite_index = member_2.defend_sprite;
-					last_selected_button_3 = 4;
-					selected_member = member_2;
-				  }				
-				  alarm[1] = 27;
-				  turn += 1;
-                    break;
-            
-		}
-			
+			    var _actor = noone;
 
-		}
- }
-}
+			    switch (turn)
+			    {
+			        case 0: _actor = member_0; break;
+			        case 1: _actor = member_1; break;
+			        case 2: _actor = member_2; break;
+			    }
+
+			    if (instance_exists(_actor))
+			    {
+			        global.tp = min(global.tp + 16, 100);
+
+			        _actor.sprite_index = _actor.defend_sprite;
+			        selected_member = _actor;
+
+			        switch (turn)
+			        {
+			            case 0: last_selected_button_1 = 4; break;
+			            case 1: last_selected_button_2 = 4; break;
+			            case 2: last_selected_button_3 = 4; break;
+			        }
+
+			        alarm[1] = 27;
+			        turn += 1;
+			    }
+			    break;
+		      }
+		    }
+          }
+         }
 }
 
 if turn >= max_turns
@@ -345,8 +347,17 @@ if enemy_turn
 {
 	if !instance_exists(obj_battle_box)
 	{instance_create_depth(430,300,depth-1,obj_battle_box)}
-	if !instance_exists(obj_soul)
-	{instance_create_depth(obj_fake_kris.x,obj_fake_kris.y,obj_fake_kris.depth + 1,obj_soul)}
+	
+	if (!instance_exists(obj_soul) && instance_exists(soul_spawn_source))
+	{
+	    instance_create_depth(
+	        soul_spawn_source.x,
+	        soul_spawn_source.y,
+	        soul_spawn_source.depth + 1,
+	        obj_soul
+	    );
+	}
+	
 	if instance_exists(obj_battle_box)
 	{
 		if obj_battle_box.image_index > 14 and obj_soul.x > obj_battle_box.x

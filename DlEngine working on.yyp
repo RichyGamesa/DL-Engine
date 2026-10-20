@@ -387,6 +387,7 @@
     {"id":{"name":"save_key_config","path":"scripts/save_key_config/save_key_config.yy",},},
     {"id":{"name":"scr_alarm_wait","path":"scripts/scr_alarm_wait/scr_alarm_wait.yy",},},
     {"id":{"name":"scr_array_find_index","path":"scripts/scr_array_find_index/scr_array_find_index.yy",},},
+    {"id":{"name":"scr_battle_get_actor","path":"scripts/scr_battle_get_actor/scr_battle_get_actor.yy",},},
     {"id":{"name":"scr_battle_transition_actor","path":"scripts/scr_battle_transition_actor/scr_battle_transition_actor.yy",},},
     {"id":{"name":"scr_battle_transition_get_target","path":"scripts/scr_battle_transition_get_target/scr_battle_transition_get_target.yy",},},
     {"id":{"name":"scr_battle_transition_setup","path":"scripts/scr_battle_transition_setup/scr_battle_transition_setup.yy",},},

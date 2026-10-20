@@ -1,58 +1,76 @@
 // Step Event of obj_soul
-if global.bulletzone == true 
+
+/// Follow the target outside of bullet-zone movement.
+if (global.bulletzone)
 {
-	if instance_exists(obj_kris_target) == true {
-		x = obj_kris_target.x;
-		y = obj_kris_target.y;
-		depth = obj_kris_target.depth - 1
-
+    if (instance_exists(obj_kris_target))
+    {
+        x = obj_kris_target.x;
+        y = obj_kris_target.y;
+        depth = obj_kris_target.depth - 1;
+    }
 }
-}
 
-//When SOUL is hit
-
-
-// Flashing effect
-if (hit_by_bullet) 
+/// Handle being hit and start invincibility.
+if (hit_by_bullet && invincible_timer <= 0)
 {
-    // Flashing effect for the soul object
-    if (soul_flash_timer < soul_flash_duration) {
-        soul_flash_timer++;
+    invincible_timer = invincible_duration;
+    soul_flash_timer = 0;
+    soul_visible = true;
 
-        if (soul_flash_timer % 2 == 0) { // Toggle visibility every other step
-            soul_visible = !soul_visible;
-        }
-    } else {
-        // Reset flashing effect variables
+    // Consume the hit signal.
+    hit_by_bullet = false;
+}
+
+/// Invincibility frames and flashing.
+if (invincible_timer > 0)
+{
+    invincible_timer--;
+
+    // Toggle visibility every few steps.
+    soul_flash_timer++;
+
+    if (soul_flash_timer >= 3)
+    {
         soul_flash_timer = 0;
-        soul_visible = true;
-
-        // Reset hit_by_bullet to false
-        hit_by_bullet = false;
+        soul_visible = !soul_visible;
     }
 
-    // Set visibility
-    image_alpha = soul_visible ? 1 : 0; // Set alpha based on visibility
+    image_alpha = soul_visible ? 1 : 0;
+}
+else
+{
+    soul_visible = true;
+    image_alpha = 1;
+    soul_flash_timer = 0;
 }
 
-if (global.battle)
+/// SOUL movement during battle.
+if (global.battle && !global.bulletzone)
 {
-	if instance_exists(obj_battle_box)
-	{
-if place_meeting(x,y,obj_battle_box)
-{
-var down_key = keyboard_check(global.down);
-var left_key = keyboard_check(global.left);
-var right_key = keyboard_check(global.right);
-var up_key = keyboard_check(global.up);
-//the variable when the arrow keys are pressed
+    if (instance_exists(obj_battle_box))
+    {
+        var _left = keyboard_check(global.left);
+        var _right = keyboard_check(global.right);
+        var _up = keyboard_check(global.up);
+        var _down = keyboard_check(global.down);
 
+        xspd = (_right - _left) * move_spd;
+        yspd = (_down - _up) * move_spd;
 
-xspd = (right_key - left_key) * move_spd;
-yspd = (down_key - up_key) * move_spd;
+        // Normalize diagonal movement.
+        if (xspd != 0 && yspd != 0)
+        {
+            xspd *= 0.70710678;
+            yspd *= 0.70710678;
+        }
 
-x += xspd;
-y += yspd;
-	 }
-}
+        // Move horizontally and vertically separately.
+        // Stop if the next position leaves the battle box.
+        if (place_meeting(x + xspd, y, obj_battle_box))
+            x += xspd;
+
+        if (place_meeting(x, y + yspd, obj_battle_box))
+            y += yspd;
+    }
 }

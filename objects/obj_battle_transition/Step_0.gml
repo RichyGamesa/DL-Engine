@@ -122,6 +122,7 @@ if (instance_exists(obj_enemy_overworld)
     show_debug_message("Transition to battle scene");
 
     instance_create_depth(x - 50, y, -200, obj_battle);
+	obj_battle.soul_spawn_source = soul_spawn_source
 
     instance_destroy();
 }
