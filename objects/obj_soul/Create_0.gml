@@ -7,7 +7,7 @@ soul_flash_duration = 10; // Adjust the duration of each flash as needed
 soul_visible = true; // Variable to track visibility
 
 invincible_timer = 0;
-invincible_duration = 60;
+invincible_duration = 30; 
 
 move_spd = 1;
 xspd = 0;
