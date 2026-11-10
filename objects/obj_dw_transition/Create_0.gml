@@ -18,3 +18,5 @@ go_away = 0;
 last_x = 0;
 last_y = 0;
 alarm[4] = 30
+
+mainchara = obj_mainchara;

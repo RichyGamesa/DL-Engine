@@ -49,7 +49,7 @@ else
 if (keyboard_check_pressed(vk_shift) || keyboard_check_pressed(global.cancel))
 {
 confirmed_a_chapter = false;
-snd_play(snd_swing)
+snd_play_no_repeat(snd_swing)
 }
 
 
@@ -81,7 +81,7 @@ global.chapter = selected_chapter
 }
 else    //if no
 {
-snd_play(snd_swing)
+snd_play_no_repeat(snd_swing)
 confirmed_a_chapter = false;
 selected_button = 0;
 }

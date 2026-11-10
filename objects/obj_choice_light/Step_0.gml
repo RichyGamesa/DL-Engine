@@ -28,7 +28,7 @@ if keyboard_check_pressed(global.left)
 	soul.x = textbox_x + 51 + (string_length(choice_1)*2.45)
 	soul.y = textbox_y + 28;
 	selected_choice = 1;
-	play_sound(snd_menumove)
+	snd_play(snd_menumove)
 }
 if keyboard_check_pressed(global.right)
 {
@@ -36,7 +36,7 @@ if keyboard_check_pressed(global.right)
 	soul.x = textbox_x + 220;
 	soul.y = textbox_y + 28;	
 	selected_choice = 2;
-	play_sound(snd_menumove)
+	snd_play(snd_menumove)
 }
 if choice_number > 2
 {
@@ -49,7 +49,7 @@ if keyboard_check_pressed(global.up)
 	else
 	soul.y = textbox_y + 30
 	selected_choice = 3
-	play_sound(snd_menumove)
+	snd_play(snd_menumove)
 }
 }
 if choice_number > 3
@@ -63,7 +63,7 @@ if keyboard_check_pressed(global.down)
 	else
 	soul.y = textbox_y + 38;	
 	selected_choice = 4;
-	play_sound(snd_menumove)
+	snd_play(snd_menumove)
 }
 }
 }
@@ -94,7 +94,7 @@ if keyboard_check(vk_enter) or keyboard_check(global.confirm)
 
 global.selected_choice = selected_choice;
 
-play_sound(snd_select)
+snd_play(snd_select)
 
 if instance_exists(obj_heart)
 instance_destroy(obj_heart)

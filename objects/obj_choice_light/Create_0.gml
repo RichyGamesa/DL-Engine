@@ -1,6 +1,6 @@
 //obj_choice create event
 
-play_sound(snd_select)
+snd_play(snd_select)
 
 setup = false;
 

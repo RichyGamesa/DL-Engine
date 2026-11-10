@@ -1,18 +1,22 @@
 //obj_dw_transition step event
-depth =-y;
+//depth =-y;
+if instance_exists(mainchara)
+{
+depth = mainchara.depth + 1;
+}
 if (instance_exists(obj_darkdoor)) {
     obj_darkdoor.depth = depth + 1;
 }
 if (started) {
-    if (image_xscale < 4) {
+    if (image_xscale < 5) {
         image_xscale += 0.10;
     }
-    if (image_yscale < 4) {
+    if (image_yscale < 5) {
         image_yscale += 0.10;
     }
-    if (image_xscale >= 4 && image_yscale >= 4) {
+    if (image_xscale >= 5 && image_yscale >= 5) {
         if (instance_number(obj_dw_transition) < 4) {
-            instance_create_depth(x - 25, y - 10, obj_mainchara.depth + instance_created, obj_dw_transition);
+            instance_create_depth(x, y, obj_mainchara.depth + instance_created, obj_dw_transition);
             instance_created += 2;
         }
     }
@@ -38,3 +42,6 @@ if (global.darkworld) {
     image_xscale = 999;
     image_yscale = 999;
 }
+
+show_debug_message("depth = " + string(depth))
+

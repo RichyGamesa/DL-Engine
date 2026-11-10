@@ -243,13 +243,13 @@ function scr_iteminfo(argument0) //gml_Script_scr_iteminfo
 			if eaten == true 
 			{ //makes the sound play when eaten
 			if global.party_order[selected_party_member] == "Kris"
-			{snd_play(snd_cd_bagel_kris)}
+			{snd_play_no_repeat(snd_cd_bagel_kris)}
 			if global.party_order[selected_party_member] == "Susie"
-			{snd_play(snd_cd_bagel_susie)}
+			{snd_play_no_repeat(snd_cd_bagel_susie)}
 			if global.party_order[selected_party_member] == "Ralsei"
-			{snd_play(snd_cd_bagel_ralsei)}
+			{snd_play_no_repeat(snd_cd_bagel_ralsei)}
 			if global.party_order[selected_party_member] == "Toriel"
-			{snd_play(snd_cd_bagel_kris)}
+			{snd_play_no_repeat(snd_cd_bagel_kris)}
 			}
 			more_reactions = false
             global.usable = true

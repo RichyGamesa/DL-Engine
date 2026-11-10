@@ -1,7 +1,9 @@
 //create event
+//image_alpha = 1;
+depth =-y;
 image_speed = 0;
 image_index = 0;
-depth = 1999
+
 xsin = 0;
 open = 0
 started = false;

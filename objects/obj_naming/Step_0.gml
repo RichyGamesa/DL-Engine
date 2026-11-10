@@ -1,145 +1,133 @@
-/// obj_namescreen Step Event
-global.fake = 0;
+//obj_NamingScreen step event
+/*
+if (global.border == "Dynamic")
+{
+    obj_border_ui.sprite_tobe = noone;
+}*/
 
 
-// Handle text input
-if (keyboard_check_pressed(vk_backspace) or keyboard_check_pressed(vk_shift))
+// ==================================================
+// MENU ANIMATION AND TRANSITION
+// ==================================================
+
+if (menu < 3)
 {
-    // Remove the last character from the name
-    if (string_length(player_name) > 0)
-	{
-        player_name = string_delete(player_name, string_length(player_name), 1);
-    } 
-}
-else
-{
-    // Check for input of alphanumeric characters
-    for (var i = 65; i <= 90; i++) 
-	{
-        if (keyboard_check_pressed(i)) 
-		{
-            if (string_length(player_name) < max_name_length)
-			{
-                player_name += chr(i);
-            }
+
+
+    // Shake
+    x = xstart + random_range(-0.3, 0.3);
+    y = yprevious + random_range(-0.3, 0.3);
+
+    // Horizontal scaling
+    if (!go)
+    {
+        if (image_xscale < 2.5)
+            image_xscale += 0.02;
+    }
+    else
+    {
+        if (image_xscale < 4.5)
+            image_xscale += 0.05;
+    }
+
+    // Vertical movement
+    if (!go)
+    {
+        if (y > -150)
+            y -= 1;
+    }
+    else
+    {
+        if (y < -130)
+            y += 1;
+    }
+
+    // Transition
+    if (go)
+    {
+        timer -= 1;
+
+        if (!instance_exists(oTransition_room))
+        {
+            tran = instance_create_depth(
+                x, y, -10000, oTransition_room
+            );
+
+            tran.color = c_white;
+            tran.target_room = rm_cutscene_start;
+            tran.transition_number = 0.03;
+
+        }
+        else if (timer > 0)
+        {
+            if (tran.image_alpha >= 0.96)
+                tran.image_alpha = 0.96;
         }
     }
-    if (keyboard_check_pressed(vk_space)) {
-        if (string_length(player_name) < max_name_length)
-		{
-            player_name += " ";
-        }
+
+    // ==================================================
+    // NAME CONFIRMATION
+    // ==================================================
+
+    // Reset values when entering the confirmation menu
+    if (menu == 1)
+    {
+        confirm_name = "Is this name correct?";
+        can_name = true;
+        confirm_font = fnt_dt_mono_BIG;
+        confirm_scale = 1;
+        confirm_color = #f78b90;
+        _w = 240;
     }
+
+    
+	if (menu > 0)
+	{
+	    var name_lower = string_lower(codename);
+
+	    // Default vessel response
+	    confirm_name = "WE CALLED IT \"" + codename + "\".";
+	    confirm_font = fnt_dt_mono_BIG;
+	    confirm_scale = 1;
+	    confirm_color = #f78b90;
+	    can_name = true;
+
+	    switch (name_lower)
+	    {
+	        // --------------------------------------
+	        // GASTER
+	        // --------------------------------------
+
+	        case "gaster":
+	            game_restart();
+	        break;
+
+	        // --------------------------------------
+	        // INTERESTING COINCIDENCE
+	        // --------------------------------------
+
+	        case "berdly":
+	        case "catti":
+	        case "jockington":
+	        case "rudy":
+	        case "asriel":
+	        case "toriel":
+	        case "asgore":
+	        case "alphys":
+	        case "undyne":
+	        case "bratty":
+	        case "catty":
+	        case "sans":
+	        case "gerson":
+	        case "qc":
+	        case "papyrus":
+	        case "kris":
+	        case "susie":
+	        case "noelle":
+	            confirm_name = "\"" + codename + "\". AN INTERESTING COINCIDENCE.";
+	        break;
+	    }
+	}
+
 }
-
-// obj_confirm_button Enter Pressed Event
-if (string_length(player_name) > 0) and player_name != "" and player_name != " " {
- if (keyboard_check_pressed(vk_enter)) and event = 0 {
-    instructions = "IS THIS CORRECT?"
-	keyboard_clear(vk_enter)
-	event = 1;
-}
-
-if  (keyboard_check_pressed(vk_enter)) and event = 1 
-{
-	event = 2;
-}
-else if (keyboard_check_pressed(vk_shift)) and event = 1 
-{
-	instructions = "WRITE YOUR OWN NAME"
-	event = 0;
-}
-if event = 2 
-{
-		global.player_name = player_name;
-		if global.player_name == "NOELLE" {global.sideb = true}
-		if global.player_name == "RICHY" or global.player_name == "DLLEAK" or global.player_name == "DL LEAK" or global.player_name == "SHINSE" {global.fake = 1;} 
-	 room_goto(rm_cutscene_start)
-}
-}
-
-if event = 1 
-{
-	
-if 	player_name = "RICHY" or player_name = "DLLEAK" or player_name = "DL LEAK" or player_name = "SHINSE"
-{
-instructions = "THE CREATOR?"
-global.fake = true;
-}
-else
-{
-global.fake = false;
-}
-
-if 	player_name = "KRIS" or player_name = "SUSIE"
-{instructions = "YOU WILL MEET SOMEONE VERY, VERY INTERESTING"}
-if player_name = "NOELLE"
-{instructions = "YOU HAVE DONE UNSPEAKABLE THINGS"}
-if 	player_name = "MIKE" or player_name = "TENNA"
-{instructions = "INTERESTING"}
-if 	player_name = "TORIEL" or player_name = "UNDYNE" or player_name = "ASRIEL" or player_name = "QC" or player_name = "GERSON " or player_name = "ALVIN" or player_name = "PAPYRUS" or player_name = "SANS" 
-{instructions = "AN INTERESTING COINCIDENCE"}
-if player_name == "DESS" 
-{instructions = ". . ."}
-/*if 	player_name = "MERG"
-{instructions = "A TALKING CHERRY?"}
-if 	player_name = "STAR" or player_name = "MOLLYSTAR" or player_name = "MOLLYSTARS" 
-{instructions = "THE VOICE OF THE MACHINE"}
-if 	player_name = "JARU" or player_name = "JARUJARU" 
-{instructions = "THE NAME REPEATS ITSELF"}
-*/
-}
-
-if player_name = "NOELLE"
-{
-audio_sound_pitch(AUDIO_NAME,0.60)
-}
-else
-{audio_sound_pitch(AUDIO_NAME,1)}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if event = 0 or event = 1 {
-if 	player_name = "GASTER"
-{instructions = "THAT IS WRONG"
-	game_restart()}
-	if 	player_name = "WDGASTER" or player_name = "WD GASTER"
-{instructions = "NO ONE KNOWS THAT NAME HERE"
-	game_end()}
-	if player_name == "DECEMBER"
-	{instructions = "IS SOMEONE THERE?!"
-		game_restart()
-		}
-
-	
-}
-	 
-  
-
-
 

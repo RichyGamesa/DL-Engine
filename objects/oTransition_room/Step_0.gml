@@ -1,6 +1,6 @@
 if room = target_room and image_index < 1
 {
-	instance_destroy(); //kill intself	
+	instance_destroy(); //kill itself	
 }
 if image_index > 15 and room != target_room 
 {

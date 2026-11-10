@@ -47,7 +47,7 @@ switch (con)
 
     case 4:
         if (!instance_exists(obj_dw_transition))
-            instance_create_depth(x - 25, y - 10, 20000, obj_dw_transition);
+            instance_create_depth(x - 30, y - 10, 20000, obj_dw_transition);
     break;
 
     case 5:
@@ -62,7 +62,7 @@ switch (con)
 
     case 11:
         alarm[4] = 110;
-        con = 12;
+        con = 12
     break;
 
     case 14:
@@ -77,3 +77,4 @@ switch (con)
         instance_destroy();
     break;
 }
+
