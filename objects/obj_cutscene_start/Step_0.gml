@@ -23,21 +23,18 @@ if event = 2 and instance_exists(oTextbox_none_2) != true {
 }
 
 if event = 3 {
-if instance_exists(oTransition_room_white_exit) != true {
+if !instance_exists(oTransition_room) 
+{
 	
-     instance_create_depth(0,0,-9999,oTransition_room_white_exit) 
-	 if oTransition_room_white_exit.image_index = 14 {
-	 room_goto(rm_kris_home)
-	 }
+     instance_create_depth(0,0,-9999,oTransition_room)
+	 oTransition_room.colorfade = c_white // make the transition white
+	 oTransition_room.image_alpha = 1 // make the transition white fully visible
+	 oTransition_room.target_room = rm_kris_home // set the target of the transition to Kris's home
+     
   }
 }
 
-if instance_exists(oTransition_room_white_exit) = true {
-	 if oTransition_room_white_exit.image_index = 14 {
-	 oTransition_room_white_exit.target_x = 999999999	 
-	 oTransition_room_white_exit.target_room = rm_kris_home
-	 }
-}
+
 
 
 

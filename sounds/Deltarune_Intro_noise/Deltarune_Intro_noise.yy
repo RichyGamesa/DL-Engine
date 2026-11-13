@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.0,
+  "duration":12.48653,
   "exportDir":"",
   "name":"Deltarune_Intro_noise",
   "parent":{

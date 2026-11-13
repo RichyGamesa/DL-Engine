@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_Stransition_dark",
-    "path":"sprites/spr_Stransition_dark/spr_Stransition_dark.yy",
+    "name":"spr_Stransition_light",
+    "path":"sprites/spr_Stransition_light/spr_Stransition_light.yy",
   },
   "spriteMaskId":null,
   "visible":true,
