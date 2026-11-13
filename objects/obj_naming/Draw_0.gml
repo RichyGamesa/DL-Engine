@@ -126,6 +126,22 @@ if (menu == 1)
         1,
         0
     );
+	
+	// --------------------------------------------------
+    // SMOOTH SOUL CURSOR
+    // --------------------------------------------------
+
+    draw_sprite_ext(
+        IMAGE_SOUL_BLUR,
+        0,
+        soul_draw_x,
+        soul_draw_y,
+        1.2,
+        1.2,
+        0,
+        c_white,
+        0.5
+    );
 
 
     // --------------------------------------------------
@@ -160,34 +176,23 @@ if (menu == 1)
     draw_set_color(sel == 26 ? c_yellow : c_white);
     draw_text(back_x, button_y, "BACK");
 
-
+    
     // --------------------------------------------------
     // END
     // --------------------------------------------------
-
+    
+	draw_set_colour(c_white)
+	
     if (codename == "")
-        draw_set_color(c_gray);
+	{
+        //draw_set_color(c_gray);
+	}
     else
-        draw_set_color(sel == 27 ? c_yellow : c_white);
+        draw_set_color(sel == 27 ? c_yellow : c_white);  //if sel is 27 c_yellow otherwise c_white
 
     draw_text(end_x, button_y, "END");
 
 
-    // --------------------------------------------------
-    // SMOOTH SOUL CURSOR
-    // --------------------------------------------------
-
-    draw_sprite_ext(
-        IMAGE_SOUL_BLUR,
-        0,
-        soul_draw_x,
-        soul_draw_y,
-        1.2,
-        1.2,
-        0,
-        c_white,
-        0.5
-    );
 
 
     // --------------------------------------------------
@@ -214,7 +219,7 @@ if (menu == 1)
     {
         draw_text(back_x, button_y, "BACK");
     }
-    else if (sel == 27 && codename != "")
+    else if (sel == 27)
     {
         draw_text(end_x, button_y, "END");
     }
@@ -225,72 +230,53 @@ if (menu == 1)
     // --------------------------------------------------
 
     if (keyboard_check_pressed(vk_up))
-    {
-        if (sel >= 0 && sel <= 9)
-        {
-            var col = sel mod 10;
+	{
+	    if (sel == 7)
+	        sel = 26;
+		else if (sel == 8)
+	        sel = 27;
+	    else if (sel == 9)
+	        sel = 27;
+	    else if (sel >= 0 && sel <= 6)
+	        sel += 20;
+	    else if (sel >= 10 && sel <= 19)
+	        sel -= 10;
+	    else if (sel >= 20 && sel <= 25)
+	        sel -= 10;
+	    else if (sel == 26)
+	        sel = 16;
+	    else if (sel == 27)
+	        sel = 18;
 
-            if (col <= 6)
-                sel = 20 + col;
-            else if (col == 8)
-                sel = 27;
-            else
-                sel = 10 + col;
-        }
-        else if (sel >= 10 && sel <= 19)
-        {
-            sel -= 10;
-        }
-        else if (sel >= 20 && sel <= 27)
-        {
-            if (sel == 26)
-                sel = 16;
-            else if (sel == 27)
-                sel = 18;
-            else
-                sel -= 10;
-        }
-
-        //snd_play(snd_menumove);
-    }
+	    //snd_play(snd_menumove);
+	}
 
 
     // --------------------------------------------------
     // NAVIGATION: DOWN
     // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_down))
-    {
-        if (sel >= 0 && sel <= 9)
-        {
-            sel += 10;
-        }
-        else if (sel >= 10 && sel <= 19)
-        {
-            var col = sel mod 10;
+   if (keyboard_check_pressed(vk_down))
+	{
+	    if (sel == 17)
+	        sel = 26;
+		else if (sel == 18)
+	        sel = 27;
+	    else if (sel == 19)
+	        sel = 27;
+	    else if (sel >= 0 && sel <= 9)
+	        sel += 10;
+	    else if (sel >= 10 && sel <= 17)
+	        sel += 10;
+	    else if (sel >= 20 && sel <= 25)
+	        sel -= 20;
+	    else if (sel == 26)
+	        sel = 6;
+	    else if (sel == 27)
+	        sel = 8;
 
-            if (col <= 6)
-                sel = 20 + col;
-            else if (col == 8)
-                sel = 27;
-            else
-                sel = col;
-        }
-        else if (sel >= 20 && sel <= 25)
-        {
-            sel -= 20;
-        }
-        else if (sel == 26)
-        {
-            sel = 16;
-        }
-        else if (sel == 27)
-        {
-            sel = 18;
-        }
-
-        //snd_play(snd_menumove);
-    }
+	    //snd_play(snd_menumove);
+	}
 
 
     // --------------------------------------------------
@@ -588,6 +574,20 @@ if (menu == 2)
 
         if (can_name)
         {
+			
+			 // SOUL
+            draw_sprite_ext(
+                IMAGE_SOUL_BLUR,
+                0,
+                soul_draw_x,
+                soul_draw_y,
+                1,
+                1,
+                0,
+                c_white,
+                0.5 * choice_alpha * return_alpha
+				);
+			
             // NO - LEFT
             draw_set_color(sel == 0 ? c_yellow : c_white);
             draw_text(105, 205, "NO");
@@ -596,27 +596,12 @@ if (menu == 2)
             draw_set_color(sel == 1 ? c_yellow : c_white);
             draw_text(187, 205, "YES");
 
-            // SOUL
-            draw_sprite_ext(
-                IMAGE_SOUL_BLUR,
-                0,
-                soul_draw_x,
-                soul_draw_y,
-                1,
-                1,
-                0,
-                c_white,
-                0.5 * choice_alpha * return_alpha
-            );
+            
         }
         else
         {
-            draw_set_halign(fa_center);
-            draw_set_color(c_yellow);
-
-            draw_text(160, 190, "GO BACK");
-
-            draw_sprite_ext(
+			
+			draw_sprite_ext(
                 IMAGE_SOUL_BLUR,
                 0,
                 soul_draw_x,
@@ -627,6 +612,13 @@ if (menu == 2)
                 c_white,
                 0.5 * choice_alpha * return_alpha
             );
+			
+            draw_set_halign(fa_center);
+            draw_set_color(c_yellow);
+          
+            draw_text(160, 190, "GO BACK");
+
+            
         }
 
         draw_set_alpha(1);

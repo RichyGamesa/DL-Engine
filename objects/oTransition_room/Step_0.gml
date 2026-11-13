@@ -1,3 +1,4 @@
+//oTransition_room step event
 var menu = 0;
 
 if global.darkworld
@@ -27,44 +28,69 @@ switch (transition_state)
     // FADE IN
     case 0:
 
-        image_alpha = min(image_alpha + transition_number, 1); //make the image alpha at most be 1
+        if !transparent
+        {
+            image_alpha = min(image_alpha + transition_number, 1);
+        }
 
-        if image_alpha >= 1
+        if image_alpha >= 1 || transparent
         {
             transition_state = 1;
-			snd_play_no_repeat(sound) //play the sound if there's one
         }
 
     break;
 
 
-    // CHANGE ROOM
-    case 1:
+    // CHANGE ROOM AND WAIT FOR SOUND
+	case 1:
 
-        if room != target_room
-        {
-            if instance_exists(mainchara)
-            {
-                mainchara.x = target_x;  
-                mainchara.y = target_y;
-                mainchara.sprite_index = mainchara_image;
-            }
+	    if wait_sound // WAIT FOR SOUND
+	    {
+	        // Wait until the sound finishes
+	        if sound_instance != -1 && audio_is_playing(sound_instance)
+	        {
+	            break; //exit, if wait sound was false it never entered
+	        }
+	    }
 
-            room_goto(target_room);
-        }
+	    // CHANGE ROOM
+	    if !room_change_started
+	    {
+	        room_change_started = true;
 
-        transition_state = 2;
+	        if room != target_room
+	        {
+	            if instance_exists(mainchara)
+	            {
+	                mainchara.x = target_x;
+	                mainchara.y = target_y;
+	                mainchara.sprite_index = mainchara_image;
+	            }
 
-    break;
+	            room_goto(target_room);
+	        }
+
+	        transition_state = 2;
+	    }
+
+	break;
 
 
     // FADE OUT
     case 2:
-        
-        image_alpha = max(image_alpha - transition_number, 0);
 
-        if image_alpha <= 0
+        if does_fade
         {
+            image_alpha = max(image_alpha - transition_number, 0);
+
+            if image_alpha <= 0
+            {
+                transition_state = 3;
+            }
+        }
+        else
+        {
+			if room = target_room
             transition_state = 3;
         }
 
@@ -74,10 +100,7 @@ switch (transition_state)
     // DESTROY
     case 3:
 
-        if destroy_when_visible
-        {
             instance_destroy();
-        }
 
     break;
 }

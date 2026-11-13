@@ -14,7 +14,6 @@ if instance_exists(mainchara)
 
 colorfade = c_black;     //control the colour of the transition
 
-destroy_when_visible = true; //if it's destroyed when it fully covered the screen
 
 transition_number = 0.04; //control the speed of the transition
 
@@ -22,3 +21,10 @@ transition_state = 0;    //State of the transition
 room_change_started = false; //if it read the change of room
 
 image_alpha = 0;    //how visible is it? 0: invisible, 1 visible, in between
+
+wait_sound = false; //if you have to wait for the sound to stop playing before the transition fades
+does_fade = true  //if goes back to being transparent before being destroyed
+
+sound_instance = -1;
+
+transparent = false;

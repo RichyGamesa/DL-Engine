@@ -50,10 +50,17 @@ if (menu < 3)
             tran.colorfade = c_white;
             tran.target_room = rm_cutscene_start;
             tran.transition_number = 0.0085; //control the speed of the transition
+			tran.does_fade = false;
 			
 			audio_stop_all()
-			snd_play(transition_noise)
-        }
+			tran.wait_sound = true;
+
+		    // Play the sound and store its instance ID
+		    tran.sound_instance = audio_play_sound(
+		        transition_noise, 1, false
+		    );
+			
+		}
         //else if (timer > 0)
         //{
             //if (tran.image_alpha >= 0.96)
@@ -150,15 +157,16 @@ if (menu != menu_previous)
 	    {
 	        codename = "";
 	        menu = 1;
-	        sel = 27;
+	        sel = 0;
 
 	        entry_fading_in = false;
 	        entry_fade_timer = 20;
 
-	        soul_draw_x = end_x + 5;
-	        soul_draw_y = button_y;
-	        soul_target_x = end_x + 5;
-	        soul_target_y = button_y;
+	        soul_draw_x = 63;
+			soul_draw_y = 70;
+
+			soul_target_x = 63;
+			soul_target_y = 70;
 
 	        confirm_returning = false;
 	        confirm_return_timer = 0;
@@ -293,3 +301,6 @@ if (menu == 1 && entry_fading_in)
         entry_fade_timer = 20;
     }
 }
+
+
+//show_debug_message("sel = " + string(sel))
