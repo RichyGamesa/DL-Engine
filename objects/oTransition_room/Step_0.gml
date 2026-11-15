@@ -97,11 +97,16 @@ switch (transition_state)
 			if room = target_room
 			{
 				transition_state = 3;
-			
-				if can_move_after
-						mainchara.can_move = true;
 			}
         }
+		
+		if !freed_mainchara
+		{
+			if can_move_after
+						mainchara.can_move = true;
+						
+			freed_mainchara = true;
+		}
 
     break;
 

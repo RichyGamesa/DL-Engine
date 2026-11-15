@@ -51,7 +51,7 @@ if event == 2 {
 			oTransition_room.target_room = rm_castle_kris;
 			audio_stop_all();
 		global.cutscene = false;
-		global.in_cutscene = false;
+		global.cutscene = false;
 		instance_destroy(oWall_cutscene);
 		global.member[1] = true;
 	

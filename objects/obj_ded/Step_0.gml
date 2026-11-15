@@ -1,6 +1,6 @@
 //obj_ded step event
 mainchara.can_move = false;
-global.in_cutscene = true;
+global.cutscene = true;
 if ded == false
 {
 	global.dead += 1

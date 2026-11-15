@@ -6,7 +6,7 @@ global.fake = true;
 global.cutscene = false;
 global.time = 0;
 
-global.in_cutscene = true;
+global.cutscene = true;
 global.members = 0;
 global.num_active_members = 1;
 global.FUN = 666;

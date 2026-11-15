@@ -8,6 +8,7 @@ sound = snd_nosound;//sound to play when transitioning
 mainchara = obj_mainchara; //the mainchara
 
 can_move_after = true; //Can move after teleporting
+freed_mainchara = false;
 
 if instance_exists(mainchara)
 {

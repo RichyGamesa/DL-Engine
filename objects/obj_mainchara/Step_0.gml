@@ -330,3 +330,4 @@ else
     image_alpha = 1;
 }
 */
+show_debug_message("global.cutscene = " + string(global.cutscene))

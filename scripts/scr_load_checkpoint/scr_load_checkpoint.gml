@@ -1,15 +1,18 @@
 function scr_load_checkpoint()
 {
     if (!file_exists("checkpoint"))
-        return;
+        return -1;
 
     ini_open("checkpoint");
 
     // Restore player position and movement.
-    var _x = ini_read_real("Checkpoint", "x", 0);
-    var _y = ini_read_real("Checkpoint", "y", 0);
+    global.checkpoint_x = ini_read_real("Checkpoint", "x", 0);
+    global.checkpoint_y = ini_read_real("Checkpoint", "y", 0);
     var _room = ini_read_real("Checkpoint", "room", room);
-    var _can_move = ini_read_real("Checkpoint", "move", true);
+    global.checkpoint_move = ini_read_real("Checkpoint", "move", true);
+
+    // Mark checkpoint position as waiting to be applied.
+    global.checkpoint_pending = true;
 
     // Restore party order.
     var _party_count = ini_read_real("Checkpoint", "party_count", 1);
@@ -18,7 +21,11 @@ function scr_load_checkpoint()
 
     for (var i = 0; i < _party_count; i++)
     {
-        var _character = ini_read_string("Party", "member_" + string(i), "");
+        var _character = ini_read_string(
+            "Party",
+            "member_" + string(i),
+            ""
+        );
 
         if (_character != "")
         {
@@ -55,20 +62,6 @@ function scr_load_checkpoint()
 
     ini_close();
 
-    // Restore the room before positioning the player.
-    if (room != _room)
-    {
-        room_goto(_room);
-    }
-
-    // Apply position and movement state.
-    if (instance_exists(obj_mainchara))
-    {
-        obj_mainchara.x = _x;
-        obj_mainchara.y = _y;
-        obj_mainchara.can_move = _can_move;
-    }
-
     // Update total HP.
     global.total_hp = 0;
 
@@ -81,4 +74,7 @@ function scr_load_checkpoint()
             global.total_hp += variable_global_get(_member.hpVar);
         }
     }
+
+    // Return the room for the transition.
+    return _room;
 }

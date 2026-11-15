@@ -141,30 +141,42 @@ if (event == 3)
 // EVENT 4 - HANDLE SELECTION
 // -----------------------------------------
 
+if (event == 4)
+{
 // CONTINUE - LOAD CHECKPOINT WITH TRANSITION
 if (choice == 1 and (keyboard_check_pressed(global.confirm) or keyboard_check_pressed(vk_enter)))
 {
-    if (!instance_exists(oTransition_room))
+    var _checkpoint_room = scr_load_checkpoint();
+
+    if (_checkpoint_room != -1)
     {
-        var tran = instance_create_depth(
-            x, y, -10000, oTransition_room
-        );
+        if (!instance_exists(oTransition_room))
+        {
+            var tran = instance_create_depth(
+                x, y, -10000, oTransition_room
+            );
 
-        tran.colorfade = c_white;
-        tran.transition_number = 0.0085;
-        tran.does_fade = false;
+            tran.colorfade = c_white;
+            tran.target_room = _checkpoint_room;
+            tran.transition_number = 0.0085;
+            tran.does_fade = false;
 
-        audio_stop_all();
-        tran.wait_sound = true;
+            audio_stop_all();
+            tran.wait_sound = true;
 
-        tran.sound_instance = audio_play_sound(
-            transition_noise, 1, false
-        );
-    }
+            tran.sound_instance = audio_play_sound(
+                transition_noise, 1, false
+            );
+		}
+	}
 }
 
 // GIVE UP - NO TRANSITION
 else if (choice == 2 and (keyboard_check_pressed(global.confirm) or keyboard_check_pressed(vk_enter)))
 {
     room_goto(rm_giveup);
+}
+
+if instance_exists(oTransition_room)
+image_alpha = 1-oTransition_room.image_alpha
 }

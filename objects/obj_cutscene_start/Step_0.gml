@@ -30,7 +30,6 @@ if !instance_exists(oTransition_room)
 	 oTransition_room.colorfade = c_white // make the transition white
 	 oTransition_room.image_alpha = 1 // make the transition white fully visible
 	 oTransition_room.target_room = rm_kris_home // set the target of the transition to Kris's home
-     
   }
 }
 
