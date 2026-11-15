@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Deltarune_intro_noise_short",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":3.714127,
+  "exportDir":"",
+  "name":"Deltarune_intro_noise_short",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Deltarune_intro_noise_short.wav",
+  "volume":1.0,
+}

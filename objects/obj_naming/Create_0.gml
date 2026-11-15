@@ -94,4 +94,4 @@ entry_fade_timer = 0;
 // Confirmation SOUL movement
 confirm_soul_started = false;
 
-transition_noise = Deltarune_Intro_noise;
+transition_noise = Deltarune_intro_noise_short;
