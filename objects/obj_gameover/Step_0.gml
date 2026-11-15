@@ -1,77 +1,170 @@
-//Step event
-if room != rm_death {instance_destroy()}
-if image_alpha != 1 {image_alpha += 0.1}
 
-if audio_exists(AUDIO_FAILURE) == false	 {audio_play_sound(AUDIO_FAILURE,10,false)}
+// obj_gameover - Step Event
 
-if image_alpha == 1 
+// Only exist in death room
+if (room != rm_death)
 {
-event = 1;
-
-
+    instance_destroy();
+    exit;
 }
 
-if event == 1 {
-	
-	if instance_exists(oTextbox_none) == false
-	{instance_create_depth(0,80,-999,oTextbox_none)}
-	event = 2
-		
+// Prevent movement
+if (instance_exists(obj_mainchara))
+{
+    obj_mainchara.can_move = false;
 }
-if event == 2 {
-if speak <= 1.49 {
-	
-	oTextbox_none.text[0] = "IS THAT ALL YOU GOT?!"; 
-	oTextbox_none.text[1] = "KRIS, WAKE UP!"; 
-	oTextbox_none.txtb_sound = snd_txtsus;
-	event = 3
-	
+
+
+// -----------------------------------------
+// EVENT 0 - Fade in
+// -----------------------------------------
+
+if (event == 0)
+{
+    if (!failure_started)
+    {
+        audio_play_sound(AUDIO_FAILURE, 10, true);
+        failure_started = true;
+    }
+
+    image_alpha = min(image_alpha + 0.1, 1);
+
+    if (image_alpha >= 1)
+    {
+        event = 1;
+    }
 }
-	
-	if speak >= 1.50{
-	
-	oTextbox_none.text[0] = "This is not your FATE"; 
-	oTextbox_none.text[1] = "KRIS, WAKE UP!"; 
-	oTextbox_none.txtb_sound = snd_txtral;
-	event = 3
-	
+
+
+// -----------------------------------------
+// EVENT 1 - Dialogue
+// -----------------------------------------
+
+if (event == 1)
+{
+    var _text;
+    var _sound;
+
+    if (speak == 0)
+    {
+        _text = "IS THAT ALL YOU GOT?!";
+        _sound = snd_txtsus;
+    }
+    else
+    {
+        _text = "This is not your FATE";
+        _sound = snd_txtral;
+    }
+
+    var _length = string_length(_text);
+
+    if (draw_char < _length)
+    {
+        draw_char = min(draw_char + text_speed, _length);
+
+        // Play typing sound
+        audio_play_sound(_sound, 10, false);
+    }
+
+    // Continue to choices after dialogue
+    if (draw_char >= _length)
+    {
+        if (keyboard_check_pressed(global.confirm)
+        || keyboard_check_pressed(vk_enter))
+        {
+            event = 3;
+            choice = 0;
+
+            cursor_x = display_get_gui_width() * 0.5;
+            cursor_y = display_get_gui_height() * 0.72;
+        }
+    }
 }
-	
-	
-	
+
+
+// -----------------------------------------
+// EVENT 3 - CONTINUE / GIVE UP
+// -----------------------------------------
+
+if (event == 3)
+{
+    // LEFT = CONTINUE
+    if (keyboard_check_pressed(global.left))
+    {
+        if (choice != 1)
+        {
+            choice = 1;
+            audio_play_sound(snd_menumove, 7, false);
+        }
+    }
+
+    // RIGHT = GIVE UP
+    if (keyboard_check_pressed(global.right))
+    {
+        if (choice != 2)
+        {
+            choice = 2;
+            audio_play_sound(snd_menumove, 7, false);
+        }
+    }
+
+    // Soul destination
+    var target_x = 145;
+
+    if (choice == 1)
+        target_x = 80;
+    else if (choice == 2)
+        target_x = 162;
+
+    // Smooth movement
+    soul_draw_x = lerp(soul_draw_x, target_x, 0.2);
+
+    // Fade in choices
+    choice_alpha = min(choice_alpha + 0.1, 1);
+
+    // CONFIRM
+    if (keyboard_check_pressed(vk_enter)
+    || keyboard_check_pressed(global.confirm))
+    {
+        if (choice != 0)
+        {
+            audio_stop_sound(AUDIO_FAILURE);
+            audio_play_sound(snd_select, 7, false);
+
+            event = 4;
+        }
+    }
 }
-	
-	show_debug_message(speak)
-	
-	if event == 3 { 
-		
-		if !audio_is_playing(AUDIO_FAILURE) {audio_play_sound(AUDIO_FAILURE,2,true)}
-		
-		if choice == 0 {image_index = 1}
-		if keyboard_check_pressed(global.left){image_index = 2; choice = 1; audio_play_sound(snd_menumove,7,false)}
-		if keyboard_check_pressed(global.right){image_index = 3; choice = 2; audio_play_sound(snd_menumove,7,false)}
-		
-		
-		
-		
-		if keyboard_check_pressed(vk_enter) or keyboard_check_pressed(global.confirm)
-		{
-			audio_stop_sound(AUDIO_FAILURE)
-			audio_play_sound(snd_select,7,false);
-			if choice = 1 
-			{     
-				scr_load_checkpoint()
-				if global.member[1]  == true {instance_create_depth(obj_mainchara.x,obj_mainchara.y,obj_mainchara.depth,obj_follower_suzy)}
-				if global.member[2] == true {instance_create_depth(obj_mainchara.x,obj_mainchara.y,obj_mainchara.depth,obj_follower_ralsei)}
-			/*
-			      if file_exists("Checkpoint") {game_load("Checkpoint")}
-				  else
-				  if file_exists("Save_"+string(global.filechoiche)) {game_load("Save_"+string(global.filechoiche))}
-				  else
-				  game_end()*/
-			}
-			if choice = 2 {room = rm_giveup}
-		}
-		
-		}
-			
+
+
+// -----------------------------------------
+// EVENT 4 - HANDLE SELECTION
+// -----------------------------------------
+
+// CONTINUE - LOAD CHECKPOINT WITH TRANSITION
+if (choice == 1 and (keyboard_check_pressed(global.confirm) or keyboard_check_pressed(vk_enter)))
+{
+    if (!instance_exists(oTransition_room))
+    {
+        var tran = instance_create_depth(
+            x, y, -10000, oTransition_room
+        );
+
+        tran.colorfade = c_white;
+        tran.transition_number = 0.0085;
+        tran.does_fade = false;
+
+        audio_stop_all();
+        tran.wait_sound = true;
+
+        tran.sound_instance = audio_play_sound(
+            transition_noise, 1, false
+        );
+    }
+}
+
+// GIVE UP - NO TRANSITION
+else if (choice == 2 and (keyboard_check_pressed(global.confirm) or keyboard_check_pressed(vk_enter)))
+{
+    room_goto(rm_giveup);
+}

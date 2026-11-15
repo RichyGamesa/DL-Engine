@@ -7,6 +7,8 @@ sound = snd_nosound;//sound to play when transitioning
 
 mainchara = obj_mainchara; //the mainchara
 
+can_move_after = true; //Can move after teleporting
+
 if instance_exists(mainchara)
 {
     mainchara_image = mainchara.sprite_index; //make the mainchara have the sprite we want

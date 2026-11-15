@@ -48,4 +48,4 @@ if (place_meeting(x, y, obj_mainchara))
     instance_create_layer(x, y, "battle", obj_battle_transition);
 }
 
-show_debug_message("HP = " + string(hp))
+//show_debug_message("HP = " + string(hp))

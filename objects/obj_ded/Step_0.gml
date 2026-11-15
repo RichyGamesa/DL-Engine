@@ -1,4 +1,5 @@
-obj_mainchara.can_move = false;
+//obj_ded step event
+mainchara.can_move = false;
 global.in_cutscene = true;
 if ded == false
 {
@@ -7,7 +8,7 @@ if ded == false
 }
 
 audio_stop_all()
-if instance_exists(obj_soul_break) != true {
-instance_create_depth(304,304,-99,obj_soul_break)	
-}
+if !instance_exists(obj_soul_break) 
+instance_create_depth(320,540,-99,obj_soul_break)	
+
 instance_destroy()

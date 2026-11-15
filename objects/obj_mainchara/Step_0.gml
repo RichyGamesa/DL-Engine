@@ -1,8 +1,31 @@
 
-// obj_mainchara - Step event
+/// obj_mainchara - Step Event
 
 depth = -y;
 Moving = false;
+
+
+// --------------------------------------------------
+// WORLD SCALE AND SPEED
+// --------------------------------------------------
+
+if (global.darkworld)
+{
+    image_xscale = 2;
+    image_yscale = 2;
+
+    walk_spd = 4;
+    run_spd = 5;
+}
+else
+{
+    image_xscale = 1;
+    image_yscale = 1;
+
+    walk_spd = 3;
+    run_spd = 4;
+}
+
 
 // --------------------------------------------------
 // INPUT
@@ -13,49 +36,31 @@ var left_key  = keyboard_check(global.left);
 var right_key = keyboard_check(global.right);
 var up_key    = keyboard_check(global.up);
 
-// Default movement.
-xspd = (right_key - left_key) * move_spd;
-yspd = (down_key - up_key) * move_spd;
+var horizontal_input = right_key - left_key;
+var vertical_input = down_key - up_key;
 
 
 // --------------------------------------------------
-// WALKING / RUNNING SPEEDS
+// WALKING / RUNNING
 // --------------------------------------------------
 
-if (!global.darkworld)
-{
-    if (!autorun)
-    {
-        walk_spd = 1.2;
-        run_spd = 2.4;
-    }
-    else
-    {
-        walk_spd = 2.4;
-        run_spd = 1.2;
-    }
-}
-else
-{
-    if (!autorun)
-    {
-        walk_spd = 2.4;
-        run_spd = 3.6;
-    }
-    else
-    {
-        walk_spd = 3.6;
-        run_spd = 2.4;
-    }
-}
+var run_pressed =
+    keyboard_check(vk_shift)
+    || keyboard_check(global.cancel);
 
-if (!sliding)
-{
-    if (keyboard_check(vk_shift) || keyboard_check(global.cancel))
-        move_spd = run_spd;
-    else
-        move_spd = walk_spd;
-}
+// Autorun reverses the normal run behaviour.
+if (autorun)
+    run_pressed = !run_pressed;
+
+move_spd = run_pressed ? run_spd : walk_spd;
+
+
+// --------------------------------------------------
+// MOVEMENT SPEED
+// --------------------------------------------------
+
+xspd = horizontal_input * move_spd;
+yspd = vertical_input * move_spd;
 
 
 // --------------------------------------------------
@@ -70,32 +75,22 @@ if (!can_move || global.battle)
 
 
 // --------------------------------------------------
-// COLLISION
+// FACING
 // --------------------------------------------------
 
-if (place_meeting(x + xspd, y, oWall)
-|| place_meeting(x + xspd, y, oCollision)
-|| place_meeting(x + xspd, y, oWall_cutscene))
+if (horizontal_input != 0 || vertical_input != 0)
 {
-    xspd = 0;
+if (can_move && !global.battle && !sliding)
+{
+    if (horizontal_input > 0)
+        global.facing = 1;
+    else if (horizontal_input < 0)
+        global.facing = 3;
+    else if (vertical_input > 0)
+        global.facing = 0;
+    else if (vertical_input < 0)
+        global.facing = 2;
 }
-
-if (place_meeting(x, y + yspd, oWall)
-|| place_meeting(x, y + yspd, oCollision)
-|| place_meeting(x, y + yspd, oWall_cutscene))
-{
-    yspd = 0;
-}
-
-if (instance_exists(obj_slide))
-{
-    if (obj_slide.interacted && !sliding && y > obj_slide.y)
-    {
-        if (place_meeting(x, y + yspd, obj_slide))
-        {
-            yspd = 0;
-        }
-    }
 }
 
 
@@ -105,100 +100,165 @@ if (instance_exists(obj_slide))
 
 if (!sliding)
 {
-    if (global.darkworld)
-        mask_index = sprite_down_dark;
-    else
-        mask_index = sprite_down;
+    mask_index = global.darkworld
+        ? sprite_down_dark
+        : sprite_down;
 }
 else
 {
-    if (global.darkworld)
-        mask_index = spr_kris_dark_slide;
-    else
-        mask_index = spr_kris_slide;
+    mask_index = global.darkworld
+        ? sprite_slide_dark
+        : sprite_slide;
 }
 
 
 // --------------------------------------------------
-// ANIMATION
+// SLIDE OBJECT CHECK
 // --------------------------------------------------
 
-if (!sliding)
+var slide_instance = instance_nearest(x, y, obj_slide);
+
+if (instance_exists(slide_instance))
 {
-    if (can_move)
+    if (slide_instance.interacted && !sliding && y > slide_instance.y)
     {
-        if (xspd > 0)
+        if (place_meeting(x, y + yspd, slide_instance))
         {
-            sprite_index = global.darkworld
-                ? sprite_right_dark : sprite_right;
-        }
-        else if (xspd < 0)
-        {
-            sprite_index = global.darkworld
-                ? sprite_left_dark : sprite_left;
-        }
-        else if (yspd > 0)
-        {
-            sprite_index = global.darkworld
-                ? sprite_down_dark : sprite_down;
-        }
-        else if (yspd < 0)
-        {
-            sprite_index = global.darkworld
-                ? sprite_up_dark : sprite_up;
+            yspd = 0;
         }
     }
 }
-else
-{
-    sprite_index = global.darkworld
-        ? sprite_slide_dark : sprite_slide;
-}
 
 
 // --------------------------------------------------
-// ANIMATION SPEED
+// SPRITE SELECTION
 // --------------------------------------------------
-
 
 if (sliding)
 {
-    image_speed = 1;
-}
-else if (xspd != 0 || yspd != 0)
-{
-    image_speed = 1;
+    sprite_index = global.darkworld
+        ? sprite_slide_dark
+        : sprite_slide;
 }
 else
 {
-    image_speed = 0;
-    image_index = 0;
-}
+    switch (global.facing)
+    {
+        case 0:
+            sprite_index = global.darkworld
+                ? sprite_down_dark
+                : sprite_down;
+        break;
 
+        case 1:
+            sprite_index = global.darkworld
+                ? sprite_right_dark
+                : sprite_right;
+        break;
+
+        case 2:
+            sprite_index = global.darkworld
+                ? sprite_up_dark
+                : sprite_up;
+        break;
+
+        case 3:
+            sprite_index = global.darkworld
+                ? sprite_left_dark
+                : sprite_left;
+        break;
+    }
+}
 
 
 // --------------------------------------------------
 // APPLY MOVEMENT
 // --------------------------------------------------
 
-if (!sliding)
-{
-    x += xspd;
-    y += yspd;
-}
-else
-{
-    // Horizontal movement while sliding.
-    x += xspd * 0.5;
+var movement_x = xspd;
+var movement_y = yspd;
 
-    // Automatic downward slide speed.
+
+// Sliding changes the movement behaviour.
+if (sliding)
+{
+    movement_x *= 0.5;
+
     var slide_speed = global.bulletzone ? 3 : 6;
-
-    // Up/down input gives slower steering control.
     var slide_control = 1.2;
-    var slide_input = down_key - up_key;
 
-    y += slide_speed + (slide_input * slide_control);
+    movement_y = slide_speed + (vertical_input * slide_control);
+}
+
+
+// --------------------------------------------------
+// HORIZONTAL COLLISION
+// --------------------------------------------------
+
+var remaining_x = movement_x;
+
+while (abs(remaining_x) > 0)
+{
+    var step_x = sign(remaining_x) * min(1, abs(remaining_x));
+
+    if (!is_solid_at(x + step_x, y))
+    {
+        x += step_x;
+        remaining_x -= step_x;
+    }
+    else
+    {
+        break;
+    }
+}
+
+
+// --------------------------------------------------
+// VERTICAL COLLISION
+// --------------------------------------------------
+
+var remaining_y = movement_y;
+
+while (abs(remaining_y) > 0)
+{
+    var step_y = sign(remaining_y) * min(1, abs(remaining_y));
+
+    if (!is_solid_at(x, y + step_y))
+    {
+        y += step_y;
+        remaining_y -= step_y;
+    }
+    else
+    {
+        break;
+    }
+}
+
+
+// --------------------------------------------------
+// SLIDE COLLISION HANDLING
+// --------------------------------------------------
+
+if (sliding)
+{
+    // If blocked while sliding, align with the slide object.
+    if (sprite_index == sprite_slide
+    || sprite_index == sprite_slide_dark)
+    {
+        if (is_solid_at(x, y)
+        && x == xprevious
+        && y == yprevious)
+        {
+            if (instance_exists(slide_instance))
+                x = slide_instance.x;
+        }
+    }
+
+    // Stop sliding after leaving the slide object.
+    if (!place_meeting(x, y, obj_slide))
+    {
+        sliding = false;
+    }
 }
 
 
@@ -208,6 +268,8 @@ else
 
 if (x != xprevious || y != yprevious)
 {
+    Moving = true;
+
     for (var i = array_size - 1; i > 0; i--)
     {
         pos_x[i] = pos_x[i - 1];
@@ -218,54 +280,46 @@ if (x != xprevious || y != yprevious)
     pos_y[0] = y;
 }
 
-if (x == xprevious && y == yprevious)
-{
-    image_index = 0;
-}
-
 
 // --------------------------------------------------
-// DARKWORLD SCALE
+// WALK ANIMATION
 // --------------------------------------------------
-
-if (global.darkworld)
-{
-    image_xscale = 2;
-    image_yscale = 2;
-}
-else
-{
-    image_xscale = 1;
-    image_yscale = 1;
-}
-
-
-// --------------------------------------------------
-// SLIDE COLLISION HANDLING
-// --------------------------------------------------
-
-if (image_index == sprite_slide
-&& place_meeting(x, y, oCollision)
-&& y == yprevious
-&& x == xprevious
-&& sliding)
-{
-    x = obj_slide.x;
-}
 
 if (sliding)
 {
-    // Stop sliding after leaving the slide object.
-    if (!place_meeting(x, y, obj_slide))
+    // Sliding uses its own animation.
+    walktimer++;
+
+    if (walktimer >= 4)
     {
-        sliding = false;
+        walktimer = 0;
+        image_index = (image_index + 1) mod image_number;
     }
+}
+else if (Moving)
+{
+    walktimer++;
+
+    walk_frame_delay = run_pressed ? 4 : 6;
+
+    if (walktimer >= walk_frame_delay)
+    {
+        walktimer = 0;
+
+        image_index = (image_index + 1) mod image_number;
+    }
+}
+else
+{
+    walktimer = 0;
+    image_index = 0;
 }
 
 
 // --------------------------------------------------
 // DEBUG
 // --------------------------------------------------
+
 /*
 if (keyboard_check(ord("H")))
 {
@@ -275,3 +329,4 @@ else
 {
     image_alpha = 1;
 }
+*/

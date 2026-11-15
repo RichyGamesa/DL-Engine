@@ -85,7 +85,7 @@ scr_sound_play(snd_select_debug)
 
 if (instance_exists(obj_mainchara))
 {
-    if (!global.dialogue && obj_mainchara.can_move
+    if (!global.dialogue && global.in_cutscene && !global.cutscene && obj_mainchara.can_move
     && room != rm_shop
     && room != rm_shop_nomal)
     {

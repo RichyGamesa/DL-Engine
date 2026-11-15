@@ -1,3 +1,4 @@
+//oTextbox_none create event
 textbox_width = 320;
 textbox_height = 105;
 border = 10;

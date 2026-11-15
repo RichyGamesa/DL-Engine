@@ -24,6 +24,8 @@
     {"name":"scr_follower_sprites","order":2,"path":"scripts/scr_follower_sprites/scr_follower_sprites.yy",},
     {"name":"scr_get_member_data","order":4,"path":"scripts/scr_get_member_data/scr_get_member_data.yy",},
     {"name":"scr_memb","order":1,"path":"scripts/scr_memb/scr_memb.yy",},
+    {"name":"scr_screenshot_show","order":7,"path":"scripts/scr_screenshot_show/scr_screenshot_show.yy",},
+    {"name":"scr_screenshot_take","order":6,"path":"scripts/scr_screenshot_take/scr_screenshot_take.yy",},
     {"name":"scr_trasform_dark","order":6,"path":"scripts/scr_trasform_dark/scr_trasform_dark.yy",},
     {"name":"snd_play","order":1,"path":"scripts/snd_play/snd_play.yy",},
     {"name":"Deltarune_intro_noise_short","order":1,"path":"sounds/Deltarune_intro_noise_short/Deltarune_intro_noise_short.yy",},

@@ -1,0 +1,1 @@
+bullet_direction = 270;

@@ -86,12 +86,21 @@ switch (transition_state)
             if image_alpha <= 0
             {
                 transition_state = 3;
+				
+				 if can_move_after
+					mainchara.can_move = true;
+				
             }
         }
         else
         {
 			if room = target_room
-            transition_state = 3;
+			{
+				transition_state = 3;
+			
+				if can_move_after
+						mainchara.can_move = true;
+			}
         }
 
     break;

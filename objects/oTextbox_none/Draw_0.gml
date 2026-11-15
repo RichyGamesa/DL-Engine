@@ -1,3 +1,4 @@
+//oTextbox_none draw event
 var confirm_key = keyboard_check_pressed(global.confirm) or keyboard_check_released(vk_enter) or keyboard_check(global.menu) or keyboard_check(vk_control) ;
 var skip_key =  keyboard_check_pressed(global.cancel) or keyboard_check_pressed(vk_shift) or keyboard_check(global.menu) or keyboard_check(vk_control) ;
  

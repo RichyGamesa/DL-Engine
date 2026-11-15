@@ -1,1 +1,0 @@
-instance_create_depth(0,-32,-99,obj_gameover);

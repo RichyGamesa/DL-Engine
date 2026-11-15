@@ -431,6 +431,8 @@
     {"id":{"name":"scr_onscreen_tolerance","path":"scripts/scr_onscreen_tolerance/scr_onscreen_tolerance.yy",},},
     {"id":{"name":"scr_party","path":"scripts/scr_party/scr_party.yy",},},
     {"id":{"name":"scr_save_checkpoint","path":"scripts/scr_save_checkpoint/scr_save_checkpoint.yy",},},
+    {"id":{"name":"scr_screenshot_show","path":"scripts/scr_screenshot_show/scr_screenshot_show.yy",},},
+    {"id":{"name":"scr_screenshot_take","path":"scripts/scr_screenshot_take/scr_screenshot_take.yy",},},
     {"id":{"name":"scr_shakeobj","path":"scripts/scr_shakeobj/scr_shakeobj.yy",},},
     {"id":{"name":"scr_sound_play","path":"scripts/scr_sound_play/scr_sound_play.yy",},},
     {"id":{"name":"scr_spell_map","path":"scripts/scr_spell_map/scr_spell_map.yy",},},

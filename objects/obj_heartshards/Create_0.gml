@@ -1,4 +1,5 @@
 // Create event of obj_soul_fragment
+/*
 speed = irandom_range(2, 5); // Randomize speed
 direction = irandom(360); // Randomize initial direction
 rotation_speed = irandom_range(-5, 5); // Randomize rotation speed

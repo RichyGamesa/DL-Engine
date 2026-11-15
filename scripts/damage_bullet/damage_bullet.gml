@@ -32,11 +32,18 @@ function damage_bullet(_damage)
     }
 
     // No active members, or everyone is at 1 HP or less: game over.
-    if (_active_count == 0 || array_length(_eligible) == 0)
-    {
-        room_goto(_death_room);
-        return;
-    }
+	if (_active_count == 0 || array_length(_eligible) == 0)
+	{
+
+	    // Capture the current screen BEFORE changing rooms
+	    global.screenshot = scr_take_screenshot();
+
+
+	    room_goto(_death_room);
+
+	    return;
+	}
+
 
     // Choose randomly from eligible active members.
     var _chosen_index = irandom(array_length(_eligible) - 1);
