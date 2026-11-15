@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.953333,
+  "duration":1.9533334,
   "exportDir":"",
   "name":"snd_deathnoise",
   "parent":{

@@ -1,22 +1,23 @@
-show_debug_message("I EXIST!");
-if room != rm_giveup {
-    show_debug_message("Room is not rm_giveup.");
+//obj_FINAL step event
+//show_debug_message("I EXIST!");
+if (room != rm_giveup)
+{
     instance_destroy();
-}
-if instance_exists(obj_FAILURE) {
-    show_debug_message("Instance of obj_FAILURE exists.");
+    exit;
 }
 
-if !audio_is_playing(AUDIO_DARKNESS)
+// Start music
+if (music_instance == -1)
 {
-if time = 0
+    music_instance = audio_play_sound(
+        AUDIO_DARKNESS,
+        2,
+        false
+    );
+}
+
+// End game when music finishes
+else if (!audio_is_playing(music_instance))
 {
- audio_play_sound(AUDIO_DARKNESS,2,false)
- time = 1;
+    game_end();
 }
-if time = 1 and !audio_is_playing(AUDIO_DARKNESS)
-{
- game_end()	
-}
-}
-  

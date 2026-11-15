@@ -1,7 +1,7 @@
 // obj_soul_break - Step Event
 
-x = room_width/2 + 70;
-y = room_height/2 + 210;
+x = 320;
+y = 240;
 
 timer += 1;
 
@@ -33,8 +33,8 @@ if (timer == 31)
 }
 
 
-// TIMER 50 - First break
-if (timer == 50)
+// TIMER 60 - First break
+if (timer == 60)
 {
     audio_play_sound(snd_break1, 1, false);
 
@@ -65,6 +65,9 @@ if (timer == 90)
 
             sprite_index = spr_heartshards;
             image_speed = 0.2;
+			
+			image_xscale = max(image_xscale - 0.3,0.1);
+			image_yscale = max(image_yscale - 0.3,0.1);
         }
     }
 
@@ -79,6 +82,10 @@ if (timer == 166)
     instance_destroy();
 }
 
+
+
+show_debug_message(string(x) + string(y))
+/*
 draw_text(20, 20, "Timer: " + string(timer));
 
 if variable_global_exists("screenshot")

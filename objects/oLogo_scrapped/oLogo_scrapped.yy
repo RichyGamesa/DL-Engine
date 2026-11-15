@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"sDeltarune_LOGO",
-    "path":"sprites/sDeltarune_LOGO/sDeltarune_LOGO.yy",
+    "name":"IMAGE_LOGO_CENTER",
+    "path":"sprites/IMAGE_LOGO_CENTER/IMAGE_LOGO_CENTER.yy",
   },
   "spriteMaskId":null,
   "visible":true,

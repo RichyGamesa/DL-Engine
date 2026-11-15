@@ -1,13 +1,58 @@
-// Step Event
-if something = 0 {
-if (index < string_length(text_to_display)) {
-    index += display_speed; // Increase index based on display speed
-    displayed_text = string_copy(text_to_display, 1, index); // Extract text up to current index
-    show_debug_message("Text not fully displayed yet.");
-} else {
-    displayed_text = text_to_display; // Ensure the full text is displayed when index exceeds its length
-    show_debug_message("Text fully displayed. Setting alarm.");
-    something = 1;
-	alarm[0] = 60; // Set alarm to trigger after 60 steps (2 seconds assuming 30 steps/sec)
+//obj_FAILURE Step Event
+
+// -----------------------------------------
+// STATE 0 - TYPE CURRENT LINE
+// -----------------------------------------
+
+if (state == 0)
+{
+    var _text = text_lines[line_index];
+
+    if (index < string_length(_text))
+    {
+        index += display_speed;
+
+        displayed_lines[line_index] = string_copy(
+            _text,
+            1,
+            floor(index)
+        );
+    }
+    else
+    {
+        displayed_lines[line_index] = _text;
+
+        // More lines remaining
+        if (line_index < 2)
+        {
+            state = 1;
+            pause_timer = 30*3; //30 FPS so 5 seconds equal 30*5
+        }
+        // All lines completed
+        else
+        {
+			if !started_alarm
+			{
+			alarm[0] = 30;
+			started_alarm = true
+			}
+        }
+    }
 }
+
+
+// -----------------------------------------
+// STATE 1 - WAIT 
+// -----------------------------------------
+
+else if (state == 1)
+{
+    pause_timer--;
+
+    if (pause_timer <= 0)
+    {
+        line_index++;
+        index = 0;
+        state = 0;
+    }
 }

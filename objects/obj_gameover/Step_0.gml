@@ -109,12 +109,12 @@ if (event == 3)
     }
 
     // Soul destination
-    var target_x = 145;
+    var target_x = 300;
 
     if (choice == 1)
-        target_x = 80;
+        target_x = 205;
     else if (choice == 2)
-        target_x = 162;
+        target_x = 405;
 
     // Smooth movement
     soul_draw_x = lerp(soul_draw_x, target_x, 0.2);
@@ -175,6 +175,7 @@ if (choice == 1 and (keyboard_check_pressed(global.confirm) or keyboard_check_pr
 else if (choice == 2 and (keyboard_check_pressed(global.confirm) or keyboard_check_pressed(vk_enter)))
 {
     room_goto(rm_giveup);
+	image_alpha = 0;
 }
 
 if instance_exists(oTransition_room)

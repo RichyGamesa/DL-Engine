@@ -26,7 +26,7 @@ text_speed = 1;
 choice = 0;
 
 // Soul cursor position
-soul_draw_x = 145;
+soul_draw_x = 300;
 soul_draw_y = 205;
 
 // Animation

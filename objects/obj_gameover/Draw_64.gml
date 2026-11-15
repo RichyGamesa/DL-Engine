@@ -12,7 +12,12 @@ var _choice_y = _gui_h * 0.72;
 var _yes_x = _center_x - 80;
 var _no_x = _center_x + 80;
 
-var soul_scale = 1.2;
+var room_scale = room_width / 320 * 1.5;
+
+var soul_scale = room_scale * 0.6;
+var text_scale = room_scale * 0.5;
+
+var CONTINUE_GIVEUP_Y = 350;
 
 // -----------------------------------------
 // DIALOGUE
@@ -34,11 +39,14 @@ if (event == 1)
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
 
-    draw_text(
-        120,
-        350,
-        string_copy(_text, 1, draw_char)
-    );
+	    draw_text_transformed(
+	    120,
+	    350,
+	    string_copy(_text, 1, draw_char),
+	    text_scale,
+	    text_scale,
+	    0
+	);
 }
 
 
@@ -59,22 +67,33 @@ if (event == 3)
         IMAGE_SOUL_BLUR,
         0,
         soul_draw_x,
-        soul_draw_y,
-        1,
-        1,
+        CONTINUE_GIVEUP_Y,
+        soul_scale,
+        soul_scale,
         0,
         c_white,
-        0.5 * choice_alpha * image_alpha
+        1 * image_alpha
     );
 
-    // CONTINUE - LEFT
-    draw_set_color(choice == 1 ? c_yellow : c_white);
-    draw_text(105, 205, "CONTINUE");
+		// CONTINUE - LEFT
+		draw_set_color(choice == 1 ? c_yellow : c_white);
 
-    // GIVE UP - RIGHT
-    draw_set_color(choice == 2 ? c_yellow : c_white);
-    draw_text(187, 205, "GIVE UP");
+		draw_text_transformed(
+		    175, CONTINUE_GIVEUP_Y,
+		    "CONTINUE",
+		    text_scale, text_scale,
+		    0
+		);
 
+		// GIVE UP - RIGHT
+		draw_set_color(choice == 2 ? c_yellow : c_white);
+
+		draw_text_transformed(
+		    375, CONTINUE_GIVEUP_Y,
+		    "GIVE UP",
+		    text_scale, text_scale,
+		    0
+		);
     draw_set_alpha(1);
 }
 

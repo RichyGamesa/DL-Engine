@@ -41,7 +41,7 @@ draw_rectangle(x + 10, y + 10, x + 10 + (200 * tpPercent), y + 30, false);  // A
 
 /// Draw party HUD bars
 
-draw_set_font(Deltarune);
+draw_set_font(fnt_deltarune);
 draw_set_color(c_white);
 
 // Keep these values available for the fight and item-selection UI below.
