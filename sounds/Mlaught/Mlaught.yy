@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":4.147234,
+  "duration":3.4827664,
   "exportDir":"",
   "name":"Mlaught",
   "parent":{
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"Mlaught.ogg",
+  "soundFile":"Mlaught.wav",
   "volume":1.0,
 }

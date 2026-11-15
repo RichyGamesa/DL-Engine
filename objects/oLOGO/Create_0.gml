@@ -44,5 +44,9 @@ logo_timer = 0;
 logo_sound_played = false;
 transition_started = false;
 
+//SOUNDS ASSETS
+letter_noise = snd_noise;
+Chapter_noise = Mlaught
+
 // TEMPORARY TITLE ROOM
 Title = rm_naming; // Until I write the save-file code

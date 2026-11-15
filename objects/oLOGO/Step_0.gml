@@ -10,7 +10,7 @@ if (logo_phase == 0)
     {
         drawlogopart[reveal_order[logopieces]] = true;
 
-        var _sound = audio_play_sound(snd_noise, 0, false);
+        var _sound = audio_play_sound(letter_noise, 0, false);
         audio_sound_pitch(_sound, 0.5 + random(1));
 
         logopieces++;
@@ -19,7 +19,7 @@ if (logo_phase == 0)
     // CHAPTER SOUND
     if (logotimer == 120 && !logo_sound_played)
     {
-        audio_play_sound(Mlaught, 10, false);
+        audio_play_sound(Chapter_noise, 10, false);
         logo_sound_played = true;
     }
 

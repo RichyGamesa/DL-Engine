@@ -95,3 +95,5 @@ entry_fade_timer = 0;
 confirm_soul_started = false;
 
 transition_noise = Deltarune_intro_noise_short;
+
+depth = -1;
