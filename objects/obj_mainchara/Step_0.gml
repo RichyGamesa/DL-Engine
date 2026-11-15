@@ -48,7 +48,6 @@ var run_pressed =
     keyboard_check(vk_shift)
     || keyboard_check(global.cancel);
 
-// Autorun reverses the normal run behaviour.
 if (autorun)
     run_pressed = !run_pressed;
 
@@ -78,8 +77,6 @@ if (!can_move || global.battle)
 // FACING
 // --------------------------------------------------
 
-if (horizontal_input != 0 || vertical_input != 0)
-{
 if (can_move && !global.battle && !sliding)
 {
     if (horizontal_input > 0)
@@ -91,43 +88,19 @@ if (can_move && !global.battle && !sliding)
     else if (vertical_input < 0)
         global.facing = 2;
 }
-}
 
 
 // --------------------------------------------------
 // COLLISION MASK
 // --------------------------------------------------
 
-if (!sliding)
-{
-    mask_index = global.darkworld
-        ? sprite_down_dark
-        : sprite_down;
-}
+// Keep the normal character collision mask,
+// even while using the sliding sprite.
+
+if (global.darkworld)
+    mask_index = sprite_down_dark;
 else
-{
-    mask_index = global.darkworld
-        ? sprite_slide_dark
-        : sprite_slide;
-}
-
-
-// --------------------------------------------------
-// SLIDE OBJECT CHECK
-// --------------------------------------------------
-
-var slide_instance = instance_nearest(x, y, obj_slide);
-
-if (instance_exists(slide_instance))
-{
-    if (slide_instance.interacted && !sliding && y > slide_instance.y)
-    {
-        if (place_meeting(x, y + yspd, slide_instance))
-        {
-            yspd = 0;
-        }
-    }
-}
+    mask_index = sprite_down;
 
 
 // --------------------------------------------------
@@ -223,7 +196,24 @@ while (abs(remaining_y) > 0)
 {
     var step_y = sign(remaining_y) * min(1, abs(remaining_y));
 
-    if (!is_solid_at(x, y + step_y))
+    var blocked = is_solid_at(x, y + step_y);
+
+    // The underside of a slide acts as a wall.
+    // Only block upward entry when Kris is below it.
+    if (!sliding && step_y < 0)
+    {
+        var slide = instance_place(x, y + step_y, obj_slide);
+
+        if (slide != noone)
+        {
+            if (bbox_top >= slide.bbox_bottom)
+            {
+                blocked = true;
+            }
+        }
+    }
+
+    if (!blocked)
     {
         y += step_y;
         remaining_y -= step_y;
@@ -236,25 +226,11 @@ while (abs(remaining_y) > 0)
 
 
 // --------------------------------------------------
-// SLIDE COLLISION HANDLING
+// SLIDE EXIT
 // --------------------------------------------------
 
 if (sliding)
 {
-    // If blocked while sliding, align with the slide object.
-    if (sprite_index == sprite_slide
-    || sprite_index == sprite_slide_dark)
-    {
-        if (is_solid_at(x, y)
-        && x == xprevious
-        && y == yprevious)
-        {
-            if (instance_exists(slide_instance))
-                x = slide_instance.x;
-        }
-    }
-
-    // Stop sliding after leaving the slide object.
     if (!place_meeting(x, y, obj_slide))
     {
         sliding = false;
@@ -287,7 +263,6 @@ if (x != xprevious || y != yprevious)
 
 if (sliding)
 {
-    // Sliding uses its own animation.
     walktimer++;
 
     if (walktimer >= 4)
@@ -305,7 +280,6 @@ else if (Moving)
     if (walktimer >= walk_frame_delay)
     {
         walktimer = 0;
-
         image_index = (image_index + 1) mod image_number;
     }
 }
@@ -330,4 +304,5 @@ else
     image_alpha = 1;
 }
 */
-show_debug_message("global.cutscene = " + string(global.cutscene))
+
+//show_debug_message("global.cutscene = " + string(global.cutscene));

@@ -1,14 +1,16 @@
+//obj_slide step event
+
 // --------------------------------------------------
 // MAIN CHARACTER
 // --------------------------------------------------
 
 if (instance_exists(obj_mainchara))
 {
-    var _player = instance_find(obj_mainchara, 0);
+    var player = instance_find(obj_mainchara, 0);
 
-    if (place_meeting(x, y, _player))
+    if (place_meeting(x, y, player))
     {
-        if (!_player.sliding)
+        if (!player.sliding)
         {
             if (!audio_is_playing(snd_paper_rumble))
             {
@@ -16,28 +18,32 @@ if (instance_exists(obj_mainchara))
             }
         }
 
-        _player.sliding = true;
+        // Activate sliding.
+        player.sliding = true;
 
-        instance_create_depth(
-            _player.x,
-            _player.y + 30,
-            _player.depth + 1,
-            Obj_dust
-        );
-
-        with (Obj_dust)
+        // Dust effect.
+        if (player.sliding && timer <= 0)
         {
-            vspeed = -6;
-            hspeed = random_range(-1, 1);
-            image_speed = 1.3;
+            var dust = instance_create_depth(
+                player.x,
+                player.y + 30,
+                player.depth + 1,
+                Obj_dust
+            );
+
+            dust.vspeed = -6;
+            dust.hspeed = random_range(-1, 1);
+            dust.image_speed = 1.3;
+
+            timer = 4;
         }
-    }
-    else
-    {
-        _player.sliding = false;
     }
 }
 
+if (timer > 0)
+{
+    timer--;
+}
 
 // --------------------------------------------------
 // FOLLOWERS
