@@ -1,5 +1,10 @@
 // Fullscreen toggle
 
+
+//Set the window size correctly
+window_set_fullscreen(false);
+window_set_size(1280, 960);
+
 ini_open("configurations.ini")
 
 // Fullscreen toggle

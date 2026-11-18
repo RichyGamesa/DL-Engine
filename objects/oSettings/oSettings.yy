@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"Gear",
-    "path":"sprites/Gear/Gear.yy",
+    "name":"spr_gear",
+    "path":"sprites/spr_gear/spr_gear.yy",
   },
   "spriteMaskId":null,
   "visible":false,
