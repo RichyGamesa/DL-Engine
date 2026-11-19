@@ -10,6 +10,7 @@
     {"name":"spr_ui_star","order":3,"path":"folders/Sprites/Hud/spr_ui_star.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"fnt_dt_mono_text_dark","order":1,"path":"fonts/fnt_dt_mono_text_dark/fnt_dt_mono_text_dark.yy",},
     {"name":"obj_border_ui","order":2,"path":"objects/obj_border_ui/obj_border_ui.yy",},
     {"name":"obj_chapter_select","order":1,"path":"objects/obj_chapter_select/obj_chapter_select.yy",},
     {"name":"obj_damage_popup","order":1,"path":"objects/obj_damage_popup/obj_damage_popup.yy",},
@@ -22,6 +23,7 @@
     {"name":"scr_battle_transition_get_target","order":3,"path":"scripts/scr_battle_transition_get_target/scr_battle_transition_get_target.yy",},
     {"name":"scr_battle_transition_setup","order":2,"path":"scripts/scr_battle_transition_setup/scr_battle_transition_setup.yy",},
     {"name":"scr_dark_transform_position","order":7,"path":"scripts/scr_dark_transform_position/scr_dark_transform_position.yy",},
+    {"name":"scr_draw_darkworld_character","order":1,"path":"scripts/scr_draw_darkworld_character/scr_draw_darkworld_character.yy",},
     {"name":"scr_follower_sprites","order":2,"path":"scripts/scr_follower_sprites/scr_follower_sprites.yy",},
     {"name":"scr_get_member_data","order":4,"path":"scripts/scr_get_member_data/scr_get_member_data.yy",},
     {"name":"scr_memb","order":1,"path":"scripts/scr_memb/scr_memb.yy",},

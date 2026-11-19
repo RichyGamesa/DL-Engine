@@ -1,15 +1,4 @@
-
-/// oTextbox_dark - Draw event
-
-var confirm_key = keyboard_check_pressed(global.confirm)
-    or keyboard_check_pressed(vk_enter);
-
-var skip_key = keyboard_check_pressed(global.cancel)
-    or keyboard_check_pressed(vk_shift);
-
-var skip_everything_key = keyboard_check(global.menu)
-    or keyboard_check(vk_control);
-
+/// oTextbox_dark - Draw Event
 
 // --------------------------------------------------
 // POSITION
@@ -20,237 +9,89 @@ var _cam_y = camera_get_view_y(view_camera[0]);
 var _cam_w = camera_get_view_width(view_camera[0]);
 var _cam_h = camera_get_view_height(view_camera[0]);
 
-var textbox_x = _cam_x + (_cam_w - textbox_width) / 1.5;
-var textbox_y = _cam_y + _cam_h - textbox_height - border;
+var textbox_x = 80 + floor(_cam_x + (_cam_w - textbox_width) * 0.5);
+var textbox_y = floor(_cam_y + _cam_h - textbox_height - border);
 
+// Move to the top if the player is behind the textbox.
 if (instance_exists(mainchara))
 {
     if (mainchara.y >= textbox_y - 48)
     {
-        textbox_y = _cam_y + 50;
+        textbox_y = floor(_cam_y + 16);
     }
 }
+
+
+// --------------------------------------------------
+// DRAW SETTINGS
+// --------------------------------------------------
 
 draw_set_font(font);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_set_alpha(1);
+draw_set_color(c_white);
 
 
 // --------------------------------------------------
-// INITIALIZE DIALOGUE
+// DRAW TEXTBOX
 // --------------------------------------------------
 
-var speaker_sprite_index = 0;
-
-if (!setup)
-{
-    setup = true;
-    mainchara.can_move = false;
-
-    page_number = array_length(text);
-
-    for (var _p = 0; _p < page_number; _p++)
-    {
-        text_segments[_p] = parse_colored_text(text[_p]);
-
-        // Count only visible characters after parsing.
-        var _length = 0;
-
-        for (var _s = 0;
-             _s < array_length(text_segments[_p]);
-             _s++)
-        {
-            _length += string_length(
-                text_segments[_p][_s].text
-            );
-        }
-
-        text_length[_p] = _length;
-    }
-}
-
-
-// --------------------------------------------------
-// REVEAL TEXT + PUNCTUATION PAUSES
-// --------------------------------------------------
-
-if (draw_char < text_length[page])
-{
-    if (skip_everything_key)
-    {
-        punctuation_timer = 0;
-
-        draw_char += text_speed_skip;
-        draw_char = clamp(
-            draw_char, 0, text_length[page]
-        );
-
-        speaker_sprite_index += 1;
-    }
-    else
-    {
-        if (punctuation_timer > 0)
-        {
-            punctuation_timer -= 1;
-        }
-        else
-        {
-            draw_char += text_speed;
-            draw_char = clamp(
-                draw_char, 0, text_length[page]
-            );
-
-            speaker_sprite_index += 1;
-
-            // Find the last revealed character.
-            var _revealed = floor(draw_char);
-            var _count = 0;
-            var _ch = "";
-
-            if (_revealed > 0)
-            {
-                for (var _s = 0;
-                     _s < array_length(text_segments[page]);
-                     _s++)
-                {
-                    var _segment_text =
-                        text_segments[page][_s].text;
-
-                    var _len = string_length(_segment_text);
-
-                    if (_revealed <= _count + _len)
-                    {
-                        _ch = string_char_at(
-                            _segment_text,
-                            _revealed - _count
-                        );
-                        break;
-                    }
-
-                    _count += _len;
-                }
-
-                if (_ch == ",")
-                {
-                    punctuation_timer = comma_pause;
-                }
-                else if (_ch == "."
-                      || _ch == "!"
-                      || _ch == "?")
-                {
-                    punctuation_timer = sentence_pause;
-                }
-                else if (_ch == "&")
-                {
-                    punctuation_timer = break_pause;
-                }
-            }
-        }
-    }
-}
-
-
-// --------------------------------------------------
-// SKIP / ADVANCE / CLOSE
-// --------------------------------------------------
-
-if (skippable)
-{
-    if (skip_everything_key)
-    {
-        draw_char = text_length[page];
-    }
-
-    if (confirm_key || skip_everything_key)
-    {
-        if (draw_char >= text_length[page])
-        {
-            if (page < page_number - 1)
-            {
-                page++;
-                draw_char = 0;
-                punctuation_timer = 0;
-            }
-            else
-            {
-                instance_destroy();
-                exit;
-            }
-        }
-    }
-
-    if (skip_key && draw_char < text_length[page])
-    {
-        draw_char = text_length[page];
-        punctuation_timer = 0;
-    }
-}
-
-
-// --------------------------------------------------
-// DRAW DARK TEXTBOX WITHOUT DISTORTING ITS SPRITE
-// --------------------------------------------------
-
-/* i'm tired,no stretching
 draw_sprite_ext(
     txtb_sprite,
-    textbox_image_index,
+    0,
     textbox_x,
     textbox_y,
-    textbox_width / sprite_get_width(txtb_sprite),
-    textbox_height / sprite_get_height(txtb_sprite),
+    1.5,
+    1.5,
     0,
     c_white,
     1
 );
-*///just use sprite
 
-draw_sprite_ext(
-            sTextbox_dark, 0,
-            textbox_x,
-            textbox_y + 28,
-            1.5, 1.3, 0, c_white, 1
-        );
 
 // --------------------------------------------------
-// DRAW PORTRAIT
+// SPEAKER PORTRAIT
 // --------------------------------------------------
 
-if (speaker_sprite[page] != noone)
+var _has_portrait = (speaker_sprite[page] != noone);
+
+if (_has_portrait)
 {
-    sprite_index = speaker_sprite[page];
+    var _portrait_sprite = speaker_sprite[page];
 
     if (draw_char >= text_length[page])
-    {
         speaker_sprite_index = 0;
-    }
 
-    var _portrait_w = sprite_get_width(sprite_index);
-    var _portrait_h = sprite_get_height(sprite_index);
+    var _portrait_w = sprite_get_width(_portrait_sprite);
+    var _portrait_h = sprite_get_height(_portrait_sprite);
 
-    // Fit within 55x55 without stretching the portrait.
-    var _portrait_scale = min(
-        55 / _portrait_w,
-        55 / _portrait_h
-    );
+    // Target height: 72 pixels
+    var _portrait_scale = 72 / _portrait_h;
+
+    var _portrait_draw_w = _portrait_w * _portrait_scale;
+    var _portrait_draw_h = _portrait_h * _portrait_scale;
 
     var _portrait_color = c_white;
 
     if (is_array(portrait_color))
     {
-        if (page >= 0 && page < array_length(portrait_color))
-        {
+        if (page < array_length(portrait_color))
             _portrait_color = portrait_color[page];
-        }
     }
     else
     {
         _portrait_color = portrait_color;
     }
 
+    var _portrait_x = textbox_x + 24;
+    var _portrait_y = textbox_y + (textbox_height * 1.5 - _portrait_draw_h) * 0.5;
+
     draw_sprite_ext(
-        sprite_index,
+        _portrait_sprite,
         speaker_sprite_index,
-        textbox_x + 60,
-        textbox_y + 75,
+        _portrait_x,
+        _portrait_y,
         _portrait_scale,
         _portrait_scale,
         0,
@@ -261,41 +102,66 @@ if (speaker_sprite[page] != noone)
 
 
 // --------------------------------------------------
-// DRAW TEXT CHARACTER BY CHARACTER
+// TEXT AREA
 // --------------------------------------------------
 
 var draw_x;
 var draw_y;
 var width;
 
-if (speaker_sprite[page] == noone)
+// These values are relative to the drawn textbox.
+var _text_top = textbox_y + 19;
+var _text_bottom = textbox_y + textbox_height * 1.5 - 12;
+
+if (_has_portrait)
 {
-    draw_x = textbox_x + 25;
-    draw_y = textbox_y + 43;
-    width = 338;
+    draw_x = textbox_x + 112;
+    draw_y = _text_top;
+
+    width = textbox_width * 1.5 - 140;
 }
 else
 {
-    draw_x = textbox_x + 105;
-    draw_y = textbox_y + border + 12;
-    width = 300;
+    draw_x = textbox_x + 27;
+    draw_y = _text_top;
+
+    width = textbox_width * 1.5 - 54;
 }
 
 var line_start_x = draw_x;
 var max_x = draw_x + width;
 
+
+// --------------------------------------------------
+// COMBINE TEXT FOR WORD WRAPPING
+// --------------------------------------------------
+
+var _full_text = "";
+
+for (var _s = 0; _s < array_length(text_segments[page]); _s++)
+{
+    _full_text += text_segments[page][_s].text;
+}
+
+var _full_length = string_length(_full_text);
+
+
+// --------------------------------------------------
+// TEXT SPACING
+// --------------------------------------------------
+
+// Additional horizontal spacing between characters.
+// This does not resize the font glyphs themselves.
+var _character_spacing = 1;
+
 var drawn_chars = 0;
 
-for (var i = 0;
-     i < array_length(text_segments[page]);
-     i++)
+for (var i = 0; i < array_length(text_segments[page]); i++)
 {
     var _segment = text_segments[page][i];
     var _segment_text = _segment.text;
 
-    for (var j = 1;
-         j <= string_length(_segment_text);
-         j++)
+    for (var j = 1; j <= string_length(_segment_text); j++)
     {
         if (drawn_chars >= floor(draw_char))
         {
@@ -303,9 +169,10 @@ for (var i = 0;
         }
 
         var _ch = string_char_at(_segment_text, j);
+
         drawn_chars++;
 
-        // Explicit line break.
+        // MANUAL LINE BREAK
         if (_ch == "&")
         {
             draw_x = line_start_x;
@@ -313,22 +180,53 @@ for (var i = 0;
             continue;
         }
 
-        var _char_width = string_width(_ch);
+        // CHARACTER WIDTH
+        var _char_width = string_width(_ch) + _character_spacing;
 
-        // Automatic line wrapping.
+        // WORD WRAPPING
+        if (_ch == " ")
+        {
+            var _next_word = "";
+            var _look = drawn_chars + 1;
+
+            while (_look <= _full_length)
+            {
+                var _next_char = string_char_at(_full_text, _look);
+
+                if (_next_char == " " || _next_char == "&")
+                {
+                    break;
+                }
+
+                _next_word += _next_char;
+                _look++;
+            }
+
+            var _next_word_width = string_width(_next_word)
+                + string_length(_next_word) * _character_spacing;
+
+            if (draw_x + _char_width + _next_word_width > max_x)
+            {
+                draw_x = line_start_x;
+                draw_y += line_sep;
+                continue;
+            }
+        }
+
+        // LONG WORD FALLBACK
         if (draw_x + _char_width > max_x)
         {
             draw_x = line_start_x;
             draw_y += line_sep;
         }
 
-        // Dark textbox text shadow.
-        draw_set_color(c_navy);
-        draw_text(draw_x + 1.5, draw_y + 1.5, _ch);
-
-        // Actual character color from the parsed segment.
-        draw_set_color(_segment.color);
-        draw_text(draw_x, draw_y, _ch);
+        // DRAW CHARACTER
+        scr_draw_darkworld_character(
+            draw_x,
+            draw_y,
+            _ch,
+            _segment.color
+        );
 
         draw_x += _char_width;
     }
@@ -339,4 +237,12 @@ for (var i = 0;
     }
 }
 
+
+// --------------------------------------------------
+// RESTORE DRAW STATE
+// --------------------------------------------------
+
 draw_set_color(c_white);
+draw_set_alpha(1);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);

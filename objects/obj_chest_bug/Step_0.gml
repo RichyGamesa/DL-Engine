@@ -1,3 +1,5 @@
+depth = -y;
+
 friction = 0.2
 image_alpha = 0.8
 if (instance_exists(obj_mainchara) && getdepth)

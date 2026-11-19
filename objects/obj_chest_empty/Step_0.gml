@@ -1,3 +1,8 @@
+//obj_chest_empty step event
+
+//Depth
+depth = -y;
+
 if place_meeting(x,y,obj_mainchara) and obj_mainchara.can_move and !instance_exists(oTextbox_dark)
 if keyboard_check(global.confirm) or keyboard_check(vk_enter)
 {
@@ -39,14 +44,4 @@ if global.flag[flag_index] = true
 image_index = 1;	
 }
 
-
-//depth
-if obj_mainchara.y < y - 35
-{ 
-depth = (obj_mainchara.depth - obj_mainchara.depth) - 3 
-}
-else
-{
-depth = obj_mainchara.depth + 3
-}
 

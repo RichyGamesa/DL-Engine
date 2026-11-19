@@ -1,9 +1,13 @@
-// Fullscreen toggle
+// obj_window_setup Create Event
 
-
-//Set the window size correctly
 window_set_fullscreen(false);
 window_set_size(1280, 960);
+
+// CENTER WINDOW
+var _window_x = (display_get_width() - window_get_width()) / 2;
+var _window_y = (display_get_height() - window_get_height()) / 2;
+
+window_set_position(_window_x, _window_y);
 
 ini_open("configurations.ini")
 
